@@ -1,0 +1,16 @@
+{
+  "spec_version": "0.1.0",
+  "auction_id": "auc-valid",
+  "request_id": "ctx-valid",
+  "winning_bid_id": "bid-valid",
+  "clearing_price": 3.8,
+  "currency": "USD",
+  "serve_token": "serve-valid",
+  "expires_at": "2024-03-01T12:01:00Z",
+  "events": [
+    "https://events.test/serve-valid"
+  ],
+  "metadata": {
+    "channel": "private"
+  }
+}

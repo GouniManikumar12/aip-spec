@@ -1,0 +1,11 @@
+{
+  "spec_version": "0.1.0",
+  "event_id": "evt-cpc-valid",
+  "auction_id": "auc-valid",
+  "bid_id": "bid-valid",
+  "timestamp": "2024-03-01T12:00:07Z",
+  "event_type": "cpc.click",
+  "click_url": "https://click.test/serve-valid",
+  "user_agent": "ExampleBrowser/1.0",
+  "signature": "sig-cpc"
+}

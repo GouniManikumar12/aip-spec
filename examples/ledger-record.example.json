@@ -1,0 +1,13 @@
+{
+  "spec_version": "0.1.0",
+  "entry_id": "led-001",
+  "bid_id": "bid-001",
+  "auction_id": "auc-001",
+  "amount": 42.0,
+  "currency": "USD",
+  "direction": "credit",
+  "recorded_at": "2024-01-02T00:05:00Z",
+  "metadata": {
+    "note": "Net of fees"
+  }
+}

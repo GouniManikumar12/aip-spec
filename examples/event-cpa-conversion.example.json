@@ -1,0 +1,12 @@
+{
+  "spec_version": "0.1.0",
+  "event_id": "evt-conv-001",
+  "auction_id": "auc-001",
+  "bid_id": "bid-001",
+  "timestamp": "2024-01-02T00:00:00Z",
+  "event_type": "cpa.conversion",
+  "conversion_value": 42.0,
+  "conversion_currency": "USD",
+  "conversion_window_hours": 24,
+  "signature": "sig-conv"
+}

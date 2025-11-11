@@ -1,0 +1,34 @@
+{
+  "spec_version": "0.1.0",
+  "bid_id": "bid-001",
+  "request_id": "ctx-001",
+  "timestamp": "2024-01-01T00:00:01Z",
+  "advertiser": {
+    "id": "adv-88",
+    "name": "Acme"
+  },
+  "creative": {
+    "id": "cr-55",
+    "format": "banner",
+    "assets": [
+      "https://cdn.example/asset.jpg"
+    ]
+  },
+  "pricing": {
+    "currency": "USD",
+    "bid_price": 2.75,
+    "billing_event": "cpc"
+  },
+  "targeting": {
+    "geo": "US",
+    "audiences": [
+      "intent_high"
+    ]
+  },
+  "ttl_ms": 1500,
+  "seat": {
+    "id": "seat-1",
+    "name": "Prime Seat"
+  },
+  "signature": "sig-bid"
+}

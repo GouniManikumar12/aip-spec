@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specs.admesh.dev/amxp/event-cpa-conversion.json",
+  "title": "AMXP CPA Conversion Event",
+  "type": "object",
+  "properties": {
+    "spec_version": {
+      "type": "string"
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "auction_id": {
+      "type": "string"
+    },
+    "bid_id": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "event_type": {
+      "type": "string",
+      "const": "cpa.conversion"
+    },
+    "conversion_value": {
+      "type": "number",
+      "minimum": 0
+    },
+    "conversion_currency": {
+      "type": "string"
+    },
+    "conversion_window_hours": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "signature": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "spec_version",
+    "event_id",
+    "auction_id",
+    "bid_id",
+    "timestamp",
+    "event_type",
+    "conversion_value",
+    "conversion_currency",
+    "conversion_window_hours",
+    "signature"
+  ],
+  "additionalProperties": false
+}

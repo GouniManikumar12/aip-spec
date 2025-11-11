@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specs.admesh.dev/amxp/auction-result.json",
+  "title": "AMXP Auction Result",
+  "type": "object",
+  "properties": {
+    "spec_version": {
+      "type": "string"
+    },
+    "auction_id": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "winning_bid_id": {
+      "type": "string"
+    },
+    "clearing_price": {
+      "type": "number",
+      "minimum": 0
+    },
+    "currency": {
+      "type": "string"
+    },
+    "serve_token": {
+      "type": "string"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "spec_version",
+    "auction_id",
+    "request_id",
+    "winning_bid_id",
+    "clearing_price",
+    "currency",
+    "serve_token",
+    "expires_at"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,11 @@
+{
+  "spec_version": "0.1.0",
+  "event_id": "evt-click-001",
+  "auction_id": "auc-001",
+  "bid_id": "bid-001",
+  "timestamp": "2024-01-01T00:00:06Z",
+  "event_type": "cpc.click",
+  "click_url": "https://click.admesh.dev/serve-abc",
+  "user_agent": "Mozilla/5.0",
+  "signature": "sig-click"
+}

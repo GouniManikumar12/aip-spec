@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specs.admesh.dev/amxp/$schema-catalog.json",
+  "title": "AMXP Schema Catalog",
+  "version": "0.1.0",
+  "schemas": [
+    {
+      "name": "common",
+      "path": "./common.json",
+      "description": "Shared envelope properties."
+    },
+    {
+      "name": "context-request",
+      "path": "./context-request.json",
+      "description": "Context request payload."
+    },
+    {
+      "name": "bid",
+      "path": "./bid.json",
+      "description": "Bid submission payload."
+    },
+    {
+      "name": "auction-result",
+      "path": "./auction-result.json",
+      "description": "Auction decision payload."
+    },
+    {
+      "name": "event-cpx-exposure",
+      "path": "./event-cpx-exposure.json",
+      "description": "Exposure event."
+    },
+    {
+      "name": "event-cpc-click",
+      "path": "./event-cpc-click.json",
+      "description": "Click event."
+    },
+    {
+      "name": "event-cpa-conversion",
+      "path": "./event-cpa-conversion.json",
+      "description": "Conversion event."
+    },
+    {
+      "name": "ledger-record",
+      "path": "./ledger-record.json",
+      "description": "Ledger entry."
+    }
+  ]
+}

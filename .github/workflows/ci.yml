@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    paths:
+      - 'amxp-spec/**'
+  pull_request:
+    paths:
+      - 'amxp-spec/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install tooling
+        run: npm install
+        working-directory: amxp-spec
+      - name: Run placeholder tests
+        run: npm test
+        working-directory: amxp-spec

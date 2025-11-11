@@ -1,0 +1,30 @@
+{
+  "spec_version": "0.1.0",
+  "network": "sandbox",
+  "request_id": "ctx-invalid",
+  "timestamp": "2024-03-01T12:00:00Z",
+  "publisher": {
+    "id": "pub-77",
+    "name": "Example"
+  },
+  "placement": {
+    "id": "pl-x",
+    "format": "banner",
+    "floor_cpm": 1.0
+  },
+  "user": {
+    "id": "user-x",
+    "consent": "opt-in"
+  },
+  "device": {
+    "ua": "Browser",
+    "ip": "198.51.100.6",
+    "ifa": "ifa-x"
+  },
+  "supply_chain": [
+    {
+      "role": "ssp",
+      "id": "ssp-x"
+    }
+  ]
+}

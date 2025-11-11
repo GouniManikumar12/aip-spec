@@ -1,0 +1,19 @@
+name: Release Notes
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Generate summary
+        run: |
+          echo "## AMXP Spec Release" > release-notes.md
+          git log -5 --pretty='- %h %s' >> release-notes.md
+          cat release-notes.md
+        working-directory: amxp-spec

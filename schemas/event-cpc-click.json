@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specs.admesh.dev/amxp/event-cpc-click.json",
+  "title": "AMXP CPC Click Event",
+  "type": "object",
+  "properties": {
+    "spec_version": {
+      "type": "string"
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "auction_id": {
+      "type": "string"
+    },
+    "bid_id": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "event_type": {
+      "type": "string",
+      "const": "cpc.click"
+    },
+    "click_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "user_agent": {
+      "type": "string"
+    },
+    "signature": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "spec_version",
+    "event_id",
+    "auction_id",
+    "bid_id",
+    "timestamp",
+    "event_type",
+    "click_url",
+    "signature"
+  ],
+  "additionalProperties": false
+}

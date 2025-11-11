@@ -1,0 +1,32 @@
+{
+  "spec_version": "0.1.0",
+  "network": "sandbox",
+  "request_id": "ctx-valid",
+  "timestamp": "2024-03-01T12:00:00Z",
+  "publisher": {
+    "id": "pub-99",
+    "name": "Daily Planet",
+    "domain": "daily.test"
+  },
+  "placement": {
+    "id": "pl-1",
+    "format": "video",
+    "floor_cpm": 3.2
+  },
+  "user": {
+    "id": "user-44",
+    "consent": "opt-in"
+  },
+  "device": {
+    "ua": "ExampleBrowser/1.0",
+    "ip": "198.51.100.5",
+    "ifa": "ifa-valid"
+  },
+  "supply_chain": [
+    {
+      "role": "ssp",
+      "id": "ssp-1"
+    }
+  ],
+  "signature": "sig-valid-context"
+}

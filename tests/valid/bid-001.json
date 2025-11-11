@@ -1,0 +1,34 @@
+{
+  "spec_version": "0.1.0",
+  "bid_id": "bid-valid",
+  "request_id": "ctx-valid",
+  "timestamp": "2024-03-01T12:00:01Z",
+  "advertiser": {
+    "id": "adv-1",
+    "name": "Wayne Enterprises"
+  },
+  "creative": {
+    "id": "creative-7",
+    "format": "video",
+    "assets": [
+      "https://cdn.test/creatives/7"
+    ]
+  },
+  "pricing": {
+    "currency": "USD",
+    "bid_price": 4.0,
+    "billing_event": "cpx"
+  },
+  "targeting": {
+    "geo": "US",
+    "audiences": [
+      "comic_fans"
+    ]
+  },
+  "ttl_ms": 1200,
+  "seat": {
+    "id": "seat-hero",
+    "name": "Hero Seat"
+  },
+  "signature": "sig-valid-bid"
+}

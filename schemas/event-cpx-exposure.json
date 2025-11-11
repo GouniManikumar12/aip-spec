@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specs.admesh.dev/amxp/event-cpx-exposure.json",
+  "title": "AMXP CPX Exposure Event",
+  "type": "object",
+  "properties": {
+    "spec_version": {
+      "type": "string"
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "auction_id": {
+      "type": "string"
+    },
+    "bid_id": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "event_type": {
+      "type": "string",
+      "const": "cpx.exposure"
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "viewability": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "signature": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "spec_version",
+    "event_id",
+    "auction_id",
+    "bid_id",
+    "timestamp",
+    "event_type",
+    "session_id",
+    "signature"
+  ],
+  "additionalProperties": false
+}

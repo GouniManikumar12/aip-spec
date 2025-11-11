@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specs.admesh.dev/amxp/context-request.json",
+  "title": "AMXP Context Request",
+  "type": "object",
+  "properties": {
+    "spec_version": {
+      "type": "string"
+    },
+    "network": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "publisher": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "placement": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "floor_cpm": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "id",
+        "format"
+      ],
+      "additionalProperties": false
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "consent": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "device": {
+      "type": "object",
+      "properties": {
+        "ua": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "ifa": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ua"
+      ],
+      "additionalProperties": false
+    },
+    "supply_chain": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "role",
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "signature": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "spec_version",
+    "network",
+    "request_id",
+    "timestamp",
+    "publisher",
+    "placement",
+    "user",
+    "device",
+    "signature"
+  ],
+  "additionalProperties": false
+}

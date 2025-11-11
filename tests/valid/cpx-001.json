@@ -1,0 +1,11 @@
+{
+  "spec_version": "0.1.0",
+  "event_id": "evt-cpx-valid",
+  "auction_id": "auc-valid",
+  "bid_id": "bid-valid",
+  "timestamp": "2024-03-01T12:00:05Z",
+  "event_type": "cpx.exposure",
+  "session_id": "session-1",
+  "viewability": 0.75,
+  "signature": "sig-cpx"
+}

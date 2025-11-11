@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specs.admesh.dev/amxp/common.json",
+  "title": "AMXP Common Envelope",
+  "type": "object",
+  "properties": {
+    "spec_version": {
+      "type": "string"
+    },
+    "network": {
+      "type": "string",
+      "description": "Deployment network identifier."
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "auction_id": {
+      "type": "string"
+    },
+    "bid_id": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "spec_version",
+    "network",
+    "timestamp"
+  ],
+  "additionalProperties": true
+}

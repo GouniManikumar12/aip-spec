@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specs.admesh.dev/amxp/bid.json",
+  "title": "AMXP Bid",
+  "type": "object",
+  "properties": {
+    "spec_version": {
+      "type": "string"
+    },
+    "bid_id": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "advertiser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "creative": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "format"
+      ],
+      "additionalProperties": false
+    },
+    "pricing": {
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string"
+        },
+        "bid_price": {
+          "type": "number",
+          "minimum": 0
+        },
+        "billing_event": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "currency",
+        "bid_price",
+        "billing_event"
+      ],
+      "additionalProperties": false
+    },
+    "targeting": {
+      "type": "object",
+      "properties": {
+        "geo": {
+          "type": "string"
+        },
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ttl_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "seat": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "signature": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "spec_version",
+    "bid_id",
+    "request_id",
+    "timestamp",
+    "advertiser",
+    "creative",
+    "pricing",
+    "ttl_ms",
+    "seat",
+    "signature"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specs.admesh.dev/amxp/ledger-record.json",
+  "title": "AMXP Ledger Record",
+  "type": "object",
+  "properties": {
+    "spec_version": {
+      "type": "string"
+    },
+    "entry_id": {
+      "type": "string"
+    },
+    "bid_id": {
+      "type": "string"
+    },
+    "auction_id": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "debit",
+        "credit"
+      ]
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "spec_version",
+    "entry_id",
+    "amount",
+    "currency",
+    "direction",
+    "recorded_at"
+  ],
+  "additionalProperties": false
+}
