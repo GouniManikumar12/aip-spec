@@ -1,9 +1,7 @@
 {
-  "spec_version": "0.1.0",
-  "auction_id": "auc-invalid",
-  "request_id": "ctx-valid",
-  "winning_bid_id": "bid-valid",
-  "clearing_price": 3.5,
-  "currency": "USD",
-  "expires_at": "2024-03-01T12:01:00Z"
+  "auction_id": "auc_bad",
+  "winner": { "agent_id": "ag_x", "clearing_price_cpx": "0.03", "preferred_unit": "CPA" },
+  "render": { "label": "[Ad]", "title": "T", "url": "https://x.y" },
+  "ttl_ms": 60000,
+  "auth": { "sig": "s" }
 }

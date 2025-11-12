@@ -1,34 +1,17 @@
 {
-  "spec_version": "0.1.0",
-  "bid_id": "bid-001",
-  "request_id": "ctx-001",
-  "timestamp": "2024-01-01T00:00:01Z",
-  "advertiser": {
-    "id": "adv-88",
-    "name": "Acme"
-  },
+  "bid_id": "b_7fa",
+  "agent_id": "ag_456",
+  "context_id": "ctx_01H",
+  "wallet_id": "w_456",
+  "bid_vector": { "cpx": "0.03", "cpc": "0.50", "cpa": "12.00" },
+  "preferred_unit": "CPA",
   "creative": {
-    "id": "cr-55",
-    "format": "banner",
-    "assets": [
-      "https://cdn.example/asset.jpg"
-    ]
+    "title": "Pipedrive Starter",
+    "body": "CRM for founders. 14 day trial",
+    "cta": "Start trial",
+    "deeplink": "https://example.com/trial"
   },
-  "pricing": {
-    "currency": "USD",
-    "bid_price": 2.75,
-    "billing_event": "cpc"
-  },
-  "targeting": {
-    "geo": "US",
-    "audiences": [
-      "intent_high"
-    ]
-  },
-  "ttl_ms": 1500,
-  "seat": {
-    "id": "seat-1",
-    "name": "Prime Seat"
-  },
-  "signature": "sig-bid"
+  "caps": { "session": 1, "daily": 5000, "geo_allow": ["US","CA"] },
+  "ts": "2025-11-11T13:17:12Z",
+  "auth": { "nonce": "n_8ab", "sig": "sig456" }
 }

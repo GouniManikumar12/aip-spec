@@ -1,56 +1,41 @@
 {
+  "$id": "https://aip.org/schemas/auction-result.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://specs.admesh.dev/amxp/auction-result.json",
-  "title": "AMXP Auction Result",
+  "title": "AuctionResult",
   "type": "object",
+  "required": ["auction_id","serve_token","winner","render","ttl_ms","auth"],
   "properties": {
-    "spec_version": {
-      "type": "string"
-    },
-    "auction_id": {
-      "type": "string"
-    },
-    "request_id": {
-      "type": "string"
-    },
-    "winning_bid_id": {
-      "type": "string"
-    },
-    "clearing_price": {
-      "type": "number",
-      "minimum": 0
-    },
-    "currency": {
-      "type": "string"
-    },
-    "serve_token": {
-      "type": "string"
-    },
-    "expires_at": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "events": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "format": "uri"
-      }
-    },
-    "metadata": {
+    "auction_id": { "type": "string" },
+    "serve_token": { "type": "string", "minLength": 16 },
+    "winner": {
       "type": "object",
-      "additionalProperties": true
+      "required": ["agent_id","clearing_price_cpx","preferred_unit"],
+      "properties": {
+        "agent_id": { "type": "string" },
+        "clearing_price_cpx": { "$ref": "common.json#/properties/money" },
+        "preferred_unit": { "type": "string", "enum": ["CPX","CPC","CPA"] }
+      },
+      "additionalProperties": false
+    },
+    "render": {
+      "type": "object",
+      "required": ["label","title","url"],
+      "properties": {
+        "label": { "type": "string", "enum": ["[Ad]"] },
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "cta": { "type": "string" },
+        "url": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false
+    },
+    "ttl_ms": { "type": "integer", "minimum": 1000, "maximum": 300000 },
+    "auth": {
+      "type": "object",
+      "required": ["sig"],
+      "properties": { "sig": { "$ref": "common.json#/properties/signature" } },
+      "additionalProperties": false
     }
   },
-  "required": [
-    "spec_version",
-    "auction_id",
-    "request_id",
-    "winning_bid_id",
-    "clearing_price",
-    "currency",
-    "serve_token",
-    "expires_at"
-  ],
   "additionalProperties": false
 }

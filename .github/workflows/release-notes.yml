@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Generate summary
         run: |
-          echo "## AMXP Spec Release" > release-notes.md
+          echo "## AIP Spec Release" > release-notes.md
           git log -5 --pretty='- %h %s' >> release-notes.md
           cat release-notes.md
-        working-directory: amxp-spec
+        working-directory: aip-spec

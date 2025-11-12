@@ -1,14 +1,14 @@
-# AMXP Spec Repository - Deployment Summary
+# AIP Spec Repository - Deployment Summary
 
 ## ✅ Completed Tasks
 
 ### 1. Repository Initialization
-- ✅ Created new Git repository in `amxp-spec` directory
+- ✅ Created new Git repository in `aip-spec` directory
 - ✅ Added `.gitignore` file for Node.js projects
 - ✅ Initial commit with all specification files (59 files, 3,838 lines)
 
 ### 2. GitHub Repository Setup
-- ✅ Connected to remote: https://github.com/GouniManikumar12/amxp-spec
+- ✅ Connected to remote: https://github.com/GouniManikumar12/aip-spec
 - ✅ Resolved merge conflicts with remote LICENSE file
 - ✅ Successfully pushed all code to GitHub
 
@@ -66,10 +66,10 @@ The repository includes:
 
 ## 🔗 Important Links
 
-- **Repository**: https://github.com/GouniManikumar12/amxp-spec
-- **GitHub Pages** (after setup): https://gounimanikumar12.github.io/amxp-spec/
-- **Actions**: https://github.com/GouniManikumar12/amxp-spec/actions
-- **Settings**: https://github.com/GouniManikumar12/amxp-spec/settings
+- **Repository**: https://github.com/GouniManikumar12/aip-spec
+- **GitHub Pages** (after setup): https://gounimanikumar12.github.io/aip-spec/
+- **Actions**: https://github.com/GouniManikumar12/aip-spec/actions
+- **Settings**: https://github.com/GouniManikumar12/aip-spec/settings
 
 ## 🚀 Next Steps to Enable GitHub Pages
 
@@ -90,31 +90,31 @@ I've opened the GitHub Pages settings page in your browser. Follow these steps:
 ### Step 3: Verify Deployment
 1. Go to the **Actions** tab
 2. Wait for "Deploy GitHub Pages" workflow to complete
-3. Visit https://gounimanikumar12.github.io/amxp-spec/
+3. Visit https://gounimanikumar12.github.io/aip-spec/
 
 ## 📝 Git Commands Used
 
 ```bash
 # Initialize repository
-cd amxp-spec
+cd aip-spec
 git init
 
 # Initial commit
 git add .
-git commit -m "Initial commit: AMXP v0.1 specification"
+git commit -m "Initial commit: AIP v0.1 specification"
 
 # Add GitHub Pages configuration
 git add _config.yml docs/_config.yml .github/workflows/pages.yml
 git commit -m "Add GitHub Pages configuration"
 
 # Connect to remote
-git remote add origin https://github.com/GouniManikumar12/amxp-spec.git
+git remote add origin https://github.com/GouniManikumar12/aip-spec.git
 
 # Merge and push
 git pull origin main --allow-unrelated-histories --no-rebase
 git checkout --ours LICENSE
 git add LICENSE
-git commit -m "Merge remote repository with local AMXP spec"
+git commit -m "Merge remote repository with local AIP spec"
 git push -u origin main
 ```
 
@@ -160,11 +160,11 @@ Every push to `main` branch will:
 
 Once GitHub Pages is enabled, documentation will be available at:
 
-- **Homepage**: https://gounimanikumar12.github.io/amxp-spec/
-- **Docs Index**: https://gounimanikumar12.github.io/amxp-spec/docs/
-- **Overview**: https://gounimanikumar12.github.io/amxp-spec/docs/01-overview
-- **Conformance**: https://gounimanikumar12.github.io/amxp-spec/CONFORMANCE
-- **PRD**: https://gounimanikumar12.github.io/amxp-spec/PRD
+- **Homepage**: https://gounimanikumar12.github.io/aip-spec/
+- **Docs Index**: https://gounimanikumar12.github.io/aip-spec/docs/
+- **Overview**: https://gounimanikumar12.github.io/aip-spec/docs/01-overview
+- **Conformance**: https://gounimanikumar12.github.io/aip-spec/CONFORMANCE
+- **PRD**: https://gounimanikumar12.github.io/aip-spec/PRD
 
 ---
 

@@ -1,6 +1,6 @@
-# AMXP Conformance & Certification
+# AIP Conformance & Certification
 
-This document defines the requirements for obtaining **"AMXP Compatible"** certification.
+This document defines the requirements for obtaining **"AIP Compatible"** certification.
 
 ## Table of Contents
 
@@ -17,16 +17,16 @@ This document defines the requirements for obtaining **"AMXP Compatible"** certi
 
 ## Overview
 
-### What is AMXP Certification?
+### What is AIP Certification?
 
-**"AMXP Compatible"** certification verifies that an ad network correctly implements the AdMesh Exchange Protocol (AMXP) v0.1 specification.
+**"AIP Compatible"** certification verifies that an ad network correctly implements the Agentic Intent Protocol (AIP) v0.1 specification.
 
 ### Benefits of Certification
 
 **For Networks:**
 - Listed on admesh.network/certified-networks
-- Use "AMXP Compatible" badge in marketing
-- Access to AMXP developer community
+- Use "AIP Compatible" badge in marketing
+- Access to AIP developer community
 - Technical support from AdMesh team
 
 **For Platforms & Advertisers:**
@@ -39,7 +39,7 @@ This document defines the requirements for obtaining **"AMXP Compatible"** certi
 
 ## Certification Requirements
 
-To obtain AMXP Compatible certification, networks must meet ALL of the following requirements:
+To obtain AIP Compatible certification, networks must meet ALL of the following requirements:
 
 ### 1. Schema Validation
 
@@ -128,7 +128,7 @@ Final charge: $50.00 (CPA only, not CPX or CPC)
 **Version Header:**
 All endpoints must support:
 ```
-X-AMXP-Version: 0.1
+X-AIP-Version: 0.1
 ```
 
 ### 5. Performance SLOs
@@ -180,7 +180,7 @@ X-AMXP-Version: 0.1
 
 **Format:** OpenAPI 3.0 specification + human-readable docs
 
-**Example:** https://docs.your-network.com/amxp/v1
+**Example:** https://docs.your-network.com/aip/v1
 
 ### 8. SDK Support
 
@@ -210,8 +210,8 @@ X-AMXP-Version: 0.1
 ### Installation
 
 ```bash
-git clone https://github.com/admesh/amxp-spec.git
-cd amxp-spec
+git clone https://github.com/admesh/aip-spec.git
+cd aip-spec
 npm install
 ```
 
@@ -219,9 +219,9 @@ npm install
 
 Create `.env` file:
 ```bash
-AMXP_BASE_URL=https://api.your-network.com/v1
-AMXP_PLATFORM_KEY=pk_test_your_key
-AMXP_AGENT_KEY=ak_test_your_key
+AIP_BASE_URL=https://api.your-network.com/v1
+AIP_PLATFORM_KEY=pk_test_your_key
+AIP_AGENT_KEY=ak_test_your_key
 ```
 
 ### Running Tests
@@ -417,9 +417,9 @@ Submit load test report showing:
 ```yaml
 openapi: 3.0.0
 info:
-  title: Your Network AMXP API
+  title: Your Network AIP API
   version: 0.1.0
-  description: AMXP v0.1 compatible ad network
+  description: AIP v0.1 compatible ad network
 servers:
   - url: https://api.your-network.com/v1
 paths:
@@ -460,7 +460,7 @@ paths:
 
 **Include:**
 - Company name and contact
-- Base URL for AMXP endpoints
+- Base URL for AIP endpoints
 - API documentation URL
 - SDK repository URLs
 - Estimated certification date
@@ -506,10 +506,10 @@ npm test -- --reporter json > conformance-report.json
 ### Step 5: Certification Issued
 
 **Upon successful verification:**
-- Receive "AMXP Compatible v0.1" certification
+- Receive "AIP Compatible v0.1" certification
 - Listed on admesh.network/certified-networks
 - Receive certification badge for marketing
-- Access to AMXP developer community
+- Access to AIP developer community
 
 **Certification valid for:** 12 months
 
@@ -546,7 +546,7 @@ npm test -- --reporter json > conformance-report.json
 
 ### Version Updates
 
-**When AMXP specification updates:**
+**When AIP specification updates:**
 - Networks have 180 days to upgrade
 - Dual-stack support during transition
 - Recertification required for new version
@@ -559,12 +559,12 @@ npm test -- --reporter json > conformance-report.json
 **Technical Support:** support@admesh.network
 **Security Issues:** security@admesh.network
 
-**GitHub:** [github.com/admesh/amxp-spec](https://github.com/admesh/amxp-spec)
+**GitHub:** [github.com/admesh/aip-spec](https://github.com/admesh/aip-spec)
 **Discord:** [discord.gg/admesh](https://discord.gg/admesh)
 
 ---
 
 **Document Version:** 1.0
-**Specification Version:** AMXP v0.1
+**Specification Version:** AIP v0.1
 **Last Updated:** 2025-11-11
 

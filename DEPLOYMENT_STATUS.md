@@ -1,4 +1,4 @@
-# Deployment Status - AMXP Spec
+# Deployment Status - AIP Spec
 
 ## 🔧 Issue Fixed: Jekyll Build Configuration
 
@@ -19,9 +19,9 @@ Initial deployment resulted in 404 error because GitHub Pages needed proper Jeky
 
 ## 📍 URLs
 
-- **Live Site**: https://gounimanikumar12.github.io/amxp-spec/
-- **Repository**: https://github.com/GouniManikumar12/amxp-spec
-- **Actions**: https://github.com/GouniManikumar12/amxp-spec/actions
+- **Live Site**: https://gounimanikumar12.github.io/aip-spec/
+- **Repository**: https://github.com/GouniManikumar12/aip-spec
+- **Actions**: https://github.com/GouniManikumar12/aip-spec/actions
 
 ## ✅ What Was Fixed
 
@@ -62,21 +62,21 @@ Created comprehensive homepage with:
 Once the workflow completes (in ~2-3 minutes):
 
 1. **Check Actions Tab**
-   - Visit: https://github.com/GouniManikumar12/amxp-spec/actions
+   - Visit: https://github.com/GouniManikumar12/aip-spec/actions
    - Look for green checkmark on "Fix GitHub Pages deployment with Jekyll"
    - Both "build" and "deploy" jobs should succeed
 
 2. **Visit the Site**
-   - URL: https://gounimanikumar12.github.io/amxp-spec/
-   - Should show AMXP Spec homepage
+   - URL: https://gounimanikumar12.github.io/aip-spec/
+   - Should show AIP Spec homepage
    - Cayman theme with blue header
    - Navigation links working
 
 3. **Test Key Pages**
-   - Homepage: https://gounimanikumar12.github.io/amxp-spec/
-   - Docs: https://gounimanikumar12.github.io/amxp-spec/docs/
-   - Overview: https://gounimanikumar12.github.io/amxp-spec/docs/01-overview
-   - Conformance: https://gounimanikumar12.github.io/amxp-spec/CONFORMANCE
+   - Homepage: https://gounimanikumar12.github.io/aip-spec/
+   - Docs: https://gounimanikumar12.github.io/aip-spec/docs/
+   - Overview: https://gounimanikumar12.github.io/aip-spec/docs/01-overview
+   - Conformance: https://gounimanikumar12.github.io/aip-spec/CONFORMANCE
 
 ## 📊 Build Process
 
@@ -100,7 +100,7 @@ The new workflow:
 After successful deployment, you'll see:
 
 ### Homepage
-- Title: "AMXP Spec"
+- Title: "AIP Spec"
 - Description of the protocol
 - Quick links to documentation
 - Schema and example references
@@ -129,7 +129,7 @@ After successful deployment, you'll see:
 ## 📝 What Changed
 
 ### Commits
-1. Initial commit: AMXP v0.1 specification
+1. Initial commit: AIP v0.1 specification
 2. Add GitHub Pages configuration
 3. Merge remote repository
 4. Add setup guides
@@ -167,9 +167,9 @@ Once deployment succeeds:
 
 ## 🔗 Quick Links
 
-- **Actions Tab**: https://github.com/GouniManikumar12/amxp-spec/actions
-- **Settings**: https://github.com/GouniManikumar12/amxp-spec/settings/pages
-- **Live Site**: https://gounimanikumar12.github.io/amxp-spec/
+- **Actions Tab**: https://github.com/GouniManikumar12/aip-spec/actions
+- **Settings**: https://github.com/GouniManikumar12/aip-spec/settings/pages
+- **Live Site**: https://gounimanikumar12.github.io/aip-spec/
 
 ## 📞 Troubleshooting
 

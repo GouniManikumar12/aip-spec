@@ -1,16 +1,18 @@
 {
-  "spec_version": "0.1.0",
-  "auction_id": "auc-001",
-  "request_id": "ctx-001",
-  "winning_bid_id": "bid-001",
-  "clearing_price": 2.5,
-  "currency": "USD",
-  "serve_token": "serve-abc",
-  "expires_at": "2024-01-01T00:01:00Z",
-  "events": [
-    "https://events.admesh.dev/track/serve-abc"
-  ],
-  "metadata": {
-    "channel": "open-auction"
-  }
+  "auction_id": "auc_01H",
+  "serve_token": "stk_3pQabcdef",
+  "winner": {
+    "agent_id": "ag_456",
+    "clearing_price_cpx": "0.034",
+    "preferred_unit": "CPA"
+  },
+  "render": {
+    "label": "[Ad]",
+    "title": "Pipedrive Starter",
+    "body": "CRM for founders",
+    "cta": "Start trial",
+    "url": "https://admesh.click/stk_3pQabcdef"
+  },
+  "ttl_ms": 60000,
+  "auth": { "sig": "sig789" }
 }

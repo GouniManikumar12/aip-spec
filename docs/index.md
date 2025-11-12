@@ -1,6 +1,6 @@
-# AMXP Specification Documentation
+# AIP Specification Documentation
 
-This `docs/` directory serves as the authoritative, version-controlled narrative for the AMXP (AdMesh Exchange Protocol) specification. Each numbered chapter drills into a specific concern ranging from protocol overview to conformance requirements.
+This `docs/` directory serves as the authoritative, version-controlled narrative for the AIP (Agentic Intent Protocol) specification. Each numbered chapter drills into a specific concern ranging from protocol overview to conformance requirements.
 
 ## Contents
 1. [Overview](01-overview.md)

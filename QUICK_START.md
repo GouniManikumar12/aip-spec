@@ -1,14 +1,14 @@
-# AMXP Spec - Quick Start Guide
+# AIP Spec - Quick Start Guide
 
 ## 🚀 Your Site is Deploying!
 
-Your AMXP specification is now being deployed to GitHub Pages.
+Your AIP specification is now being deployed to GitHub Pages.
 
 ### 📍 Your URLs
 
-- **Repository**: https://github.com/GouniManikumar12/amxp-spec
-- **Live Site**: https://gounimanikumar12.github.io/amxp-spec/
-- **Actions Status**: https://github.com/GouniManikumar12/amxp-spec/actions
+- **Repository**: https://github.com/GouniManikumar12/aip-spec
+- **Live Site**: https://gounimanikumar12.github.io/aip-spec/
+- **Actions Status**: https://github.com/GouniManikumar12/aip-spec/actions
 
 ### ⏱️ Deployment Status
 
@@ -16,7 +16,7 @@ The GitHub Actions workflow is currently running. You can:
 
 1. **Watch the deployment**: Check the Actions tab (already open in your browser)
 2. **Wait 2-3 minutes**: First deployment typically takes 1-3 minutes
-3. **Visit your site**: https://gounimanikumar12.github.io/amxp-spec/
+3. **Visit your site**: https://gounimanikumar12.github.io/aip-spec/
 
 ### ✅ What's Been Configured
 
@@ -66,17 +66,17 @@ Your site includes:
 
 Once the workflow completes (green checkmark in Actions tab):
 
-1. Visit: https://gounimanikumar12.github.io/amxp-spec/
-2. You should see the AMXP Spec homepage
+1. Visit: https://gounimanikumar12.github.io/aip-spec/
+2. You should see the AIP Spec homepage
 3. Test navigation to docs, schemas, and examples
 
 ### 📖 Key Pages to Check
 
-- **Homepage**: https://gounimanikumar12.github.io/amxp-spec/
-- **Docs**: https://gounimanikumar12.github.io/amxp-spec/docs/
-- **Overview**: https://gounimanikumar12.github.io/amxp-spec/docs/01-overview
-- **Conformance**: https://gounimanikumar12.github.io/amxp-spec/CONFORMANCE
-- **PRD**: https://gounimanikumar12.github.io/amxp-spec/PRD
+- **Homepage**: https://gounimanikumar12.github.io/aip-spec/
+- **Docs**: https://gounimanikumar12.github.io/aip-spec/docs/
+- **Overview**: https://gounimanikumar12.github.io/aip-spec/docs/01-overview
+- **Conformance**: https://gounimanikumar12.github.io/aip-spec/CONFORMANCE
+- **PRD**: https://gounimanikumar12.github.io/aip-spec/PRD
 
 ### 🔄 Making Updates
 
@@ -84,7 +84,7 @@ To update the documentation:
 
 ```bash
 # Navigate to the repository
-cd /Users/manikumargouni/Desktop/AdMesh/protocol/amxp-spec
+cd /Users/manikumargouni/Desktop/AdMesh/protocol/aip-spec
 
 # Make your changes
 vim docs/01-overview.md
@@ -116,7 +116,7 @@ I've created several helpful guides:
 
 ### 🎉 Success!
 
-Your AMXP specification repository is now:
+Your AIP specification repository is now:
 
 - ✅ Version controlled with Git
 - ✅ Hosted on GitHub
@@ -129,11 +129,11 @@ Your AMXP specification repository is now:
 Once live, you can share:
 
 ```markdown
-# AMXP Specification
+# AIP Specification
 Open protocol for intent monetization in AI and agentic environments
 
-📖 Documentation: https://gounimanikumar12.github.io/amxp-spec/
-💻 Repository: https://github.com/GouniManikumar12/amxp-spec
+📖 Documentation: https://gounimanikumar12.github.io/aip-spec/
+💻 Repository: https://github.com/GouniManikumar12/aip-spec
 📜 License: Apache 2.0 / MIT
 ```
 
@@ -148,5 +148,5 @@ Open protocol for intent monetization in AI and agentic environments
 
 **Status**: 🚀 Deploying now  
 **ETA**: 2-3 minutes  
-**Next**: Visit https://gounimanikumar12.github.io/amxp-spec/
+**Next**: Visit https://gounimanikumar12.github.io/aip-spec/
 

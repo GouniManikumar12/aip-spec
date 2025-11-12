@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Propose a new capability or improvement to the AMXP specification.
+about: Propose a new capability or improvement to the AIP specification.
 title: "[Proposal] <title>"
 labels: enhancement
 assignees: ''

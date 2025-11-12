@@ -1,50 +1,45 @@
 {
+  "$id": "https://aip.org/schemas/event-cpx-exposure.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://specs.admesh.dev/amxp/event-cpx-exposure.json",
-  "title": "AMXP CPX Exposure Event",
+  "title": "Event CPX Exposure",
   "type": "object",
+  "required": ["event_type","serve_token","session_id","platform_id","agent_id","wallet_id","pricing","exposure_metadata","ts","auth"],
   "properties": {
-    "spec_version": {
-      "type": "string"
+    "event_type": { "type": "string", "const": "cpx_exposure" },
+    "serve_token": { "type": "string" },
+    "session_id": { "type": "string" },
+    "platform_id": { "type": "string" },
+    "agent_id": { "type": "string" },
+    "wallet_id": { "type": "string" },
+    "pricing": {
+      "type": "object",
+      "required": ["unit","amount","currency"],
+      "properties": {
+        "unit": { "type": "string", "const": "CPX" },
+        "amount": { "$ref": "common.json#/properties/money" },
+        "currency": { "$ref": "common.json#/properties/currency" }
+      },
+      "additionalProperties": false
     },
-    "event_id": {
-      "type": "string"
+    "exposure_metadata": {
+      "type": "object",
+      "properties": {
+        "surface": { "type": "string" },
+        "position": { "type": "integer", "minimum": 1 },
+        "visibility_ms": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
     },
-    "auction_id": {
-      "type": "string"
-    },
-    "bid_id": {
-      "type": "string"
-    },
-    "timestamp": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "event_type": {
-      "type": "string",
-      "const": "cpx.exposure"
-    },
-    "session_id": {
-      "type": "string"
-    },
-    "viewability": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 1
-    },
-    "signature": {
-      "type": "string"
+    "ts": { "$ref": "common.json#/properties/timestamp" },
+    "auth": {
+      "type": "object",
+      "required": ["nonce","sig"],
+      "properties": {
+        "nonce": { "$ref": "common.json#/properties/nonce" },
+        "sig": { "$ref": "common.json#/properties/signature" }
+      },
+      "additionalProperties": false
     }
   },
-  "required": [
-    "spec_version",
-    "event_id",
-    "auction_id",
-    "bid_id",
-    "timestamp",
-    "event_type",
-    "session_id",
-    "signature"
-  ],
   "additionalProperties": false
 }

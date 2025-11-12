@@ -1,49 +1,24 @@
 {
+  "$id": "https://aip.org/schemas/event-cpc-click.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://specs.admesh.dev/amxp/event-cpc-click.json",
-  "title": "AMXP CPC Click Event",
+  "title": "Event CPC Click",
   "type": "object",
+  "required": ["event_type","serve_token","event_id","ts","auth"],
   "properties": {
-    "spec_version": {
-      "type": "string"
-    },
-    "event_id": {
-      "type": "string"
-    },
-    "auction_id": {
-      "type": "string"
-    },
-    "bid_id": {
-      "type": "string"
-    },
-    "timestamp": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "event_type": {
-      "type": "string",
-      "const": "cpc.click"
-    },
-    "click_url": {
-      "type": "string",
-      "format": "uri"
-    },
-    "user_agent": {
-      "type": "string"
-    },
-    "signature": {
-      "type": "string"
+    "event_type": { "type": "string", "const": "cpc_click" },
+    "serve_token": { "type": "string" },
+    "event_id": { "type": "string" },
+    "s2s": { "type": "boolean" },
+    "ts": { "$ref": "common.json#/properties/timestamp" },
+    "auth": {
+      "type": "object",
+      "required": ["nonce","sig"],
+      "properties": {
+        "nonce": { "$ref": "common.json#/properties/nonce" },
+        "sig": { "$ref": "common.json#/properties/signature" }
+      },
+      "additionalProperties": false
     }
   },
-  "required": [
-    "spec_version",
-    "event_id",
-    "auction_id",
-    "bid_id",
-    "timestamp",
-    "event_type",
-    "click_url",
-    "signature"
-  ],
   "additionalProperties": false
 }

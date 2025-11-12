@@ -1,7 +1,7 @@
 # Documentation Configuration
 theme: jekyll-theme-cayman
-title: AMXP Documentation
-description: Technical documentation for the AdMesh Exchange Protocol
+title: AIP Documentation
+description: Technical documentation for the Agentic Intent Protocol
 
 markdown: kramdown
 kramdown:

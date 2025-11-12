@@ -1,129 +1,58 @@
 {
+  "$id": "https://aip.org/schemas/bid.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://specs.admesh.dev/amxp/bid.json",
-  "title": "AMXP Bid",
+  "title": "Bid",
   "type": "object",
+  "required": ["bid_id","agent_id","context_id","wallet_id","bid_vector","ts","auth"],
   "properties": {
-    "spec_version": {
-      "type": "string"
-    },
-    "bid_id": {
-      "type": "string"
-    },
-    "request_id": {
-      "type": "string"
-    },
-    "timestamp": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "advertiser": {
+    "bid_id": { "type": "string" },
+    "agent_id": { "type": "string" },
+    "context_id": { "type": "string" },
+    "wallet_id": { "type": "string" },
+    "bid_vector": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
+        "cpx": { "$ref": "common.json#/properties/money" },
+        "cpc": { "$ref": "common.json#/properties/money" },
+        "cpa": { "$ref": "common.json#/properties/money" }
       },
-      "required": [
-        "id"
-      ],
+      "required": ["cpx"],
       "additionalProperties": false
     },
+    "preferred_unit": { "type": "string", "enum": ["CPX","CPC","CPA"] },
     "creative": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
-        },
-        "format": {
-          "type": "string"
-        },
-        "assets": {
+        "title": { "type": "string", "maxLength": 120 },
+        "body": { "type": "string", "maxLength": 500 },
+        "cta": { "type": "string", "maxLength": 60 },
+        "deeplink": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false
+    },
+    "caps": {
+      "type": "object",
+      "properties": {
+        "session": { "type": "integer", "minimum": 0 },
+        "daily": { "type": "integer", "minimum": 0 },
+        "geo_allow": {
           "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "items": { "type": "string", "pattern": "^[A-Z]{2}$" },
+          "maxItems": 50
         }
       },
-      "required": [
-        "id",
-        "format"
-      ],
       "additionalProperties": false
     },
-    "pricing": {
+    "ts": { "$ref": "common.json#/properties/timestamp" },
+    "auth": {
       "type": "object",
+      "required": ["nonce","sig"],
       "properties": {
-        "currency": {
-          "type": "string"
-        },
-        "bid_price": {
-          "type": "number",
-          "minimum": 0
-        },
-        "billing_event": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "currency",
-        "bid_price",
-        "billing_event"
-      ],
-      "additionalProperties": false
-    },
-    "targeting": {
-      "type": "object",
-      "properties": {
-        "geo": {
-          "type": "string"
-        },
-        "audiences": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
+        "nonce": { "$ref": "common.json#/properties/nonce" },
+        "sig": { "$ref": "common.json#/properties/signature" }
       },
       "additionalProperties": false
-    },
-    "ttl_ms": {
-      "type": "integer",
-      "minimum": 0
-    },
-    "seat": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id"
-      ],
-      "additionalProperties": false
-    },
-    "signature": {
-      "type": "string"
     }
   },
-  "required": [
-    "spec_version",
-    "bid_id",
-    "request_id",
-    "timestamp",
-    "advertiser",
-    "creative",
-    "pricing",
-    "ttl_ms",
-    "seat",
-    "signature"
-  ],
   "additionalProperties": false
 }

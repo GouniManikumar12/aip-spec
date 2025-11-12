@@ -1,55 +1,26 @@
 {
+  "$id": "https://aip.org/schemas/event-cpa-conversion.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://specs.admesh.dev/amxp/event-cpa-conversion.json",
-  "title": "AMXP CPA Conversion Event",
+  "title": "Event CPA Conversion",
   "type": "object",
+  "required": ["event_type","serve_token","conversion_id","ts","auth"],
   "properties": {
-    "spec_version": {
-      "type": "string"
-    },
-    "event_id": {
-      "type": "string"
-    },
-    "auction_id": {
-      "type": "string"
-    },
-    "bid_id": {
-      "type": "string"
-    },
-    "timestamp": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "event_type": {
-      "type": "string",
-      "const": "cpa.conversion"
-    },
-    "conversion_value": {
-      "type": "number",
-      "minimum": 0
-    },
-    "conversion_currency": {
-      "type": "string"
-    },
-    "conversion_window_hours": {
-      "type": "integer",
-      "minimum": 0
-    },
-    "signature": {
-      "type": "string"
+    "event_type": { "type": "string", "const": "cpa_conversion" },
+    "serve_token": { "type": "string" },
+    "conversion_id": { "type": "string" },
+    "conversion_type": { "type": "string" },
+    "order_value_cents": { "type": "integer", "minimum": 0 },
+    "currency": { "$ref": "common.json#/properties/currency" },
+    "ts": { "$ref": "common.json#/properties/timestamp" },
+    "auth": {
+      "type": "object",
+      "required": ["nonce","sig"],
+      "properties": {
+        "nonce": { "$ref": "common.json#/properties/nonce" },
+        "sig": { "$ref": "common.json#/properties/signature" }
+      },
+      "additionalProperties": false
     }
   },
-  "required": [
-    "spec_version",
-    "event_id",
-    "auction_id",
-    "bid_id",
-    "timestamp",
-    "event_type",
-    "conversion_value",
-    "conversion_currency",
-    "conversion_window_hours",
-    "signature"
-  ],
   "additionalProperties": false
 }

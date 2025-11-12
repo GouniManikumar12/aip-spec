@@ -1,32 +1,14 @@
 {
-  "spec_version": "0.1.0",
-  "network": "sandbox",
-  "request_id": "ctx-001",
-  "timestamp": "2024-01-01T00:00:00Z",
-  "publisher": {
-    "id": "pub-123",
-    "name": "News Hub",
-    "domain": "news.example"
-  },
-  "placement": {
-    "id": "pl-hero",
-    "format": "banner",
-    "floor_cpm": 1.5
-  },
-  "user": {
-    "id": "usr-9",
-    "consent": "tcfv2.0:cpN7"
-  },
-  "device": {
-    "ua": "Mozilla/5.0",
-    "ip": "203.0.113.10",
-    "ifa": "ifa-001"
-  },
-  "supply_chain": [
-    {
-      "role": "supply",
-      "id": "s-1"
-    }
-  ],
-  "signature": "sig-context"
+  "request_id": "rq_01H",
+  "session_id": "s_9k3",
+  "platform_id": "pf_123",
+  "query_text": "best crm for small teams",
+  "surface": "chat",
+  "locale": "en-US",
+  "geo": "US",
+  "safety": { "age_gate": false, "pii": false },
+  "pricing": { "cpx_floor": "0.02" },
+  "features": { "topic": ["crm","smb"], "intent": "compare", "user_type": "human" },
+  "ts": "2025-11-11T13:17:11Z",
+  "auth": { "nonce": "n_78f", "sig": "abc123sig" }
 }

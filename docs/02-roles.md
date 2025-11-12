@@ -1,6 +1,6 @@
 # 02 · Roles
 
-AMXP introduces four primary actors:
+AIP introduces four primary actors:
 - **Publisher Nodes** expose impressions or opportunities.
 - **Agency Bidders** evaluate opportunities and submit bids.
 - **Clearinghouses** adjudicate auctions and emit state transitions.

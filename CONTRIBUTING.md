@@ -1,6 +1,6 @@
-# Contributing to the AMXP Specification
+# Contributing to the AIP Specification
 
-Thanks for your interest in helping shape the AMXP protocol! This repository houses the human-readable specification, JSON Schemas, fixtures, and conformance assets that partners rely on. Thoughtful contributions materially improve the health of the ecosystem.
+Thanks for your interest in helping shape the AIP protocol! This repository houses the human-readable specification, JSON Schemas, fixtures, and conformance assets that partners rely on. Thoughtful contributions materially improve the health of the ecosystem.
 
 ## Getting Started
 1. Fork the repository and create a feature branch.
@@ -15,4 +15,4 @@ Thanks for your interest in helping shape the AMXP protocol! This repository hou
 - Include references to related issues or design documents for traceability.
 
 ## Communication
-Discussion happens through GitHub issues, pull requests, and the AMXP protocol forums. For sensitive disclosures (especially around security) please follow the process documented in `SECURITY.md`.
+Discussion happens through GitHub issues, pull requests, and the AIP protocol forums. For sensitive disclosures (especially around security) please follow the process documented in `SECURITY.md`.

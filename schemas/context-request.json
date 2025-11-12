@@ -1,126 +1,25 @@
 {
+  "$id": "https://aip.org/schemas/common.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://specs.admesh.dev/amxp/context-request.json",
-  "title": "AMXP Context Request",
+  "title": "AIP Common Types",
   "type": "object",
   "properties": {
-    "spec_version": {
-      "type": "string"
-    },
-    "network": {
-      "type": "string"
-    },
-    "request_id": {
-      "type": "string"
-    },
+    "aipVersion": { "type": "string", "const": "0.1" },
+    "id": { "type": "string", "minLength": 3, "maxLength": 128 },
     "timestamp": {
       "type": "string",
       "format": "date-time"
     },
-    "publisher": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "domain": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id"
+    "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "money": {
+      "oneOf": [
+        { "type": "string", "pattern": "^[0-9]+(\\.[0-9]{1,4})?$" },
+        { "type": "integer", "minimum": 0 }
       ],
-      "additionalProperties": false
+      "description": "decimal string up to 4 dp or integer cents"
     },
-    "placement": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "format": {
-          "type": "string"
-        },
-        "floor_cpm": {
-          "type": "number",
-          "minimum": 0
-        }
-      },
-      "required": [
-        "id",
-        "format"
-      ],
-      "additionalProperties": false
-    },
-    "user": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "consent": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id"
-      ],
-      "additionalProperties": false
-    },
-    "device": {
-      "type": "object",
-      "properties": {
-        "ua": {
-          "type": "string"
-        },
-        "ip": {
-          "type": "string"
-        },
-        "ifa": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "ua"
-      ],
-      "additionalProperties": false
-    },
-    "supply_chain": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "role": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "role",
-          "id"
-        ],
-        "additionalProperties": false
-      }
-    },
-    "signature": {
-      "type": "string"
-    }
+    "nonce": { "type": "string", "minLength": 8, "maxLength": 64 },
+    "signature": { "type": "string", "minLength": 16 }
   },
-  "required": [
-    "spec_version",
-    "network",
-    "request_id",
-    "timestamp",
-    "publisher",
-    "placement",
-    "user",
-    "device",
-    "signature"
-  ],
   "additionalProperties": false
 }

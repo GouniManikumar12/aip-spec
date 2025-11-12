@@ -1,6 +1,6 @@
-# AdMesh Exchange Protocol (AMXP) v0.1 - Product Requirements Document
+# Agentic Intent Protocol (AIP) v0.1 - Product Requirements Document
 
-**Product Name:** AdMesh Exchange Protocol (AMXP)  
+**Product Name:** Agentic Intent Protocol (AIP)  
 **Owner:** AdMesh Network — Reference Operator and Protocol Maintainer  
 **Version:** v0.1 (Foundational Implementation)  
 **Status:** Public Specification  
@@ -40,20 +40,20 @@
 
 ## 1. Purpose & Vision
 
-### 1.1 What is AMXP?
+### 1.1 What is AIP?
 
-The **AdMesh Exchange Protocol (AMXP)** is a universal, open-source protocol for **agentic and conversational advertising**. It defines:
+The **Agentic Intent Protocol (AIP)** is a universal, open-source protocol for **agentic and conversational advertising**. It defines:
 
 - **Standard interfaces** for context requests, auctions, event tracking, and settlement
 - **Billing semantics** (CPX, CPC, CPA) with time-windowed attribution
 - **Trust and security** mechanisms to prevent fraud
-- **Interoperability** so any ad network can implement AMXP and join the ecosystem
+- **Interoperability** so any ad network can implement AIP and join the ecosystem
 
 ### 1.2 Vision
 
 **"Enable transparent, performance-based advertising in the agent economy."**
 
-As AI agents and conversational interfaces become primary user touchpoints, traditional display advertising breaks down. AMXP provides:
+As AI agents and conversational interfaces become primary user touchpoints, traditional display advertising breaks down. AIP provides:
 
 - **For Platforms:** A standardized way to monetize high-intent moments without building ad infrastructure
 - **For Advertisers:** Direct access to users expressing purchase intent in natural language
@@ -97,11 +97,11 @@ Traditional advertising (banners, search ads) doesn't fit these interfaces.
 - Each platform requires custom integration
 - Fraud prevention is ad-hoc and inconsistent
 
-### 2.3 AMXP Solution
+### 2.3 AIP Solution
 
-AMXP solves these problems by providing:
+AIP solves these problems by providing:
 
-1. **Standard Protocol:** Platforms integrate once, access all AMXP-compatible networks
+1. **Standard Protocol:** Platforms integrate once, access all AIP-compatible networks
 2. **Performance Pricing:** CPX → CPC → CPA billing with verifiable attribution
 3. **Built-in Fraud Prevention:** HMAC signatures, nonce validation, trust scoring
 4. **Transparent Settlement:** 70/30 revenue split, immutable ledger, monthly payouts
@@ -112,7 +112,7 @@ AMXP solves these problems by providing:
 
 ### 3.1 Platform
 
-**Definition:** An AI application, chatbot, or agent that serves users and integrates AMXP to monetize high-intent moments.
+**Definition:** An AI application, chatbot, or agent that serves users and integrates AIP to monetize high-intent moments.
 
 **Examples:**
 - Conversational AI (ChatGPT, Claude, Perplexica)
@@ -121,7 +121,7 @@ AMXP solves these problems by providing:
 
 **Responsibilities:**
 - Detect high-intent moments (purchase queries, research, comparisons)
-- Request recommendations from AMXP network
+- Request recommendations from AIP network
 - Render ads with required disclosure ("Ad" label, "Why this ad?" tooltip)
 - Track events (exposure, click, conversion)
 - Receive 70% revenue share
@@ -148,11 +148,11 @@ AMXP solves these problems by providing:
 
 ### 3.3 Ad Network
 
-**Definition:** An operator that implements AMXP to run auctions, track events, and settle payments.
+**Definition:** An operator that implements AIP to run auctions, track events, and settle payments.
 
 **Examples:**
 - AdMesh Network (reference implementation)
-- Other AMXP-compatible networks (future)
+- Other AIP-compatible networks (future)
 
 **Responsibilities:**
 - Run real-time auctions (<20ms latency)
@@ -171,14 +171,14 @@ AMXP solves these problems by providing:
 ### 4.1 High-Level Flow
 
 ```
-User Intent → Platform → AMXP Network → Auction → Ad Served → Events → Settlement
+User Intent → Platform → AIP Network → Auction → Ad Served → Events → Settlement
 ```
 
 ### 4.2 Detailed Flow
 
 1. **User expresses intent:** "What are the best running shoes for marathons?"
 
-2. **Platform detects high-intent moment** and calls AMXP network:
+2. **Platform detects high-intent moment** and calls AIP network:
    ```
    POST /v1/context
    {
@@ -228,7 +228,7 @@ User Intent → Platform → AMXP Network → Auction → Ad Served → Events �
 
 ## 5. Billing Units
 
-AMXP supports three billing units, charged in priority order (CPA > CPC > CPX).
+AIP supports three billing units, charged in priority order (CPA > CPC > CPX).
 
 ### 5.1 CPX (Cost Per Exposure)
 
@@ -596,23 +596,23 @@ Network Revenue: $15.00 (30%)
 
 ### 10.1 Network-Agnostic Protocol
 
-AMXP is **not** a proprietary platform. It's an open protocol that any ad network can implement.
+AIP is **not** a proprietary platform. It's an open protocol that any ad network can implement.
 
 **Benefits:**
 - **For Platforms:** Integrate once, access multiple networks
-- **For Advertisers:** Reach users across all AMXP-compatible platforms
+- **For Advertisers:** Reach users across all AIP-compatible platforms
 - **For Networks:** Join ecosystem without custom integrations
 
 ### 10.2 AdMesh as Reference Implementation
 
 **AdMesh Network** is the reference implementation and protocol maintainer, but:
-- Other networks can implement AMXP
-- Networks can obtain "AMXP Compatible" certification
+- Other networks can implement AIP
+- Networks can obtain "AIP Compatible" certification
 - AdMesh does not control or gatekeep the protocol
 
 ### 10.3 Certification Program
 
-**Purpose:** Verify that networks correctly implement AMXP.
+**Purpose:** Verify that networks correctly implement AIP.
 
 **Requirements:**
 1. Pass all acceptance tests (see Section 17)
@@ -625,7 +625,7 @@ AMXP is **not** a proprietary platform. It's an open protocol that any ad networ
 1. Submit application to certification@admesh.network
 2. Run conformance test suite
 3. Complete security audit
-4. Receive "AMXP Compatible" designation
+4. Receive "AIP Compatible" designation
 5. Listed on admesh.network/certified-networks
 
 **Renewal:** Annual recertification required
@@ -687,7 +687,7 @@ function generateHMAC(payload: object, secret: string): string {
 
 **Header:**
 ```
-X-AMXP-Signature: <hmac_hex>
+X-AIP-Signature: <hmac_hex>
 ```
 
 **Validation:**
@@ -833,7 +833,7 @@ See [Appendix D: Trust Score Calculation](#appendix-d-trust-score-calculation) f
 
 ### 13.1 Privacy Principles
 
-1. **No PII Storage:** AMXP does not store personally identifiable information
+1. **No PII Storage:** AIP does not store personally identifiable information
 2. **Contextual Signals Only:** Use query text, categories, geography—not user profiles
 3. **User Consent:** Platforms must obtain user consent before tracking
 4. **Transparency:** Users must see "Ad" label and "Why this ad?" tooltip
@@ -866,11 +866,11 @@ See [Appendix D: Trust Score Calculation](#appendix-d-trust-score-calculation) f
 - Data portability: Export via API or CSV
 
 **CCPA (California):**
-- Do Not Sell: AMXP does not sell user data
+- Do Not Sell: AIP does not sell user data
 - Opt-out: Platforms must provide opt-out mechanisms
 
 **COPPA (Children):**
-- AMXP is not intended for users under 13
+- AIP is not intended for users under 13
 - Platforms must verify user age before tracking
 
 ---
@@ -879,7 +879,7 @@ See [Appendix D: Trust Score Calculation](#appendix-d-trust-score-calculation) f
 
 ### 14.1 Semantic Versioning
 
-AMXP follows [Semantic Versioning 2.0.0](https://semver.org/):
+AIP follows [Semantic Versioning 2.0.0](https://semver.org/):
 
 **Format:** `MAJOR.MINOR.PATCH`
 
@@ -899,7 +899,7 @@ https://api.admesh.network/v2/context (future)
 
 **Header Versioning:**
 ```
-X-AMXP-Version: 0.1
+X-AIP-Version: 0.1
 ```
 
 **Deprecation Policy:**
@@ -951,7 +951,7 @@ X-AMXP-Version: 0.1
 - Input on major changes
 
 **Communication Channels:**
-- GitHub: [github.com/admesh/amxp-spec](https://github.com/admesh/amxp-spec)
+- GitHub: [github.com/admesh/aip-spec](https://github.com/admesh/aip-spec)
 - Discord: [discord.gg/admesh](https://discord.gg/admesh)
 - Email: spec@admesh.network
 
@@ -961,7 +961,7 @@ X-AMXP-Version: 0.1
 
 ### 15.1 Platform SDK
 
-**Purpose:** Simplify AMXP integration for platforms.
+**Purpose:** Simplify AIP integration for platforms.
 
 **Languages:**
 - JavaScript/TypeScript (Node.js, browser)
@@ -1145,7 +1145,7 @@ function ChatMessage({ recommendation }) {
 
 ## 17. Acceptance Tests
 
-Networks seeking "AMXP Compatible" certification must pass all acceptance tests.
+Networks seeking "AIP Compatible" certification must pass all acceptance tests.
 
 ### 17.1 Functional Tests
 
@@ -1276,7 +1276,7 @@ Networks seeking "AMXP Compatible" certification must pass all acceptance tests.
 
 ## Appendix A: Glossary
 
-**AMXP:** AdMesh Exchange Protocol
+**AIP:** Agentic Intent Protocol
 
 **CPX:** Cost Per Exposure (billing unit)
 
@@ -1381,7 +1381,7 @@ TrustScore → TrustMultiplier (used in EV calculation)
 
 **Specification Questions:** spec@admesh.network
 
-**GitHub:** [github.com/admesh/amxp-spec](https://github.com/admesh/amxp-spec)
+**GitHub:** [github.com/admesh/aip-spec](https://github.com/admesh/aip-spec)
 
 **Discord:** [discord.gg/admesh](https://discord.gg/admesh)
 
@@ -1390,7 +1390,7 @@ TrustScore → TrustMultiplier (used in EV calculation)
 ---
 
 **Document Version:** 1.0  
-**Specification Version:** AMXP v0.1  
+**Specification Version:** AIP v0.1  
 **Last Updated:** 2025-11-11  
 **Next Review:** 2026-02-11
 
@@ -1399,5 +1399,5 @@ TrustScore → TrustMultiplier (used in EV calculation)
 
 ---
 
-*This Product Requirements Document defines the AdMesh Exchange Protocol (AMXP) v0.1. Together with the API schemas, event flow diagrams, and integration guides, it establishes the foundational specification for agentic and conversational advertising. AdMesh Network operates the reference implementation, but any compliant ad network can adopt AMXP to power its own marketplace. Together they establish the intent-monetization layer for the agent economy.*
+*This Product Requirements Document defines the Agentic Intent Protocol (AIP) v0.1. Together with the API schemas, event flow diagrams, and integration guides, it establishes the foundational specification for agentic and conversational advertising. AdMesh Network operates the reference implementation, but any compliant ad network can adopt AIP to power its own marketplace. Together they establish the intent-monetization layer for the agent economy.*
 

@@ -1,11 +1,12 @@
 {
-  "spec_version": "0.1.0",
-  "event_id": "evt-exp-001",
-  "auction_id": "auc-001",
-  "bid_id": "bid-001",
-  "timestamp": "2024-01-01T00:00:05Z",
-  "event_type": "cpx.exposure",
-  "session_id": "sess-123",
-  "viewability": 0.9,
-  "signature": "sig-exp"
+  "event_type": "cpx_exposure",
+  "serve_token": "stk_3pQabcdef",
+  "session_id": "s_9k3",
+  "platform_id": "pf_123",
+  "agent_id": "ag_456",
+  "wallet_id": "w_456",
+  "pricing": { "unit": "CPX", "amount": "0.034", "currency": "USD" },
+  "exposure_metadata": { "surface": "text", "position": 1, "visibility_ms": 1800 },
+  "ts": "2025-11-11T13:17:14Z",
+  "auth": { "nonce": "n_e12", "sig": "sig101" }
 }

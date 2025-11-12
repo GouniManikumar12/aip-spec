@@ -1,17 +1,17 @@
 # GitHub Pages Setup Guide
 
-This guide explains how to configure GitHub Pages for the AMXP Specification repository.
+This guide explains how to configure GitHub Pages for the AIP Specification repository.
 
 ## Repository Information
 
-- **Repository URL**: https://github.com/GouniManikumar12/amxp-spec
-- **GitHub Pages URL**: https://gounimanikumar12.github.io/amxp-spec/
+- **Repository URL**: https://github.com/GouniManikumar12/aip-spec
+- **GitHub Pages URL**: https://gounimanikumar12.github.io/aip-spec/
 
 ## Setup Steps
 
 ### 1. Enable GitHub Pages
 
-1. Go to your repository: https://github.com/GouniManikumar12/amxp-spec
+1. Go to your repository: https://github.com/GouniManikumar12/aip-spec
 2. Click on **Settings** (top navigation)
 3. Scroll down to **Pages** in the left sidebar
 4. Under **Build and deployment**:
@@ -31,7 +31,7 @@ This guide explains how to configure GitHub Pages for the AMXP Specification rep
 1. Go to **Actions** tab in your repository
 2. You should see the "Deploy GitHub Pages" workflow running
 3. Wait for it to complete (green checkmark)
-4. Visit https://gounimanikumar12.github.io/amxp-spec/
+4. Visit https://gounimanikumar12.github.io/aip-spec/
 
 ## What's Deployed
 
@@ -47,7 +47,7 @@ The GitHub Pages site includes:
 ## Site Structure
 
 ```
-https://gounimanikumar12.github.io/amxp-spec/
+https://gounimanikumar12.github.io/aip-spec/
 ├── README.md (homepage)
 ├── docs/
 │   ├── index.md
@@ -74,8 +74,8 @@ The site uses the **Cayman** theme configured in `_config.yml`:
 
 ```yaml
 theme: jekyll-theme-cayman
-title: AMXP Specification
-description: AdMesh Exchange Protocol - Open protocol for intent monetization in AI and agentic environments
+title: AIP Specification
+description: Agentic Intent Protocol - Open protocol for intent monetization in AI and agentic environments
 ```
 
 ## Automatic Deployment
@@ -85,7 +85,7 @@ Every push to the `main` branch automatically triggers a deployment:
 1. GitHub Actions workflow runs (`.github/workflows/pages.yml`)
 2. Site is built using Jekyll
 3. Deployed to GitHub Pages
-4. Available at https://gounimanikumar12.github.io/amxp-spec/
+4. Available at https://gounimanikumar12.github.io/aip-spec/
 
 ## Custom Domain (Optional)
 
@@ -127,7 +127,7 @@ To use a custom domain like `specs.admesh.dev`:
 
 To update the documentation:
 
-1. Edit files locally in the `amxp-spec` directory
+1. Edit files locally in the `aip-spec` directory
 2. Commit changes:
    ```bash
    git add .
@@ -141,10 +141,10 @@ To update the documentation:
 
 ## Links
 
-- **Repository**: https://github.com/GouniManikumar12/amxp-spec
-- **GitHub Pages**: https://gounimanikumar12.github.io/amxp-spec/
-- **Actions**: https://github.com/GouniManikumar12/amxp-spec/actions
-- **Settings**: https://github.com/GouniManikumar12/amxp-spec/settings/pages
+- **Repository**: https://github.com/GouniManikumar12/aip-spec
+- **GitHub Pages**: https://gounimanikumar12.github.io/aip-spec/
+- **Actions**: https://github.com/GouniManikumar12/aip-spec/actions
+- **Settings**: https://github.com/GouniManikumar12/aip-spec/settings/pages
 
 ## Next Steps
 

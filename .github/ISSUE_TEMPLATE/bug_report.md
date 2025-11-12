@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report an issue with the AMXP specification, schemas, or fixtures.
+about: Report an issue with the AIP specification, schemas, or fixtures.
 title: "[Bug] <title>"
 labels: bug
 assignees: ''

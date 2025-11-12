@@ -1,11 +1,11 @@
 ---
 layout: default
-title: AMXP Specification
+title: AIP Specification
 ---
 
-# AMXP Spec
+# AIP Spec
 
-AMXP is an open protocol for intent monetization in AI and agentic environments.  
+AIP is an open protocol for intent monetization in AI and agentic environments.
 This repository hosts the public specification, JSON Schemas, examples, and conformance tests.
 
 ## Quick Links
@@ -17,9 +17,9 @@ This repository hosts the public specification, JSON Schemas, examples, and conf
 - 📋 [PRD](PRD) - Product Requirements Document
 - 🔒 [Security](SECURITY) - Security policy
 
-## What is AMXP?
+## What is AIP?
 
-The **AdMesh Exchange Protocol (AMXP)** is an open standard for monetizing user intent in AI-powered and agentic environments. It enables:
+The **Agentic Intent Protocol (AIP)** is an open standard for monetizing user intent in AI-powered and agentic environments. It enables:
 
 - **Platforms** to monetize AI conversations and agent interactions
 - **Advertisers** to reach users at the moment of intent
@@ -31,7 +31,7 @@ The **AdMesh Exchange Protocol (AMXP)** is an open standard for monetizing user 
 - ✅ **Event Tracking** - CPX (exposure), CPC (click), CPA (conversion)
 - ✅ **Fraud Prevention** - HMAC signatures, nonce validation, trust scoring
 - ✅ **Privacy-First** - GDPR/CCPA compliant, no PII required
-- ✅ **Interoperable** - Any network can implement AMXP
+- ✅ **Interoperable** - Any network can implement AIP
 
 ## Documentation
 
@@ -59,7 +59,7 @@ The **AdMesh Exchange Protocol (AMXP)** is an open standard for monetizing user 
 
 ## Schemas
 
-AMXP defines JSON schemas for all protocol entities:
+AIP defines JSON schemas for all protocol entities:
 
 - [Context Request](schemas/context-request.json) - Platform request for recommendations
 - [Bid](schemas/bid.json) - Advertiser bid submission
@@ -90,8 +90,8 @@ The [tests/](tests/) directory contains:
 
 ```bash
 # Clone the repository
-git clone https://github.com/GouniManikumar12/amxp-spec.git
-cd amxp-spec
+git clone https://github.com/GouniManikumar12/aip-spec.git
+cd aip-spec
 
 # Install dependencies
 npm ci
@@ -105,11 +105,11 @@ open docs/01-overview.md
 
 ## Reference Implementation
 
-The **AdMesh Ad Network** is the reference implementation of AMXP. Any ad network can implement AMXP and claim compatibility after passing the conformance suite.
+The **AdMesh Ad Network** is the reference implementation of AIP. Any ad network can implement AIP and claim compatibility after passing the conformance suite.
 
 ## Certification
 
-To become **"AMXP Compatible"**:
+To become **"AIP Compatible"**:
 
 1. Implement the specification
 2. Pass the conformance test suite
@@ -129,9 +129,9 @@ See [LICENSE](LICENSE) for full text.
 
 ## Community
 
-- **GitHub**: [github.com/GouniManikumar12/amxp-spec](https://github.com/GouniManikumar12/amxp-spec)
-- **Issues**: [Report bugs or request features](https://github.com/GouniManikumar12/amxp-spec/issues)
-- **Discussions**: [Join the conversation](https://github.com/GouniManikumar12/amxp-spec/discussions)
+- **GitHub**: [github.com/GouniManikumar12/aip-spec](https://github.com/GouniManikumar12/aip-spec)
+- **Issues**: [Report bugs or request features](https://github.com/GouniManikumar12/aip-spec/issues)
+- **Discussions**: [Join the conversation](https://github.com/GouniManikumar12/aip-spec/discussions)
 
 ## Version
 
@@ -141,5 +141,5 @@ See [LICENSE](LICENSE) for full text.
 
 ---
 
-**AMXP** - The intent monetization layer for the agent economy.
+**AIP** - The intent monetization layer for the agent economy.
 

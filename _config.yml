@@ -1,9 +1,9 @@
-# GitHub Pages Configuration for AMXP Specification
+# GitHub Pages Configuration for AIP Specification
 
 # Theme
 theme: jekyll-theme-cayman
-title: AMXP Specification
-description: AdMesh Exchange Protocol - Open protocol for intent monetization in AI and agentic environments
+title: AIP Specification
+description: Agentic Intent Protocol - Open protocol for intent monetization in AI and agentic environments
 
 # Navigation
 show_downloads: true

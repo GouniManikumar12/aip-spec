@@ -1,12 +1,12 @@
-# AMXP v0.1 - Executive Summary
+# AIP v0.1 - Executive Summary
 
-**AdMesh Exchange Protocol (AMXP)** is an open-source protocol for conversational and agentic advertising.
+**Agentic Intent Protocol (AIP)** is an open-source protocol for conversational and agentic advertising.
 
 ---
 
-## What is AMXP?
+## What is AIP?
 
-AMXP enables:
+AIP enables:
 - **AI Platforms** to monetize high-intent moments in conversations
 - **Advertisers** to reach users expressing purchase intent
 - **Ad Networks** to operate transparent, performance-based marketplaces
@@ -270,7 +270,7 @@ await agent.createCampaign({
 - **Major Changes:** 60-day RFC process
 
 ### Community
-- **GitHub:** [github.com/admesh/amxp-spec](https://github.com/admesh/amxp-spec)
+- **GitHub:** [github.com/admesh/aip-spec](https://github.com/admesh/aip-spec)
 - **Discord:** [discord.gg/admesh](https://discord.gg/admesh)
 - **Email:** spec@admesh.network
 
@@ -300,7 +300,7 @@ await agent.createCampaign({
 
 ## Certification
 
-Networks can obtain **"AMXP Compatible"** certification by:
+Networks can obtain **"AIP Compatible"** certification by:
 
 1. Passing all acceptance tests (13 tests)
 2. Maintaining SLOs
@@ -333,7 +333,7 @@ Networks can obtain **"AMXP Compatible"** certification by:
 
 **Advertisers:** [Sign up](https://admesh.network/advertiser/signup) → Fund wallet → Create campaign
 
-**Networks:** [Apply](https://admesh.network/certification) → Implement AMXP → Get certified
+**Networks:** [Apply](https://admesh.network/certification) → Implement AIP → Get certified
 
 ---
 
@@ -346,16 +346,16 @@ Networks can obtain **"AMXP Compatible"** certification by:
 **Specification:** spec@admesh.network
 
 **Website:** [admesh.network](https://admesh.network)  
-**GitHub:** [github.com/admesh/amxp-spec](https://github.com/admesh/amxp-spec)  
+**GitHub:** [github.com/admesh/aip-spec](https://github.com/admesh/aip-spec)  
 **Discord:** [discord.gg/admesh](https://discord.gg/admesh)
 
 ---
 
-**Version:** AMXP v0.1  
+**Version:** AIP v0.1  
 **Last Updated:** 2025-11-11  
 **License:** Apache 2.0 or MIT
 
 ---
 
-*AMXP establishes the intent-monetization layer for the agent economy. Open, transparent, and performance-based advertising for conversational AI.*
+*AIP establishes the intent-monetization layer for the agent economy. Open, transparent, and performance-based advertising for conversational AI.*
 

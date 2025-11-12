@@ -3,10 +3,10 @@ name: CI
 on:
   push:
     paths:
-      - 'amxp-spec/**'
+      - 'aip-spec/**'
   pull_request:
     paths:
-      - 'amxp-spec/**'
+      - 'aip-spec/**'
 
 jobs:
   validate:
@@ -20,7 +20,7 @@ jobs:
           node-version: '20'
       - name: Install tooling
         run: npm install
-        working-directory: amxp-spec
+        working-directory: aip-spec
       - name: Run placeholder tests
         run: npm test
-        working-directory: amxp-spec
+        working-directory: aip-spec

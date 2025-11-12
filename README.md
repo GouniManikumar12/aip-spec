@@ -1,6 +1,6 @@
-# AMXP Spec
+# AIP Spec
 
-AMXP is an open protocol for intent monetization in AI and agentic environments.  
+AIP is an open protocol for intent monetization in AI and agentic environments.
 This repository hosts the public specification, JSON Schemas, examples, and conformance tests.
 
 - Docs: `docs/`
@@ -8,7 +8,7 @@ This repository hosts the public specification, JSON Schemas, examples, and conf
 - Examples: `examples/`
 - Conformance suite: `tests/`
 
-The AdMesh Ad Network is the reference implementation. Any ad network can implement AMXP and claim compatibility after passing the conformance suite.
+The AdMesh Ad Network is the reference implementation. Any ad network can implement AIP and claim compatibility after passing the conformance suite.
 
 ## Quick start
 1. `npm ci`

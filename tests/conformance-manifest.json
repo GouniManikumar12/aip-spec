@@ -1,47 +1,26 @@
 {
-  "version": "0.1.0",
-  "tests": [
-    {
-      "id": "context-001",
-      "file": "valid/context-001.json",
-      "schema": "../schemas/context-request.json",
-      "description": "Baseline context request"
-    },
-    {
-      "id": "bid-001",
-      "file": "valid/bid-001.json",
-      "schema": "../schemas/bid.json",
-      "description": "Valid bid payload"
-    },
-    {
-      "id": "auction-001",
-      "file": "valid/auction-001.json",
-      "schema": "../schemas/auction-result.json",
-      "description": "Auction result"
-    },
-    {
-      "id": "cpx-001",
-      "file": "valid/cpx-001.json",
-      "schema": "../schemas/event-cpx-exposure.json",
-      "description": "Exposure event"
-    },
-    {
-      "id": "cpc-001",
-      "file": "valid/cpc-001.json",
-      "schema": "../schemas/event-cpc-click.json",
-      "description": "Click event"
-    },
-    {
-      "id": "cpa-001",
-      "file": "valid/cpa-001.json",
-      "schema": "../schemas/event-cpa-conversion.json",
-      "description": "Conversion event"
-    },
-    {
-      "id": "ledger-001",
-      "file": "../examples/ledger-record.example.json",
-      "schema": "../schemas/ledger-record.json",
-      "description": "Ledger sample"
-    }
+  "schemas": [
+    "schemas/context-request.json",
+    "schemas/bid.json",
+    "schemas/auction-result.json",
+    "schemas/event-cpx-exposure.json",
+    "schemas/event-cpc-click.json",
+    "schemas/event-cpa-conversion.json",
+    "schemas/ledger-record.json"
+  ],
+  "valid": [
+    "tests/valid/context-001.json",
+    "tests/valid/bid-001.json",
+    "tests/valid/auction-001.json",
+    "tests/valid/cpx-001.json",
+    "tests/valid/cpc-001.json",
+    "tests/valid/cpa-001.json"
+  ],
+  "invalid": [
+    "tests/invalid/context-missing-sig.json",
+    "tests/invalid/bid-negative-values.json",
+    "tests/invalid/auction-no-serve-token.json",
+    "tests/invalid/cpx-bad-session.json",
+    "tests/invalid/cpa-bad-window.json"
   ]
 }

@@ -1,50 +1,54 @@
 {
+  "$id": "https://aip.org/schemas/ledger-record.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://specs.admesh.dev/amxp/ledger-record.json",
-  "title": "AMXP Ledger Record",
+  "title": "LedgerRecord",
   "type": "object",
+  "required": ["serve_token","state","amounts","timeline","agent_id","platform_id","wallets"],
   "properties": {
-    "spec_version": {
-      "type": "string"
-    },
-    "entry_id": {
-      "type": "string"
-    },
-    "bid_id": {
-      "type": "string"
-    },
-    "auction_id": {
-      "type": "string"
-    },
-    "amount": {
-      "type": "number"
-    },
-    "currency": {
-      "type": "string"
-    },
-    "direction": {
-      "type": "string",
-      "enum": [
-        "debit",
-        "credit"
-      ]
-    },
-    "recorded_at": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "metadata": {
+    "serve_token": { "type": "string" },
+    "state": { "type": "string", "enum": ["EXPOSURE_PENDING","CLICK_PENDING","CONVERSION_PENDING","FINALIZED"] },
+    "amounts": {
       "type": "object",
-      "additionalProperties": true
+      "properties": {
+        "cpx": { "$ref": "common.json#/properties/money" },
+        "cpc": { "$ref": "common.json#/properties/money" },
+        "cpa": { "$ref": "common.json#/properties/money" }
+      },
+      "additionalProperties": false
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["t","op","unit","amt"],
+        "properties": {
+          "t": { "$ref": "common.json#/properties/timestamp" },
+          "op": { "type": "string", "enum": ["reserve","release","capture"] },
+          "unit": { "type": "string", "enum": ["CPX","CPC","CPA"] },
+          "amt": { "$ref": "common.json#/properties/money" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "expiry": {
+      "type": "object",
+      "properties": {
+        "exposure_sec": { "type": "integer", "minimum": 0 },
+        "click_sec": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "agent_id": { "type": "string" },
+    "platform_id": { "type": "string" },
+    "wallets": {
+      "type": "object",
+      "properties": {
+        "adv": { "type": "string" },
+        "platform": { "type": "string" },
+        "network": { "type": "string" }
+      },
+      "additionalProperties": false
     }
   },
-  "required": [
-    "spec_version",
-    "entry_id",
-    "amount",
-    "currency",
-    "direction",
-    "recorded_at"
-  ],
   "additionalProperties": false
 }

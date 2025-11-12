@@ -6,7 +6,7 @@ You've successfully completed the GitHub Pages setup! Here's what to verify:
 
 ### 1. GitHub Actions Workflow Status
 
-**Check**: https://github.com/GouniManikumar12/amxp-spec/actions
+**Check**: https://github.com/GouniManikumar12/aip-spec/actions
 
 - [ ] Workflow "Deploy GitHub Pages" is running or completed
 - [ ] Status shows green checkmark (✓) when complete
@@ -16,18 +16,18 @@ You've successfully completed the GitHub Pages setup! Here's what to verify:
 
 ### 2. GitHub Pages Deployment
 
-**Check**: https://github.com/GouniManikumar12/amxp-spec/settings/pages
+**Check**: https://github.com/GouniManikumar12/aip-spec/settings/pages
 
-- [ ] Shows "Your site is live at https://gounimanikumar12.github.io/amxp-spec/"
+- [ ] Shows "Your site is live at https://gounimanikumar12.github.io/aip-spec/"
 - [ ] Green checkmark next to the URL
 - [ ] Last deployment timestamp is recent
 
 ### 3. Site Accessibility
 
-**Visit**: https://gounimanikumar12.github.io/amxp-spec/
+**Visit**: https://gounimanikumar12.github.io/aip-spec/
 
 - [ ] Homepage loads successfully (README.md content)
-- [ ] Shows "AMXP Spec" title
+- [ ] Shows "AIP Spec" title
 - [ ] Cayman theme is applied (blue header)
 - [ ] Navigation links work
 
@@ -35,22 +35,22 @@ You've successfully completed the GitHub Pages setup! Here's what to verify:
 
 Test these key pages:
 
-- [ ] **Docs Index**: https://gounimanikumar12.github.io/amxp-spec/docs/
-- [ ] **Overview**: https://gounimanikumar12.github.io/amxp-spec/docs/01-overview
-- [ ] **Conformance**: https://gounimanikumar12.github.io/amxp-spec/CONFORMANCE
-- [ ] **PRD**: https://gounimanikumar12.github.io/amxp-spec/PRD
-- [ ] **Security**: https://gounimanikumar12.github.io/amxp-spec/SECURITY
+- [ ] **Docs Index**: https://gounimanikumar12.github.io/aip-spec/docs/
+- [ ] **Overview**: https://gounimanikumar12.github.io/aip-spec/docs/01-overview
+- [ ] **Conformance**: https://gounimanikumar12.github.io/aip-spec/CONFORMANCE
+- [ ] **PRD**: https://gounimanikumar12.github.io/aip-spec/PRD
+- [ ] **Security**: https://gounimanikumar12.github.io/aip-spec/SECURITY
 
 ### 5. Schema Files
 
-- [ ] **Schema Catalog**: https://gounimanikumar12.github.io/amxp-spec/schemas/$schema-catalog.json
-- [ ] **Context Request**: https://gounimanikumar12.github.io/amxp-spec/schemas/context-request.json
-- [ ] **Bid Schema**: https://gounimanikumar12.github.io/amxp-spec/schemas/bid.json
+- [ ] **Schema Catalog**: https://gounimanikumar12.github.io/aip-spec/schemas/$schema-catalog.json
+- [ ] **Context Request**: https://gounimanikumar12.github.io/aip-spec/schemas/context-request.json
+- [ ] **Bid Schema**: https://gounimanikumar12.github.io/aip-spec/schemas/bid.json
 
 ### 6. Example Files
 
-- [ ] **Context Example**: https://gounimanikumar12.github.io/amxp-spec/examples/context-request.example.json
-- [ ] **Bid Example**: https://gounimanikumar12.github.io/amxp-spec/examples/bid.example.json
+- [ ] **Context Example**: https://gounimanikumar12.github.io/aip-spec/examples/context-request.example.json
+- [ ] **Bid Example**: https://gounimanikumar12.github.io/aip-spec/examples/bid.example.json
 
 ## 🔧 Troubleshooting
 
@@ -83,7 +83,7 @@ Test these key pages:
 
 ### Immediate Actions
 
-1. **Share the URL**: https://gounimanikumar12.github.io/amxp-spec/
+1. **Share the URL**: https://gounimanikumar12.github.io/aip-spec/
 2. **Update references**: Change any docs pointing to old spec location
 3. **Announce**: Share with team/community
 
@@ -110,7 +110,7 @@ Test these key pages:
 
 4. **Add Topics**:
    - Repository main page → About → Topics
-   - Add: `amxp`, `specification`, `protocol`, `advertising`, `ai`
+   - Add: `aip`, `specification`, `protocol`, `advertising`, `ai`
 
 ## 📊 Monitoring
 
@@ -132,7 +132,7 @@ Set up notifications for:
 You'll know everything is working when:
 
 1. ✅ Workflow shows green checkmark
-2. ✅ Site loads at https://gounimanikumar12.github.io/amxp-spec/
+2. ✅ Site loads at https://gounimanikumar12.github.io/aip-spec/
 3. ✅ All documentation pages are accessible
 4. ✅ JSON schemas and examples load correctly
 5. ✅ Theme is applied (blue Cayman header)
@@ -171,6 +171,6 @@ git push origin main
 ---
 
 **Current Status**: ✅ Configuration complete, waiting for first deployment  
-**Next Check**: Visit https://gounimanikumar12.github.io/amxp-spec/ in 2-3 minutes  
-**Expected Result**: Live documentation site with AMXP specification
+**Next Check**: Visit https://gounimanikumar12.github.io/aip-spec/ in 2-3 minutes  
+**Expected Result**: Live documentation site with AIP specification
 
