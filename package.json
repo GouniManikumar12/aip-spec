@@ -2,7 +2,7 @@
   "name": "aip-spec",
   "version": "0.1.0",
   "description": "Reference specification, schemas, and fixtures for the AIP protocol.",
-  "license": "Apache-2.0",
+  "license": "CC-BY-4.0",
   "private": true,
   "engines": {
     "node": ">=18.0.0"
