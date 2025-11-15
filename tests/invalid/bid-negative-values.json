@@ -1,28 +1,23 @@
 {
-  "spec_version": "0.1.0",
-  "bid_id": "bid-invalid",
-  "request_id": "ctx-valid",
-  "timestamp": "2024-03-01T12:00:02Z",
-  "advertiser": {
-    "id": "adv-x",
-    "name": "Bad Co"
-  },
-  "creative": {
-    "id": "creative-x",
-    "format": "banner",
-    "assets": [
-      "https://cdn.test/bad"
-    ]
-  },
+  "bid_id": "bid_invalid",
+  "brand_agent_id": "brand_agent_invalid",
+  "context_id": "ctx_valid",
+  "wallet_id": "wallet_bad",
   "pricing": {
-    "currency": "USD",
-    "bid_price": -1.0,
-    "billing_event": "cpc"
+    "cpa": "12.00"
   },
-  "ttl_ms": 1000,
-  "seat": {
-    "id": "seat-bad",
-    "name": "Bad Seat"
+  "offer": {
+    "creative_input": {
+      "brand_name": "Bad Co",
+      "product_name": "Bad Product",
+      "descriptions": ["Bad copy"],
+      "value_props": ["Bad value"],
+      "resource_urls": ["https://bad.example"],
+      "image_urls": ["https://bad.example/image.png"]
+    }
   },
-  "signature": "sig-bad"
+  "timestamp": "2025-03-01T12:00:02Z",
+  "auth": {
+    "nonce": "nonce_bad"
+  }
 }

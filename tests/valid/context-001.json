@@ -1,32 +1,27 @@
 {
-  "spec_version": "0.1.0",
-  "network": "sandbox",
-  "request_id": "ctx-valid",
-  "timestamp": "2024-03-01T12:00:00Z",
-  "publisher": {
-    "id": "pub-99",
-    "name": "Daily Planet",
-    "domain": "daily.test"
+  "context_id": "ctx_valid",
+  "session_id": "sess_001",
+  "operator_id": "admesh_operator",
+  "platform_id": "openai_chat",
+  "query_text": "best CRM for startups",
+  "locale": "en-US",
+  "geo": "US",
+  "verticals": ["crm", "smb_software"],
+  "intent": {
+    "type": "commercial",
+    "decision_phase": "compare",
+    "context_summary": "User is narrowing down CRM vendors for a startup team.",
+    "turn_index": 2
   },
-  "placement": {
-    "id": "pl-1",
-    "format": "video",
-    "floor_cpm": 3.2
+  "allowed_formats": ["weave", "citation", "product_card"],
+  "timestamp": "2025-11-14T18:22:00Z",
+  "auth": {
+    "nonce": "nonce_valid",
+    "sig": "sig_valid_context"
   },
-  "user": {
-    "id": "user-44",
-    "consent": "opt-in"
-  },
-  "device": {
-    "ua": "ExampleBrowser/1.0",
-    "ip": "198.51.100.5",
-    "ifa": "ifa-valid"
-  },
-  "supply_chain": [
-    {
-      "role": "ssp",
-      "id": "ssp-1"
+  "extensions": {
+    "admesh": {
+      "operator_relevance_score": 0.9
     }
-  ],
-  "signature": "sig-valid-context"
+  }
 }

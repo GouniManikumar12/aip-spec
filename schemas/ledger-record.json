@@ -1,188 +1,116 @@
 {
-  "$id": "https://aip.org/schemas/ledger-record.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aip.org/schemas/ledger-record.json",
   "title": "LedgerRecord",
-  "description": "Final ledger record summarizing all events and charges for a served ad",
+  "description": "Final ledger record summarizing reserved amount, actual billing, and revshare settlement.",
   "type": "object",
   "required": [
     "serve_token",
     "session_id",
-    "platform_id",
-    "agent_id",
     "auction_id",
+    "platform_id",
+    "brand_agent_id",
     "state",
+    "reserved_unit",
+    "reserved_amount_cents",
     "final_unit",
-    "final_charge",
+    "final_amount_cents",
     "currency",
     "timestamps"
   ],
   "properties": {
     "serve_token": {
       "type": "string",
-      "description": "Serve token identifying this ad impression",
+      "description": "Unique token linking exposure → click → conversion",
       "example": "stk_abcxyz123"
     },
     "session_id": {
       "type": "string",
       "description": "Session identifier",
-      "example": "s_001"
-    },
-    "platform_id": {
-      "type": "string",
-      "description": "Platform identifier",
-      "example": "pf_chatapp"
-    },
-    "agent_id": {
-      "type": "string",
-      "description": "Advertiser agent identifier",
-      "example": "ag_123"
+      "example": "sess_001"
     },
     "auction_id": {
       "type": "string",
       "description": "Auction identifier",
       "example": "auc_981"
     },
+    "platform_id": {
+      "type": "string",
+      "description": "Platform identifier",
+      "example": "pf_chatgpt"
+    },
+    "brand_agent_id": {
+      "type": "string",
+      "description": "Brand agent responsible for the bid",
+      "example": "ba_451"
+    },
     "state": {
       "type": "string",
-      "description": "Final state of the ledger record",
-      "enum": [
-        "PENDING",
-        "EXPOSED",
-        "CLICKED",
-        "CONVERTED",
-        "FINALIZED",
-        "REFUNDED"
-      ],
+      "enum": ["PENDING", "EXPOSED", "CLICKED", "CONVERTED", "FINALIZED", "REFUNDED"],
+      "description": "Final state of the ad lifecycle",
       "example": "FINALIZED"
+    },
+    "reserved_unit": {
+      "type": "string",
+      "enum": ["CPX", "CPC", "CPA"],
+      "description": "Pricing unit reserved at auction time",
+      "example": "CPA"
+    },
+    "reserved_amount_cents": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Maximum amount held from advertiser wallet",
+      "example": 500
     },
     "final_unit": {
       "type": "string",
-      "description": "Final pricing unit charged",
-      "enum": [
-        "CPX",
-        "CPC",
-        "CPA"
-      ],
-      "example": "CPA"
+      "enum": ["CPX", "CPC", "CPA"],
+      "description": "Final pricing unit applied after events",
+      "example": "CPC"
     },
-    "final_charge": {
-      "type": "string",
-      "description": "Final charge amount in USD",
-      "pattern": "^\\d+\\.\\d{2,}$",
-      "example": "10.00"
+    "final_amount_cents": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Actual charge applied to advertiser wallet",
+      "example": 120
     },
     "currency": {
       "type": "string",
-      "const": "USD",
-      "description": "Currency code"
+      "pattern": "^[A-Z]{3}$",
+      "description": "Currency code",
+      "example": "USD"
     },
     "timestamps": {
       "type": "object",
-      "description": "Timestamps for each event in the funnel",
+      "description": "Event timestamps",
       "properties": {
-        "auction": {
-          "type": "string",
-          "format": "date-time",
-          "description": "When the auction completed",
-          "example": "2025-11-11T18:00:00Z"
-        },
-        "exposure": {
-          "type": "string",
-          "format": "date-time",
-          "description": "When the ad was exposed",
-          "example": "2025-11-11T18:00:00Z"
-        },
-        "click": {
-          "type": "string",
-          "format": "date-time",
-          "description": "When the ad was clicked",
-          "example": "2025-11-11T18:02:00Z"
-        },
-        "conversion": {
-          "type": "string",
-          "format": "date-time",
-          "description": "When the conversion occurred",
-          "example": "2025-11-11T18:30:00Z"
-        },
-        "finalized": {
-          "type": "string",
-          "format": "date-time",
-          "description": "When the ledger was finalized",
-          "example": "2025-11-11T19:00:00Z"
-        }
-      }
-    },
-    "charges": {
-      "type": "object",
-      "description": "Breakdown of charges by pricing unit",
-      "properties": {
-        "cpx": {
-          "type": "string",
-          "description": "CPX charge amount",
-          "pattern": "^\\d+\\.\\d{2,}$",
-          "example": "0.034"
-        },
-        "cpc": {
-          "type": "string",
-          "description": "CPC charge amount",
-          "pattern": "^\\d+\\.\\d{2,}$",
-          "example": "0.45"
-        },
-        "cpa": {
-          "type": "string",
-          "description": "CPA charge amount",
-          "pattern": "^\\d+\\.\\d{2,}$",
-          "example": "10.00"
-        }
+        "auction": { "type": "string", "format": "date-time" },
+        "exposure": { "type": "string", "format": "date-time" },
+        "click": { "type": "string", "format": "date-time" },
+        "conversion": { "type": "string", "format": "date-time" },
+        "finalized": { "type": "string", "format": "date-time" }
+      },
+      "example": {
+        "auction": "2025-11-11T18:00:00Z",
+        "exposure": "2025-11-11T18:00:01Z",
+        "click": "2025-11-11T18:02:00Z",
+        "finalized": "2025-11-11T19:00:00Z"
       }
     },
     "revenue_share": {
       "type": "object",
-      "description": "Revenue distribution",
+      "description": "Revenue distribution breakdown",
       "properties": {
-        "platform_share": {
-          "type": "string",
-          "description": "Platform's revenue share",
-          "pattern": "^\\d+\\.\\d{2,}$",
-          "example": "3.00"
-        },
-        "network_share": {
-          "type": "string",
-          "description": "Network's revenue share",
-          "pattern": "^\\d+\\.\\d{2,}$",
-          "example": "7.00"
-        }
-      }
-    }
-  },
-  "examples": [
-    {
-      "serve_token": "stk_abcxyz123",
-      "session_id": "s_001",
-      "platform_id": "pf_chatapp",
-      "agent_id": "ag_123",
-      "auction_id": "auc_981",
-      "state": "FINALIZED",
-      "final_unit": "CPA",
-      "final_charge": "10.00",
-      "currency": "USD",
-      "timestamps": {
-        "auction": "2025-11-11T18:00:00Z",
-        "exposure": "2025-11-11T18:00:00Z",
-        "click": "2025-11-11T18:02:00Z",
-        "conversion": "2025-11-11T18:30:00Z",
-        "finalized": "2025-11-11T19:00:00Z"
+        "platform_cents": { "type": "integer", "minimum": 0 },
+        "operator_cents": { "type": "integer", "minimum": 0 }
       },
-      "charges": {
-        "cpx": "0.034",
-        "cpc": "0.45",
-        "cpa": "10.00"
-      },
-      "revenue_share": {
-        "platform_share": "3.00",
-        "network_share": "7.00"
+      "example": {
+        "platform_cents": 30,
+        "operator_cents": 90
       }
+    },
+    "ext": {
+      "$ref": "./common.json#/definitions/extensionNamespace"
     }
-  ],
-  "$id": "https://aip.org/schemas/ledger-record.json"
+  }
 }

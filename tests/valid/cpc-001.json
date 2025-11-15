@@ -1,11 +1,10 @@
 {
-  "spec_version": "0.1.0",
-  "event_id": "evt-cpc-valid",
-  "auction_id": "auc-valid",
-  "bid_id": "bid-valid",
-  "timestamp": "2024-03-01T12:00:07Z",
-  "event_type": "cpc.click",
-  "click_url": "https://click.test/serve-valid",
-  "user_agent": "ExampleBrowser/1.0",
-  "signature": "sig-cpc"
+  "event_type": "cpc_click",
+  "serve_token": "stk_valid",
+  "session_id": "sess_valid",
+  "platform_id": "pf_chat",
+  "brand_agent_id": "ba_valid",
+  "wallet_id": "wallet_valid",
+  "pricing": { "unit": "CPC", "amount_cents": 99 },
+  "timestamp": "2025-03-01T12:00:07Z"
 }

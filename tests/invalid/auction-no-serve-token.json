@@ -1,6 +1,14 @@
 {
   "auction_id": "auc_bad",
-  "winner": { "agent_id": "ag_x", "clearing_price_cpx": "0.03", "preferred_unit": "CPA" },
+  "winner": {
+    "brand_agent_id": "brand_agent_x",
+    "campaign_id": "cmp_bad",
+    "product_id": "prod_bad",
+    "cpx_price": "3",
+    "cpc_price": null,
+    "cpa_price": null,
+    "billable_unit": "CPX"
+  },
   "render": { "label": "[Ad]", "title": "T", "url": "https://x.y" },
   "ttl_ms": 60000,
   "auth": { "sig": "s" }

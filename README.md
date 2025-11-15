@@ -72,7 +72,7 @@ Each schema defines an optional `ext` container that may include any number of v
 - **`platform-request`** – Payload AI platforms send to operators when a user expresses commercial intent. It captures raw query text, locale/geo, optional conversation history, transport auth, and any vendor extensions under `ext`.
 - **`context-request`** – Payload operators send to subscribed brand agents after classifying the opportunity. Operators may derive or redact fields from the originating `platform-request` before fanout.
 
-This split keeps the platform/operator contract stable while allowing operators to enrich or anonymize data before reaching bidders.
+Key fields include `context_id`, `intent` (type/decision phase/context summary), `allowed_formats`, and the operator-signed `auth` block. This split keeps the platform/operator contract stable while allowing operators to enrich or anonymize data before reaching bidders.
 
 ---
 

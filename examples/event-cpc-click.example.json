@@ -1,12 +1,17 @@
 {
   "event_type": "cpc_click",
   "serve_token": "stk_abcxyz123",
-  "event_id": "ev_991",
-  "s2s": true,
-  "click_metadata": {
-    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
-    "ip_address": "192.168.1.1",
-    "referrer": "https://chatapp.example/session/s_001"
+  "session_id": "sess_001",
+  "platform_id": "pf_openai_chat",
+  "brand_agent_id": "ba_451",
+  "wallet_id": "w_0021",
+  "pricing": {
+    "unit": "CPC",
+    "amount_cents": 45
   },
-  "ts": "2025-11-11T18:02:00Z"
+  "click_metadata": {
+    "source": "deep_link",
+    "position": 1
+  },
+  "timestamp": "2025-11-14T18:00:02Z"
 }

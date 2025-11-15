@@ -1,23 +1,27 @@
 {
-  "bid_id": "b_7823",
-  "agent_id": "ag_123",
+  "bid_id": "bid_7823",
+  "brand_agent_id": "brand_agent_123",
   "context_id": "ctx_92f",
-  "wallet_id": "w_890",
-  "bid_vector": {
+  "wallet_id": "wallet_890",
+  "pricing": {
     "cpx": "0.05",
     "cpc": "0.45",
-    "cpa": "10.00"
+    "cpa": "10.00",
+    "currency": "USD"
   },
-  "preferred_unit": "CPA",
-  "creative": {
-    "title": "Pipedrive CRM",
-    "body": "CRM built for growing teams.",
-    "cta": "Start free trial",
-    "deeplink": "https://pipedrive.com/signup"
+  "offer": {
+    "creative_input": {
+      "brand_name": "Nimbus",
+      "product_name": "Nimbus CRM Pro",
+      "descriptions": ["AI-native CRM for 5-50 person teams."],
+      "value_props": ["Automated pipeline insights", "Embedded copilots"],
+      "resource_urls": ["https://nimbus.example/signup"],
+      "image_urls": ["https://cdn.example.com/nimbus/crm.png"]
+    }
   },
-  "ts": "2025-11-11T18:00:01Z",
+  "timestamp": "2025-11-11T18:00:01Z",
   "auth": {
-    "nonce": "n_456",
-    "sig": "sig_789"
+    "nonce": "nonce_456",
+    "signature": "sig_789"
   }
 }

@@ -1,10 +1,13 @@
 {
-  "request_id": "rq_bad",
-  "session_id": "s_x",
+  "context_id": "ctx_bad",
+  "session_id": "sess_bad",
+  "operator_id": "op_test",
   "platform_id": "pf_x",
   "query_text": "q",
   "locale": "en-US",
   "geo": "US",
-  "ts": "2025-11-11T13:17:11Z",
+  "intent": { "type": "informational" },
+  "allowed_formats": ["weave"],
+  "timestamp": "2025-11-11T13:17:11Z",
   "auth": { "nonce": "n_1" }
 }

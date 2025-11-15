@@ -1,34 +1,26 @@
 {
-  "spec_version": "0.1.0",
-  "bid_id": "bid-valid",
-  "request_id": "ctx-valid",
-  "timestamp": "2024-03-01T12:00:01Z",
-  "advertiser": {
-    "id": "adv-1",
-    "name": "Wayne Enterprises"
-  },
-  "creative": {
-    "id": "creative-7",
-    "format": "video",
-    "assets": [
-      "https://cdn.test/creatives/7"
-    ]
-  },
+  "bid_id": "bid_valid",
+  "brand_agent_id": "brand_agent_valid",
+  "context_id": "ctx_valid",
+  "wallet_id": "wallet_valid",
   "pricing": {
-    "currency": "USD",
-    "bid_price": 4.0,
-    "billing_event": "cpx"
+    "cpx": "0.05",
+    "cpc": "0.40",
+    "currency": "USD"
   },
-  "targeting": {
-    "geo": "US",
-    "audiences": [
-      "comic_fans"
-    ]
+  "offer": {
+    "creative_input": {
+      "brand_name": "Wayne Enterprises",
+      "product_name": "Wayne CRM",
+      "descriptions": ["Secure CRM with Gotham-grade reliability."],
+      "value_props": ["On-prem control", "AI follow-ups"],
+      "resource_urls": ["https://wayne.example/crm"],
+      "image_urls": ["https://cdn.example.com/wayne/crm.png"]
+    }
   },
-  "ttl_ms": 1200,
-  "seat": {
-    "id": "seat-hero",
-    "name": "Hero Seat"
-  },
-  "signature": "sig-valid-bid"
+  "timestamp": "2025-03-01T12:00:01Z",
+  "auth": {
+    "nonce": "nonce_valid",
+    "signature": "sig_valid_bid"
+  }
 }

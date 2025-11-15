@@ -2,16 +2,21 @@
   "auction_id": "auc_981",
   "serve_token": "stk_abcxyz123",
   "winner": {
-    "agent_id": "ag_123",
-    "clearing_price_cpx": "0.042",
-    "preferred_unit": "CPA"
+    "brand_agent_id": "brand_agent_123",
+    "campaign_id": "cmp_nimbus_launch",
+    "product_id": "prod_nimbus_crm",
+    "cpx_price": "5",
+    "cpc_price": "145",
+    "cpa_price": null,
+    "billable_unit": "CPC"
   },
   "render": {
     "label": "[Ad]",
-    "title": "Pipedrive CRM",
-    "body": "Built for founders.",
+    "title": "Nimbus CRM Pro",
+    "body": "AI-native CRM for 5-50 person teams.",
     "cta": "Try for free",
-    "url": "https://admesh.click/stk_abcxyz123"
+    "url": "https://admesh.click/stk_abcxyz123",
+    "image": "https://cdn.example.com/nimbus/crm.png"
   },
   "ttl_ms": 60000
 }
