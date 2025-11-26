@@ -61,15 +61,15 @@ Only the highest-value event is charged per `serve_token`.
 
 ## Extension Namespace
 
-AIP supports innovation without fragmentation through a controlled extension namespace. Any operator can add new fields immediately inside a dedicated `ext` object, where their custom parameters live under their own vendor ID. This gives companies full flexibility to experiment, pass proprietary data, or build advanced features without ever touching or breaking the core protocol. If an extension proves useful across the ecosystem, the operator can submit a lightweight RFC, and we evaluate it for inclusion in the next version of AIP. This model keeps the standard stable, predictable, and clean, while allowing rapid evolution on the edges — the same governance pattern used by OpenRTB, OAuth, and Kubernetes.
+AIP supports innovation without fragmentation through a controlled extension namespace. Any operator can add new fields immediately inside a dedicated `metadata` object, where their custom parameters live under their own vendor ID. This gives companies full flexibility to experiment, pass proprietary data, or build advanced features without ever touching or breaking the core protocol. If an extension proves useful across the ecosystem, the operator can submit a lightweight RFC, and we evaluate it for inclusion in the next version of AIP. This model keeps the standard stable, predictable, and clean, while allowing rapid evolution on the edges — the same governance pattern used by OpenRTB, OAuth, and Kubernetes.
 
-Each schema defines an optional `ext` container that may include any number of vendor IDs (e.g., `"ext": { "acme.ai": { ... } }`). Operators are expected to document their namespaces and follow the RFC process below to promote broadly useful fields into the core spec.
+Each schema defines an optional `metadata` container that may include any number of vendor IDs (e.g., `"metadata": { "acme.ai": { ... } }`). Operators are expected to document their namespaces and follow the RFC process below to promote broadly useful fields into the core spec.
 
 ---
 
 ## Platform ↔ Operator Interface
 
-- **`platform-request`** – Payload AI platforms send to operators when a user expresses commercial intent. It captures raw query text, locale/geo, optional conversation history, transport auth, and any vendor extensions under `ext`.
+- **`platform-request`** – Payload AI platforms send to operators when a user expresses commercial intent. It captures raw query text, locale/geo, optional conversation history, transport auth, and any vendor extensions under `metadata`.
 - **`context-request`** – Payload operators send to subscribed brand agents after classifying the opportunity. Operators may derive or redact fields from the originating `platform-request` before fanout.
 
 Key fields include `context_id`, `intent` (type/decision phase/context summary), `allowed_formats`, and the operator-signed `auth` block. This split keeps the platform/operator contract stable while allowing operators to enrich or anonymize data before reaching bidders.

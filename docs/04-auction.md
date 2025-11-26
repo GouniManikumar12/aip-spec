@@ -19,4 +19,4 @@ The AIP bidding model uses a **time-bounded asynchronous auction window** rather
 | Ingress | `platform-request` | AI Platform → Operator | Raw user intent, safety context, and transport auth. |
 | Fanout | `context-request` | Operator → Brand Agents | Normalized context with pool classification and any operator annotations. |
 
-Operators MAY redact, enrich, or reformat data between the two payloads. Vendor-specific metadata MUST live inside the `ext.<vendor_id>` namespace to avoid collisions and to simplify future promotions into the core spec.
+Operators MAY redact, enrich, or reformat data between the two payloads. Vendor-specific metadata MUST live inside the `metadata.<vendor_id>` namespace to avoid collisions and to simplify future promotions into the core spec.
