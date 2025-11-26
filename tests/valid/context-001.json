@@ -19,7 +19,7 @@
     "nonce": "nonce_valid",
     "sig": "sig_valid_context"
   },
-  "extensions": {
+  "metadata": {
     "admesh": {
       "operator_relevance_score": 0.9
     }
