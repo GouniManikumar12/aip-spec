@@ -24,6 +24,11 @@
       "description": "Conversation or interaction session ID",
       "example": "sess_001"
     },
+    "message_id": {
+      "type": "string",
+      "description": "Unique identifier for this message in the conversation. Used for deduplication across platforms.",
+      "example": "msg_sess_001_1234567890_abc123"
+    },
     "platform_id": {
       "type": "string",
       "description": "Identifier of the AI platform sending this request",
@@ -53,6 +58,11 @@
           "content": {
             "type": "string",
             "example": "Looking for CRM recommendations"
+          },
+          "id": {
+            "type": "string",
+            "description": "Optional message ID. If message_id is not provided at top level, the last message's id will be used for deduplication.",
+            "example": "msg_123"
           }
         }
       },

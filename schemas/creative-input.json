@@ -109,7 +109,7 @@
       "description": "Fallback ad formats if preferred format is not available",
       "items": {
         "type": "string",
-        "enum": ["weave", "tail", "product_card"]
+        "enum": ["weave", "tail", "product_card", "bridge"]
       },
       "example": ["tail", "product_card"]
     }

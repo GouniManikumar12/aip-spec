@@ -42,6 +42,11 @@
       "description": "Platform surface type: chat, voice, browser, extension, ui panel, etc.",
       "example": "ai_chat"
     },
+    "platform_type": {
+      "type": "string",
+      "description": "Platform type retrieved from agents collection (agent_type field)",
+      "example": "ai_chat_platform"
+    },
     "model": {
       "type": "string",
       "description": "AI model provided by platform",
@@ -185,6 +190,7 @@
       "operator_id": "admesh_operator",
       "platform_id": "openai_chat",
       "platform_surface": "ai_chat",
+      "platform_type": "ai_chat_platform",
       "model": "gpt-4.3-mini",
       "query_text": "best CRM for small teams",
       "messages": [],

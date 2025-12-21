@@ -7,7 +7,7 @@
   "properties": {
     "format": {
       "type": "string",
-      "enum": ["weave", "tail", "product_card"],
+      "enum": ["weave", "tail", "product_card", "bridge"],
       "description": "Ad format type",
       "example": "weave"
     },
@@ -86,6 +86,17 @@
       },
       "required": ["title", "admesh_url"],
       "additionalProperties": false
+    },
+    "bridge_content": {
+      "type": "string",
+      "description": "Bridge format: setup prompt or configuration instructions for AI agents. Used in followup sponsored recommendations, primarily for Vibe Coding Platforms and AI IDEs, and can also be shown in AI search as followup suggestions.",
+      "example": "To set up Nimbus CRM Pro, install the package using npm install @nimbus/crm-pro. Then configure your API key in the environment variables. See the documentation for detailed setup instructions."
+    },
+    "documentation_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Bridge format: link to product documentation or setup guide. Used in followup sponsored recommendations.",
+      "example": "https://docs.nimbus.com/getting-started"
     }
   },
   "oneOf": [
@@ -106,6 +117,12 @@
         "format": { "const": "product_card" }
       },
       "required": ["format", "product_card"]
+    },
+    {
+      "properties": {
+        "format": { "const": "bridge" }
+      },
+      "required": ["format", "bridge_content"]
     }
   ],
   "additionalProperties": false,
@@ -136,6 +153,11 @@
         },
         "admesh_url": "https://admesh.click/stk_abcxyz123"
       }
+    },
+    {
+      "format": "bridge",
+      "bridge_content": "To set up Nimbus CRM Pro, install the package using npm install @nimbus/crm-pro. Then configure your API key in the environment variables. See the documentation for detailed setup instructions.",
+      "documentation_url": "https://docs.nimbus.com/getting-started"
     }
   ],
   "$id": "https://aip.org/schemas/creative.json"
