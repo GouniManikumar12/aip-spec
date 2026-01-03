@@ -124,12 +124,12 @@
     },
     "allowed_formats": {
       "type": "array",
-      "description": "Creative formats allowed by the operator for rendering",
+      "description": "Creative formats allowed by the operator for rendering. Automatically fetched from platform configuration during onboarding. Platforms do not need to specify this in requests.",
       "items": {
         "type": "string",
-        "enum": ["weave", "citation", "product_card"]
+        "enum": ["weave", "tail", "product_card", "bridge"]
       },
-      "example": ["weave", "citation", "product_card"]
+      "example": ["weave", "tail", "product_card"]
     },
     "timestamp": {
       "type": "string",
@@ -203,7 +203,7 @@
         "context_summary": "User is evaluating CRM tools and narrowing down options.",
         "turn_index": 3
       },
-      "allowed_formats": ["weave", "citation", "product_card"],
+      "allowed_formats": ["weave", "tail", "product_card"],
       "timestamp": "2025-11-14T18:22:00Z",
       "latency_budget_ms": 500,
       "user_id": "user_hash_abc123",

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CreativeInput",
-  "description": "Unified creative input structure containing all fields needed for any ad format (weave, tail, product_card). Brand agents generate this structure, and operators transform it into format-specific creatives.",
+  "description": "Unified creative input structure containing all fields needed for any ad format (weave, tail, product_card, bridge). Brand agents generate this structure, and operators transform it into format-specific creatives.",
   "type": "object",
   "required": [
     "brand_name",
@@ -112,6 +112,11 @@
         "enum": ["weave", "tail", "product_card", "bridge"]
       },
       "example": ["tail", "product_card"]
+    },
+    "offer_summary": {
+      "type": "string",
+      "description": "Optional special offer summary (e.g., discounts, promotions). Included in creative_input when available.",
+      "example": "Special offer: 50% off first year for teams"
     }
   },
   "additionalProperties": false,
@@ -136,7 +141,8 @@
       },
       "product_id": "prod_nimbus_001",
       "categories": ["crm", "saas"],
-      "fallback_formats": ["tail", "product_card"]
+      "fallback_formats": ["tail", "product_card"],
+      "offer_summary": "Special offer: 50% off first year for teams"
     }
   ],
   "$id": "https://aip.org/schemas/creative-input.json"

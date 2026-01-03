@@ -45,7 +45,7 @@
     },
     "render": {
       "$ref": "./creative.json",
-      "description": "Format-specific creative content (weave, tail, or product_card format)"
+      "description": "Format-specific creative content (weave, tail, product_card, or bridge format)"
     },
     "ttl_ms": {
       "type": "integer",

@@ -26,7 +26,7 @@
     },
     "message_id": {
       "type": "string",
-      "description": "Unique identifier for this message in the conversation. Used for deduplication across platforms.",
+      "description": "Unique identifier for this message in the conversation. Used for deduplication across platforms. Strongly recommended - if not provided, the operator will attempt to use the last message's id from the messages array.",
       "example": "msg_sess_001_1234567890_abc123"
     },
     "platform_id": {
@@ -149,6 +149,7 @@
     {
       "request_id": "req_92fA1",
       "session_id": "sess_001",
+      "message_id": "msg_sess_001_1234567890_abc123",
       "platform_id": "openai_chat",
       "model": "gpt-4.3-mini",
       "query_text": "best CRM for small teams",
