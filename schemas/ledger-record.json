@@ -12,9 +12,9 @@
     "brand_agent_id",
     "state",
     "reserved_unit",
-    "reserved_amount_cents",
+    "reserved_amount_micros",
     "final_unit",
-    "final_amount_cents",
+    "final_amount_micros",
     "currency",
     "timestamps"
   ],
@@ -56,11 +56,11 @@
       "description": "Pricing unit reserved at auction time",
       "example": "CPA"
     },
-    "reserved_amount_cents": {
+    "reserved_amount_micros": {
       "type": "integer",
       "minimum": 0,
-      "description": "Maximum amount held from advertiser wallet",
-      "example": 500
+      "description": "Maximum amount held from advertiser wallet (in USD micros, int64)",
+      "example": 5000000
     },
     "final_unit": {
       "type": "string",
@@ -68,16 +68,17 @@
       "description": "Final pricing unit applied after events",
       "example": "CPC"
     },
-    "final_amount_cents": {
+    "final_amount_micros": {
       "type": "integer",
       "minimum": 0,
-      "description": "Actual charge applied to advertiser wallet",
-      "example": 120
+      "description": "Actual charge applied to advertiser wallet (in USD micros, int64)",
+      "example": 1200000
     },
     "currency": {
       "type": "string",
       "pattern": "^[A-Z]{3}$",
-      "description": "Currency code",
+      "description": "Currency code (always USD)",
+      "enum": ["USD"],
       "example": "USD"
     },
     "timestamps": {
@@ -99,14 +100,14 @@
     },
     "revenue_share": {
       "type": "object",
-      "description": "Revenue distribution breakdown",
+      "description": "Revenue distribution breakdown (in USD micros)",
       "properties": {
-        "platform_cents": { "type": "integer", "minimum": 0 },
-        "operator_cents": { "type": "integer", "minimum": 0 }
+        "platform_micros": { "type": "integer", "minimum": 0, "description": "Platform share in USD micros" },
+        "operator_micros": { "type": "integer", "minimum": 0, "description": "Operator share in USD micros" }
       },
       "example": {
-        "platform_cents": 30,
-        "operator_cents": 90
+        "platform_micros": 300000,
+        "operator_micros": 900000
       }
     },
     "ext": {

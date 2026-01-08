@@ -2,15 +2,14 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://aip.org/schemas/wallet-record.json",
   "title": "WalletRecord",
-  "description": "Represents a participant’s wallet including available and reserved balances.",
+  "description": "Represents a participant's wallet including available and reserved balances. All amounts in USD micros (1 USD = 1,000,000 micros).",
   "type": "object",
   "required": [
     "wallet_id",
     "owner_type",
     "currency",
-    "available_balance_cents",
-    "reserved_balance_cents",
-    "lifetime_spend_cents",
+    "balance_micros",
+    "lifetime_spend_micros",
     "updated_at"
   ],
   "properties": {
@@ -28,26 +27,27 @@
     "currency": {
       "type": "string",
       "pattern": "^[A-Z]{3}$",
-      "description": "ISO currency code",
+      "description": "ISO currency code (always USD)",
+      "enum": ["USD"],
       "example": "USD"
     },
-    "available_balance_cents": {
+    "balance_micros": {
       "type": "integer",
       "minimum": 0,
-      "description": "Funds available for new auctions (in cents)",
-      "example": 250000
+      "description": "Funds available for new auctions (in USD micros, int64)",
+      "example": 2500000000
     },
-    "reserved_balance_cents": {
+    "reserved_micros": {
       "type": "integer",
       "minimum": 0,
-      "description": "Funds reserved for pending auctions (in cents)",
-      "example": 5000
+      "description": "Funds reserved for pending auctions (in USD micros, int64). Optional - only used if reservation policy is enabled.",
+      "example": 50000000
     },
-    "lifetime_spend_cents": {
+    "lifetime_spend_micros": {
       "type": "integer",
       "minimum": 0,
-      "description": "Total lifetime spend charged from this wallet (in cents)",
-      "example": 127500
+      "description": "Total lifetime spend charged from this wallet (in USD micros, int64)",
+      "example": 1275000000
     },
     "updated_at": {
       "type": "string",

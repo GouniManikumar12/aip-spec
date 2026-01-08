@@ -36,39 +36,60 @@
     },
     "pricing": {
       "type": "object",
-      "description": "Pricing vector for different billing events (CPX required, CPC/CPA optional)",
-      "required": ["cpx"],
+      "description": "Pricing vector for different billing events. All amounts in USD micros (1 USD = 1,000,000 micros).",
+      "required": ["cpx_micros"],
       "properties": {
-        "cpx": {
-          "type": "string",
-          "description": "Price per exposure (USD)",
-          "pattern": "^\\d+\\.\\d{2,}$",
-          "example": "0.05"
+        "cpx_micros": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Price per exposure in USD micros (int64, authoritative)",
+          "example": 50000
         },
-        "cpc": {
-          "type": "string",
-          "description": "Price per click (USD)",
-          "pattern": "^\\d+\\.\\d{2,}$",
-          "example": "0.45"
+        "cpc_micros": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Price per click in USD micros (int64, optional)",
+          "example": 450000
         },
-        "cpa": {
-          "type": "string",
-          "description": "Price per conversion (USD)",
-          "pattern": "^\\d+\\.\\d{2,}$",
-          "example": "10.00"
-        },
-        "currency": {
-          "type": "string",
-          "description": "Currency code (ISO 4217)",
-          "pattern": "^[A-Z]{3}$",
-          "default": "USD",
-          "example": "USD"
+        "cpa_micros": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Price per conversion in USD micros (int64, optional)",
+          "example": 10000000
         },
         "preferred_pricing_model": {
           "type": "string",
           "description": "Preferred pricing model for billing (CPX, CPC, or CPA)",
           "enum": ["CPX", "CPC", "CPA"],
           "example": "CPA"
+        },
+        "display": {
+          "type": "object",
+          "description": "Optional display metadata for UI purposes only (non-normative, ignored by auction)",
+          "properties": {
+            "currency": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$",
+              "description": "Display currency code (ISO 4217)",
+              "example": "INR"
+            },
+            "cpx_label": {
+              "type": "string",
+              "description": "Display label for CPX price",
+              "example": "₹1.25"
+            },
+            "cpc_label": {
+              "type": "string",
+              "description": "Display label for CPC price",
+              "example": "₹11.25"
+            },
+            "cpa_label": {
+              "type": "string",
+              "description": "Display label for CPA price",
+              "example": "₹250"
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
@@ -126,11 +147,16 @@
       "context_id": "ctx_92f",
       "wallet_id": "wallet_890",
       "pricing": {
-        "cpx": "0.05",
-        "cpc": "0.45",
-        "cpa": "10.00",
-        "currency": "USD",
-        "preferred_pricing_model": "CPA"
+        "cpx_micros": 50000,
+        "cpc_micros": 450000,
+        "cpa_micros": 10000000,
+        "preferred_pricing_model": "CPA",
+        "display": {
+          "currency": "INR",
+          "cpx_label": "₹1.25",
+          "cpc_label": "₹11.25",
+          "cpa_label": "₹250"
+        }
       },
       "offer": {
         "creative_input": {
