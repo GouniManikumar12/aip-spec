@@ -22,46 +22,74 @@ AI Platform ← AuctionResult (with Creative) ← Operator ← Auction Selection
 
 The AI platform initiates an ad auction by sending a `PlatformRequest` to the operator.
 
-### Key Fields:
-- `request_id`: Unique identifier for this auction request
-- `session_id`: Conversation or interaction session ID
-- `message_id`: **Strongly recommended** - Unique identifier for this message in the conversation. Used for deduplication across platforms.
-- `platform_id`: Identifier of the AI platform
-- `query_text`: User's raw query text
-- `locale`: User locale (BCP 47 format, e.g., "en-US")
-- `geo`: User country code (ISO 3166-1 alpha-2, e.g., "US")
-- `cpx_floor`: Minimum CPX (USD) required by the platform
-- `latency_budget_ms`: Optional latency budget from platform in milliseconds
-- `device_type`: Device type (mobile, desktop, tablet)
-- `auth`: Authentication with nonce and signature
+### Key Fields (UCP Format):
+- `spec_version`: UCP specification version (e.g., "1.0.0")
+- `message_id`: **Required** - Unique identifier for this auction request (used for idempotency)
+- `timestamp`: ISO 8601 timestamp when the platform generated the request
+- `producer`: Producer information (platform/agent that created the request)
+  - `agent_id`: Identifier of the AI platform (extracted from API key)
+  - `agent_role`: Role of the agent, typically "publisher"
+  - `software`: Software name
+  - `software_version`: Software version or model identifier
+- `context`: Context information (language, publisher, placement, device, geography)
+  - `language`: User locale (BCP 47 format, e.g., "en-US")
+  - `geography.country`: User country code (ISO 3166-1 alpha-2, e.g., "US")
+  - `placement.ad_unit`: Platform surface type (e.g., "conversation", "chat")
+  - `device.form_factor`: Device type (mobile, desktop, tablet)
+- `identity`: Identity information (namespace, value_hash, confidence)
+- `extensions.aip`: AIP-specific fields
+  - `session_id`: Conversation or interaction session ID
+  - `query_text`: User's raw query text
+  - `turn_index`: Turn index in the conversation
+  - `messages`: Optional conversation history
+  - `cpx_floor`: Minimum CPX (USD) required by the platform
+  - `latency_budget_ms`: Optional latency budget from platform in milliseconds
 
 ### Example:
 ```json
 {
-  "request_id": "req_92fA1",
-  "session_id": "sess_001",
-  "message_id": "msg_sess_001_1234567890_abc123",
-  "platform_id": "openai_chat",
-  "model": "gpt-4.3-mini",
-  "query_text": "best CRM for small teams",
-  "messages": [
-    { "role": "user", "content": "best CRM tools?" },
-    { "role": "assistant", "content": "HubSpot, Zoho, Salesforce…" }
-  ],
-  "locale": "en-US",
-  "geo": "US",
-  "platform_surface": "ai_chat",
-  "cpx_floor": 0.05,
-  "device_type": "desktop",
-  "user_id": "user_hash_abc123",
+  "spec_version": "1.0.0",
+  "message_id": "req_92fA1",
   "timestamp": "2025-11-14T18:22:00Z",
-  "latency_budget_ms": 500,
-  "auth": {
-    "nonce": "nonce_12345",
-    "sig": "sig_d41d8cd98f00b204e9800998ecf8427e"
+  "producer": {
+    "agent_id": "openai_chat",
+    "agent_role": "publisher",
+    "software": "chatgpt",
+    "software_version": "4.3-mini"
   },
-  "metadata": {
-    "openai": { "model": "gpt-4.3-mini", "conversation_mode": "assistant" }
+  "context": {
+    "context_id": "ctx_raw_92fA1",
+    "language": "en-US",
+    "publisher": "openai_chat",
+    "placement": {
+      "ad_unit": "conversation"
+    },
+    "device": {
+      "platform": "web",
+      "form_factor": "desktop"
+    },
+    "geography": {
+      "country": "US"
+    }
+  },
+  "identity": {
+    "namespace": "platform_user",
+    "value_hash": "user_hash_abc123",
+    "confidence": 1.0
+  },
+  "extensions": {
+    "aip": {
+      "session_id": "sess_001",
+      "conversation_id": "conv_xyz789",
+      "turn_index": 3,
+      "query_text": "best CRM for small teams",
+      "messages": [
+        { "role": "user", "content": "best CRM tools?" },
+        { "role": "assistant", "content": "HubSpot, Zoho, Salesforce…" }
+      ],
+      "latency_budget_ms": 500,
+      "cpx_floor": 0.05
+    }
   }
 }
 ```
@@ -77,7 +105,7 @@ The operator normalizes the platform request and enriches it with intent analysi
 **Important**: The operator automatically fetches `allowed_formats` from the platform's configuration (set during onboarding). Platforms do not need to specify formats in requests.
 
 ### Key Fields:
-- `context_id`: Unique ID for this auction request (maps to `request_id`)
+- `context_id`: Unique ID for this auction request (maps to `message_id` from PlatformRequest)
 - `operator_id`: Identifier of the operator
 - `platform_type`: Platform type retrieved from agents collection (not sent by platform)
 - `query_text`: Normalized query text
@@ -495,7 +523,7 @@ Tracks wallet balances and transactions for brand agents.
 └────────┬────────┘
          │
          │ 1. PlatformRequest
-         │    (request_id, query_text, locale, geo, cpx_floor)
+         │    (message_id, query_text, locale, geo, cpx_floor)
          │
          ▼
 ┌─────────────────┐
@@ -568,9 +596,9 @@ Tracks wallet balances and transactions for brand agents.
 ## Key Identifiers Flow
 
 ```
-request_id (PlatformRequest)
+message_id (PlatformRequest)
     ↓
-context_id (ContextRequest) ← maps to request_id
+context_id (ContextRequest) ← maps to message_id
     ↓
 bid_id (Bid) ← references context_id
     ↓
