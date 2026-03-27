@@ -1,0 +1,82 @@
+{
+  "$id": "https://aip.org/schemas/event-delegation-started.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DelegationStartedEvent",
+  "description": "Lifecycle event fired when a user consents to a delegated handoff and the delegated session starts.",
+  "type": "object",
+  "required": [
+    "event_type",
+    "serve_token",
+    "session_id",
+    "platform_id",
+    "agent_id",
+    "delegation_session_id",
+    "ts"
+  ],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "const": "delegation_started",
+      "description": "Lifecycle event type identifier",
+      "example": "delegation_started"
+    },
+    "serve_token": {
+      "type": "string",
+      "description": "Serve token from the PlatformResponse",
+      "example": "stk_abcxyz123"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Platform session identifier",
+      "example": "sess_001"
+    },
+    "platform_id": {
+      "type": "string",
+      "description": "Platform identifier",
+      "example": "pf_chatapp"
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "Winning brand agent or advertiser identifier",
+      "example": "ba_451"
+    },
+    "delegation_session_id": {
+      "type": "string",
+      "description": "Operator-defined delegated session identifier",
+      "example": "del_sess_001"
+    },
+    "delegation_metadata": {
+      "type": "object",
+      "properties": {
+        "context_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": ["location", "cart_state"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the delegation started",
+      "example": "2025-11-14T18:01:00Z"
+    }
+  },
+  "examples": [
+    {
+      "event_type": "delegation_started",
+      "serve_token": "stk_abcxyz123",
+      "session_id": "sess_001",
+      "platform_id": "pf_chatapp",
+      "agent_id": "ba_451",
+      "delegation_session_id": "del_sess_001",
+      "delegation_metadata": {
+        "context_scope": ["location", "cart_state"]
+      },
+      "ts": "2025-11-14T18:01:00Z"
+    }
+  ]
+}

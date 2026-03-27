@@ -1,27 +1,26 @@
 {
   "serve_token": "stk_abcxyz123",
-  "session_id": "s_001",
-  "platform_id": "pf_chatapp",
-  "agent_id": "ag_123",
+  "session_id": "sess_001",
   "auction_id": "auc_981",
+  "platform_id": "openai_chat",
+  "brand_agent_id": "brand_agent_123",
   "state": "FINALIZED",
+  "reserved_unit": "CPA",
+  "reserved_amount_micros": 500000000,
   "final_unit": "CPA",
-  "final_charge": "10.00",
+  "final_amount_micros": 10000000,
   "currency": "USD",
   "timestamps": {
-    "auction": "2025-11-11T18:00:00Z",
-    "exposure": "2025-11-11T18:00:00Z",
-    "click": "2025-11-11T18:02:00Z",
-    "conversion": "2025-11-11T18:30:00Z",
-    "finalized": "2025-11-11T19:00:00Z"
-  },
-  "charges": {
-    "cpx": "0.034",
-    "cpc": "0.45",
-    "cpa": "10.00"
+    "auction": "2026-03-27T18:22:02Z",
+    "exposure_shown": "2026-03-27T18:22:05Z",
+    "interaction_started": "2026-03-27T18:22:20Z",
+    "delegation_started": "2026-03-27T18:22:25Z",
+    "delegation_activity_last_seen": "2026-03-27T18:24:00Z",
+    "task_completed": "2026-03-27T18:30:00Z",
+    "finalized": "2026-03-27T18:31:00Z"
   },
   "revenue_share": {
-    "platform_share": "3.00",
-    "network_share": "7.00"
+    "platform_micros": 3000000,
+    "operator_micros": 7000000
   }
 }

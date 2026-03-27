@@ -1,6 +1,6 @@
 {
   "spec_version": "1.0",
-  "context_id": "ctx_valid",
+  "context_id": "ctx_invalid",
   "source_request_id": "req_valid_001",
   "timestamp": "2026-03-27T18:22:00Z",
   "operator": {
@@ -25,8 +25,7 @@
   "intent": {
     "type": "commercial",
     "decision_phase": "consideration",
-    "confidence": 0.87,
-    "summary": "User is narrowing down CRM vendors for a startup team."
+    "confidence": 0.87
   },
   "allowed_formats": ["weave", "product_card"]
 }

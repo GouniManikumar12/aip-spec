@@ -1,26 +1,35 @@
 {
   "schemas": [
+    "schemas/platform-request.json",
     "schemas/context-request.json",
     "schemas/bid.json",
     "schemas/auction-result.json",
-    "schemas/event-cpx-exposure.json",
-    "schemas/event-cpc-click.json",
-    "schemas/event-cpa-conversion.json",
+    "schemas/event-exposure-shown.json",
+    "schemas/event-interaction-started.json",
+    "schemas/event-delegation-started.json",
+    "schemas/event-delegation-activity.json",
+    "schemas/event-delegation-expired.json",
+    "schemas/event-task-completed.json",
     "schemas/ledger-record.json"
   ],
   "valid": [
+    "tests/valid/platform-request-001.json",
     "tests/valid/context-001.json",
     "tests/valid/bid-001.json",
     "tests/valid/auction-001.json",
-    "tests/valid/cpx-001.json",
-    "tests/valid/cpc-001.json",
-    "tests/valid/cpa-001.json"
+    "tests/valid/exposure-001.json",
+    "tests/valid/interaction-001.json",
+    "tests/valid/delegation-started-001.json",
+    "tests/valid/delegation-activity-001.json",
+    "tests/valid/delegation-expired-001.json",
+    "tests/valid/task-completed-001.json"
   ],
   "invalid": [
-    "tests/invalid/context-missing-sig.json",
+    "tests/invalid/platform-request-extra-consent-flags.json",
+    "tests/invalid/context-missing-summary.json",
     "tests/invalid/bid-negative-values.json",
     "tests/invalid/auction-no-serve-token.json",
-    "tests/invalid/cpx-bad-session.json",
-    "tests/invalid/cpa-bad-window.json"
+    "tests/invalid/interaction-bad-settlement.json",
+    "tests/invalid/delegation-activity-bad-role.json"
   ]
 }

@@ -52,7 +52,7 @@
     },
     "reserved_unit": {
       "type": "string",
-      "enum": ["CPX", "CPC", "CPA"],
+      "enum": ["CPX", "CPC", "CPE", "CPA"],
       "description": "Pricing unit reserved at auction time",
       "example": "CPA"
     },
@@ -64,7 +64,7 @@
     },
     "final_unit": {
       "type": "string",
-      "enum": ["CPX", "CPC", "CPA"],
+      "enum": ["CPX", "CPC", "CPE", "CPA"],
       "description": "Final pricing unit applied after events",
       "example": "CPC"
     },
@@ -77,8 +77,7 @@
     "currency": {
       "type": "string",
       "pattern": "^[A-Z]{3}$",
-      "description": "Currency code (always USD)",
-      "enum": ["USD"],
+      "description": "Currency code",
       "example": "USD"
     },
     "timestamps": {
@@ -86,24 +85,29 @@
       "description": "Event timestamps",
       "properties": {
         "auction": { "type": "string", "format": "date-time" },
-        "exposure": { "type": "string", "format": "date-time" },
-        "click": { "type": "string", "format": "date-time" },
-        "conversion": { "type": "string", "format": "date-time" },
+        "exposure_shown": { "type": "string", "format": "date-time" },
+        "interaction_started": { "type": "string", "format": "date-time" },
+        "delegation_started": { "type": "string", "format": "date-time" },
+        "delegation_activity_last_seen": { "type": "string", "format": "date-time" },
+        "delegation_expired": { "type": "string", "format": "date-time" },
+        "task_completed": { "type": "string", "format": "date-time" },
         "finalized": { "type": "string", "format": "date-time" }
       },
       "example": {
         "auction": "2025-11-11T18:00:00Z",
-        "exposure": "2025-11-11T18:00:01Z",
-        "click": "2025-11-11T18:02:00Z",
+        "exposure_shown": "2025-11-11T18:00:01Z",
+        "interaction_started": "2025-11-11T18:02:00Z",
+        "delegation_activity_last_seen": "2025-11-11T18:18:00Z",
+        "task_completed": "2025-11-11T18:30:00Z",
         "finalized": "2025-11-11T19:00:00Z"
       }
     },
     "revenue_share": {
       "type": "object",
-      "description": "Revenue distribution breakdown (in USD micros)",
+      "description": "Revenue distribution breakdown",
       "properties": {
-        "platform_micros": { "type": "integer", "minimum": 0, "description": "Platform share in USD micros" },
-        "operator_micros": { "type": "integer", "minimum": 0, "description": "Operator share in USD micros" }
+        "platform_micros": { "type": "integer", "minimum": 0 },
+        "operator_micros": { "type": "integer", "minimum": 0 }
       },
       "example": {
         "platform_micros": 300000,

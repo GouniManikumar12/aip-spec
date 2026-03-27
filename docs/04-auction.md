@@ -1,22 +1,46 @@
 # 04 · Auction
 
-Each auction is initiated by a context request, followed by bid submissions, and culminates in a clearing decision.
+Each AIP auction starts from a `PlatformRequest`, is normalized into a `ContextRequest`, collects `Bid` responses from eligible Brand Agents, and ends with a `PlatformResponse`.
 
-1. **Context Request:** Defines the opportunity, constraints, and accountability metadata.
-2. **Bid Submission:** Bidders respond with price, creative payload, and signals.
-3. **Result Emission:** The clearinghouse communicates the winning bid, price, and settlement token.
+## Core rule
 
-Tie-breaking, pacing, and experimental arms are all codified within this chapter to ensure deterministic behavior.
+Selection logic is **operator-defined**.
 
-## Asynchronous Auction Window & Selective Distribution
+Pricing vectors influence operator scoring, but settlement ladders are not themselves a normative ranking algorithm. In particular:
 
-The AIP bidding model uses a **time-bounded asynchronous auction window** rather than full broadcast fanout. AI platforms submit a `platform_request` (Section 04.1) to the operator, who classifies the opportunity and derives the `context_request` that is distributed to subscribed brand agents. Only agents that have explicitly subscribed to the resulting category pools receive the context. Distribution to bidders is handled through a cloud-agnostic **publish/subscribe transport**, starting with Google Pub/Sub in v1.0 and extendable to AWS SNS/SQS, Azure Event Grid, Kafka, or other message buses. After publishing the context, the AIP Server opens a short **auction window** (typically 30–70 ms) during which bidders may submit signed bids via `POST /aip/bid-response`. When the window closes, the server collects all bids received within the allowed timeframe, applies the AIP selection rules (CPA > CPC > CPX), and returns the `auction_result` to the platform. If no bids are received before the window expires, the server returns a valid `no_bid` response. This design enables scalable, category-aware bidding, minimizes latency, prevents unnecessary bidder fanout, and ensures that only relevant brand agents compete for each user intent.
+- External click-out flows may settle as `CPX -> CPC -> CPA`
+- Delegated flows may settle as `CPX -> CPE -> CPA`
 
-## 04.1 PlatformRequest → ContextRequest
+Those are billing semantics, not a mandated sort order.
 
-| Stage | Schema | Audience | Purpose |
+## Auction window
+
+AIP uses a short, time-bounded asynchronous auction window.
+
+1. The Platform sends `platform-request.json` to the Operator.
+2. The Operator evaluates eligibility, policy, and intent.
+3. The Operator derives `context-request.json` and fans it out only to eligible Brand Agents.
+4. Brand Agents return `bid.json` payloads before the response window closes.
+5. The Operator applies operator-defined ranking and returns `auction-result.json`.
+
+If no eligible response arrives before the window closes, the Operator returns a valid `PlatformResponse` with `status = "no_match"`.
+
+## Request surfaces
+
+| Stage | Schema | Direction | Purpose |
 | --- | --- | --- | --- |
-| Ingress | `platform-request` | AI Platform → Operator | Raw user intent, safety context, and transport auth. |
-| Fanout | `context-request` | Operator → Brand Agents | Normalized context with pool classification and any operator annotations. |
+| Ingress | `platform-request.json` | Platform -> Operator | Raw interaction or provided-signal input, consent state, and monetization hints |
+| Fanout | `context-request.json` | Operator -> Brand Agents | Intent-safe, operator-derived auction context |
+| Response | `bid.json` | Brand Agent -> Operator | Pricing, targeting, recommendation payload, and optional delegation capability |
+| Result | `auction-result.json` | Operator -> Platform | Winner, render payload, delegation availability, and `serve_token` |
 
-Operators MAY redact, enrich, or reformat data between the two payloads. Vendor-specific metadata MUST live inside the `metadata.<vendor_id>` namespace to avoid collisions and to simplify future promotions into the core spec.
+## No-match behavior
+
+`no_match` means the auction completed without a fill. It is not an error, and no billable lifecycle begins.
+
+## Delegation in auction results
+
+When the selected Brand Agent supports delegated execution, the `PlatformResponse` may surface a `delegation` object. That object indicates availability and activation semantics, but delegation does not begin until:
+
+1. the user explicitly consents, and
+2. the Operator confirms session creation and records `delegation_started`.

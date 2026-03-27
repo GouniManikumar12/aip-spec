@@ -1,27 +1,49 @@
 {
-  "bid_id": "bid_valid",
-  "brand_agent_id": "brand_agent_valid",
+  "spec_version": "1.0",
+  "bid_id": "bid_valid_001",
+  "brand_agent_id": "brand_agent_123",
   "context_id": "ctx_valid",
-  "wallet_id": "wallet_valid",
-  "pricing": {
-    "cpx": "0.05",
-    "cpc": "0.40",
-    "currency": "USD",
-    "preferred_pricing_model": "CPC"
+  "wallet_id": "wallet_123",
+  "targeting": {
+    "intent_types": ["commercial"],
+    "decision_phases": ["consideration", "decision"]
   },
-  "offer": {
+  "pricing": {
+    "currency": "USD",
+    "cpx_micros": 50000,
+    "cpe_micros": 700000,
+    "preferred_pricing_model": "CPE"
+  },
+  "budget": {
+    "max_bid_per_event_micros": 10000000,
+    "daily_cap_micros": 50000000,
+    "remaining_budget_micros": 32000000,
+    "pacing_mode": "even"
+  },
+  "recommendation": {
     "creative_input": {
-      "brand_name": "Wayne Enterprises",
-      "product_name": "Wayne CRM",
-      "descriptions": ["Secure CRM with Gotham-grade reliability."],
-      "value_props": ["On-prem control", "AI follow-ups"],
-      "resource_urls": ["https://wayne.example/crm"],
-      "image_urls": ["https://cdn.example.com/wayne/crm.png"]
+      "brand_name": "Nimbus",
+      "product_name": "Nimbus CRM Pro",
+      "short_description": "CRM built for growing teams, with AI-assisted workflows.",
+      "long_description": "Nimbus CRM Pro helps small sales teams manage pipeline and follow-ups with built-in AI guidance.",
+      "value_props": ["Automated pipeline insights"],
+      "context_snippet": "For small sales teams comparing CRM tools with automation and guided setup.",
+      "cta_label": "Start Free Trial",
+      "cta_url": "https://nimbus.example.com/signup",
+      "assets": {
+        "logo_url": "https://cdn.example.com/nimbus/logo.png",
+        "image_urls": ["https://cdn.example.com/nimbus/crm.png"],
+        "resource_urls": ["https://nimbus.example.com/signup"]
+      }
     }
   },
-  "timestamp": "2025-03-01T12:00:01Z",
-  "auth": {
-    "nonce": "nonce_valid",
-    "signature": "sig_valid_bid"
-  }
+  "declared_relevance": 0.87,
+  "supported_opportunities": ["comparison_slot"],
+  "preferred_format": "weave",
+  "format_constraints": {
+    "max_responses": 1,
+    "ranking": "operator_defined"
+  },
+  "valid_until": "2026-03-27T18:25:00Z",
+  "timestamp": "2026-03-27T18:22:01Z"
 }

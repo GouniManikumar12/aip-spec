@@ -1,344 +1,342 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aip.dev/schemas/context-request-v1.0.json",
   "title": "ContextRequest",
-  "description": "Normalized request sent from an AIP operator to Brand Agents to request bids. UCP (User Context Protocol) aligned structure with flat top-level and single nested context object. Note: message_id MUST equal context.context_id (enforced invariant).",
+  "description": "Operator-generated auction context sent to downstream brand agents after consent, policy, and eligibility have already been resolved.",
   "type": "object",
   "required": [
     "spec_version",
-    "message_id",
+    "context_id",
+    "source_request_id",
     "timestamp",
-    "producer",
-    "context",
-    "consent",
-    "usage_constraints",
-    "session_id",
-    "turn_index"
+    "operator",
+    "platform",
+    "session",
+    "surface",
+    "intent",
+    "allowed_formats"
   ],
+  "additionalProperties": false,
+
   "properties": {
     "spec_version": {
       "type": "string",
-      "description": "UCP specification version",
-      "example": "aip/1.0"
+      "const": "1.0"
     },
-    "message_id": {
+
+    "context_id": {
       "type": "string",
-      "description": "Unique message ID for this context request. MUST equal context.context_id (enforced invariant).",
-      "example": "ctx_92fA1"
+      "minLength": 1,
+      "description": "Unique identifier for this operator-generated ContextRequest."
     },
+
+    "source_request_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Reference to the originating PlatformRequest.request_id."
+    },
+
     "timestamp": {
       "type": "string",
       "format": "date-time",
-      "description": "ISO timestamp of the event",
-      "example": "2025-11-14T18:22:00Z"
+      "description": "RFC 3339 timestamp when the operator generated this ContextRequest."
     },
-    "producer": {
-      "type": "object",
-      "required": ["agent_id", "agent_role", "software", "software_version"],
-      "properties": {
-        "agent_id": {
-          "type": "string",
-          "description": "Identifier of the operator sending this request",
-          "example": "admesh_operator"
-        },
-        "agent_role": {
-          "type": "string",
-          "description": "Role of the agent, typically 'seller' for operators",
-          "example": "seller"
-        },
-        "software": {
-          "type": "string",
-          "description": "Software name",
-          "example": "admesh_operator"
-        },
-        "software_version": {
-          "type": "string",
-          "description": "Software version",
-          "example": "1.0.0"
-        }
-      }
+
+    "operator": {
+      "$ref": "#/$defs/operator"
     },
-    "session_id": {
-      "type": "string",
-      "description": "Conversation/session identifier",
-      "example": "sess_001"
+
+    "platform": {
+      "$ref": "#/$defs/platform"
     },
-    "conversation_id": {
-      "type": "string",
-      "description": "Optional conversation session from platform",
-      "example": "conv_xyz789"
+
+    "session": {
+      "$ref": "#/$defs/session"
     },
-    "turn_index": {
-      "type": "integer",
-      "minimum": 0,
-      "description": "How many turns into the session the user is",
-      "example": 3
+
+    "surface": {
+      "$ref": "#/$defs/surface"
     },
-    "latency_budget_ms": {
-      "type": "integer",
-      "description": "How long the platform will wait for an ad response (milliseconds)",
-      "example": 500
+
+    "auction": {
+      "$ref": "#/$defs/auction"
     },
+
+    "intent": {
+      "$ref": "#/$defs/intent"
+    },
+
+    "verticals": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Normalized topical verticals identified by the operator."
+    },
+
     "allowed_formats": {
       "type": "array",
-      "description": "Creative formats allowed by the operator for rendering",
       "items": {
         "type": "string",
-        "enum": ["weave", "tail", "product_card", "bridge", "citation"]
+        "enum": ["weave", "tail", "product_card", "bridge"]
       },
-      "example": ["weave", "citation", "product_card"]
+      "description": "Creative formats allowed by the operator for rendering."
     },
-    "context": {
-      "type": "object",
-      "required": ["context_id", "language", "publisher", "placement", "device", "geography", "intent", "verticals"],
-      "properties": {
-        "context_id": {
-          "type": "string",
-          "description": "Unique context ID for this auction request. MUST equal message_id (enforced invariant).",
-          "example": "ctx_92fA1"
-        },
-        "language": {
-          "type": "string",
-          "pattern": "^[a-z]{2}-[A-Z]{2}$",
-          "description": "User locale in BCP 47 format",
-          "example": "en-US"
-        },
-        "publisher": {
-          "type": "string",
-          "description": "Identifier of the source AI platform",
-          "example": "openai_chat"
-        },
-        "placement": {
-          "type": "object",
-          "required": ["ad_unit"],
-          "properties": {
-            "ad_unit": {
-              "type": "string",
-              "description": "Platform surface type: chat, voice, browser, extension, ui panel, etc.",
-              "example": "conversation"
-            }
-          }
-        },
-        "device": {
-          "type": "object",
-          "required": ["platform", "form_factor"],
-          "properties": {
-            "platform": {
-              "type": "string",
-              "description": "Device platform: web, mobile, etc.",
-              "example": "web"
-            },
-            "form_factor": {
-              "type": "string",
-              "enum": ["mobile", "desktop", "tablet"],
-              "description": "Device form factor",
-              "example": "desktop"
-            }
-          }
-        },
-        "geography": {
-          "type": "object",
-          "required": ["country"],
-          "properties": {
-            "country": {
-              "type": "string",
-              "pattern": "^[A-Z]{2}$",
-              "description": "User country code (ISO 3166-1 alpha-2)",
-              "example": "US"
-            }
-          }
-        },
-        "intent": {
-          "type": "object",
-          "required": ["type", "decision_phase", "confidence", "summary"],
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": ["informational", "commercial", "transactional"],
-              "description": "High-level intent classification",
-              "example": "commercial"
-            },
-            "decision_phase": {
-              "type": "string",
-              "enum": ["awareness", "consideration", "compare", "decision"],
-              "description": "Commercial funnel decision phase",
-              "example": "compare"
-            },
-            "confidence": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1,
-              "description": "Confidence score for intent classification",
-              "example": 0.87
-            },
-            "summary": {
-              "type": "string",
-              "description": "Short operator-generated summary of the relevant conversation context (sanitized, no raw queries)",
-              "example": "User is comparing CRM tools for a small team."
-            }
-          }
-        },
-        "verticals": {
-          "type": "array",
-          "description": "Normalized topical verticals identified by the operator",
-          "items": {
-            "type": "string"
-          },
-          "example": ["crm", "smb_software"]
-        }
-      }
-    },
-    "embeddings": {
-      "type": "array",
-      "description": "Array of embedding vectors (optional, may be added by operator)",
-      "items": {
-        "type": "object",
-        "required": ["id", "type", "dimension", "origin"],
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Embedding identifier",
-            "example": "emb_intent"
-          },
-          "type": {
-            "type": "string",
-            "description": "Embedding type",
-            "example": "user_intent"
-          },
-          "dimension": {
-            "type": "integer",
-            "description": "Embedding dimension",
-            "example": 256
-          },
-          "origin": {
-            "type": "object",
-            "properties": {
-              "text_window": {
-                "type": "string",
-                "description": "Text used to generate embedding",
-                "example": "CRM comparison for small teams"
-              },
-              "on_device": {
-                "type": "boolean",
-                "description": "Whether embedding was generated on device",
-                "example": false
-              }
-            }
-          }
-        }
-      }
-    },
+
     "consent": {
-      "type": "object",
-      "required": ["purposes", "permissible_uses", "ttl_seconds", "legal_basis"],
-      "properties": {
-        "purposes": {
-          "type": "array",
-          "description": "List of consent purposes",
-          "items": {
-            "type": "string"
-          },
-          "example": ["activation_scoring"]
-        },
-        "permissible_uses": {
-          "type": "array",
-          "description": "List of permissible uses",
-          "items": {
-            "type": "string"
-          },
-          "example": ["activation_scoring"]
-        },
-        "ttl_seconds": {
-          "type": "integer",
-          "description": "Time to live in seconds",
-          "example": 900
-        },
-        "legal_basis": {
-          "type": "string",
-          "description": "Legal basis for consent",
-          "example": "contract"
-        }
-      }
+      "$ref": "#/$defs/downstreamConsent"
     },
+
     "usage_constraints": {
+      "$ref": "#/$defs/usageConstraints"
+    },
+
+    "extensions": {
       "type": "object",
-      "required": ["disallowed"],
-              "properties": {
-                "disallowed": {
-                  "type": "array",
-                  "description": "List of disallowed uses",
-                  "items": {
-                    "type": "string"
-                  },
-          "example": ["retargeting", "profiling", "storage", "cross_session_learning", "identity_resolution"]
-            }
-          }
+      "description": "Optional operator-defined extension metadata.",
+      "additionalProperties": true
     }
   },
-  "examples": [
-    {
-      "spec_version": "aip/1.0",
-      "message_id": "ctx_92fA1",
-      "timestamp": "2025-11-14T18:22:00Z",
-      "producer": {
-        "agent_id": "admesh_operator",
-        "agent_role": "seller",
-        "software": "admesh_operator",
-        "software_version": "1.0.0"
-      },
-      "session_id": "sess_001",
-      "conversation_id": "conv_xyz789",
-      "turn_index": 3,
-      "latency_budget_ms": 500,
-      "allowed_formats": ["weave", "citation", "product_card"],
-      "context": {
-        "context_id": "ctx_92fA1",
-        "language": "en-US",
-        "publisher": "openai_chat",
-        "placement": {
-          "ad_unit": "conversation"
+
+  "$defs": {
+    "operator": {
+      "type": "object",
+      "required": ["operator_id"],
+      "additionalProperties": false,
+      "properties": {
+        "operator_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the operator that generated this ContextRequest."
+        }
+      }
+    },
+
+    "platform": {
+      "type": "object",
+      "required": ["platform_id", "software"],
+      "additionalProperties": false,
+      "properties": {
+        "platform_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the upstream AI platform where the interaction originated."
         },
-        "device": {
-          "platform": "web",
-          "form_factor": "desktop"
-        },
-        "geography": {
-          "country": "US"
-        },
-        "intent": {
-          "type": "commercial",
-          "decision_phase": "compare",
-          "confidence": 0.87,
-          "summary": "User is comparing CRM tools for a small team."
-        },
-        "verticals": ["crm", "smb_software"]
-      },
-      "embeddings": [
-        {
-          "id": "emb_intent",
-          "type": "user_intent",
-          "dimension": 256,
-          "origin": {
-            "text_window": "CRM comparison for small teams",
-            "on_device": false
+        "software": {
+          "type": "object",
+          "required": ["name", "version"],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Software or product name."
+            },
+            "version": {
+              "type": "string",
+              "description": "Software version or model identifier."
+            }
           }
         }
-      ],
-      "consent": {
-        "purposes": ["activation_scoring"],
-        "permissible_uses": ["activation_scoring"],
-        "ttl_seconds": 900,
-        "legal_basis": "contract"
-      },
-          "usage_constraints": {
-            "disallowed": [
-              "retargeting",
-              "profiling",
-              "storage",
-          "cross_session_learning",
-          "identity_resolution"
-            ]
+      }
+    },
+
+    "session": {
+      "type": "object",
+      "required": ["id", "turn_index"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Conversation or interaction session identifier."
+        },
+        "turn_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "How many turns into the session the user is."
+        }
+      }
+    },
+
+    "surface": {
+      "type": "object",
+      "required": ["channel", "interaction_mode", "platform"],
+      "additionalProperties": false,
+      "properties": {
+        "channel": {
+          "type": "string",
+          "enum": [
+            "conversation",
+            "search_result",
+            "assistant_panel",
+            "embedded_assistant",
+            "voice_assistant"
+          ],
+          "description": "Platform surface type where the interaction occurs."
+        },
+        "interaction_mode": {
+          "type": "string",
+          "enum": ["text", "voice", "multimodal"],
+          "description": "Primary interaction modality."
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["web", "mobile", "desktop_app", "browser_extension", "api", "other"],
+          "description": "Runtime platform type."
+        },
+        "form_factor": {
+          "type": "string",
+          "enum": ["mobile", "desktop", "tablet", "speaker", "other"],
+          "description": "Device form factor."
+        },
+        "country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "User country code (ISO 3166-1 alpha-2)."
+        },
+        "locale": {
+          "type": "string",
+          "description": "User locale in BCP 47 format (e.g. en-US)."
+        }
+      }
+    },
+
+    "auction": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "latency_budget_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum time in milliseconds brand agents have to respond."
+        },
+        "context_window_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Time window in milliseconds within which the auction context is valid."
+        }
+      }
+    },
+
+    "intent": {
+      "type": "object",
+      "required": ["type", "decision_phase", "confidence", "summary"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "commercial",
+            "transactional",
+            "informational",
+            "navigational",
+            "support",
+            "unsafe",
+            "unknown"
+          ],
+          "description": "High-level intent classification."
+        },
+        "subtype": {
+          "type": "string",
+          "description": "Interaction pattern subtype (e.g. comparison, product_discovery)."
+        },
+        "decision_phase": {
+          "type": "string",
+          "enum": ["awareness", "research", "consideration", "decision", "action", "post_purchase", "support"],
+          "description": "Commercial funnel decision phase."
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Calibrated confidence score for the intent classification."
+        },
+        "summary": {
+          "type": "string",
+          "description": "Operator-generated bid-safe summary. MUST NOT contain raw user queries or message content."
+        },
+        "relevance_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Operator-computed relevance score for auction ranking."
+        },
+        "iab_content": {
+          "$ref": "#/$defs/iabContent"
+        }
+      }
+    },
+
+    "iabContent": {
+      "type": "object",
+      "required": ["taxonomy", "taxonomy_version", "tier1"],
+      "additionalProperties": false,
+      "description": "IAB Content Taxonomy mapping for the classified intent.",
+      "properties": {
+        "taxonomy": {
+          "type": "string",
+          "description": "Taxonomy name (e.g. IAB Content Taxonomy)."
+        },
+        "taxonomy_version": {
+          "type": "string",
+          "description": "Taxonomy version (e.g. 3.1)."
+        },
+        "tier1": {
+          "type": "string",
+          "description": "Top-level IAB category."
+        },
+        "tier2": {
+          "type": "string",
+          "description": "Second-level IAB category."
+        },
+        "tier3": {
+          "type": "string",
+          "description": "Third-level IAB category."
+        },
+        "tier4": {
+          "type": "string",
+          "description": "Fourth-level IAB category."
+        }
+      }
+    },
+
+    "downstreamConsent": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Downstream-effective consent permissions relevant to brand agents.",
+      "properties": {
+        "agent_participation": {
+          "type": "boolean",
+          "description": "Whether the user has consented to brand agent participation."
+        },
+        "measurement": {
+          "type": "boolean",
+          "description": "Whether the user has consented to measurement and attribution."
+        }
+      }
+    },
+
+    "usageConstraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Explicit usage restrictions that downstream brand agents MUST respect.",
+      "properties": {
+        "may_store": {
+          "type": "boolean",
+          "description": "Whether the brand agent may store the context data."
+        },
+        "may_train": {
+          "type": "boolean",
+          "description": "Whether the brand agent may use the data for model training."
+        },
+        "may_forward": {
+          "type": "boolean",
+          "description": "Whether the brand agent may forward the data to third parties."
+        },
+        "retention_ttl_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum retention time in seconds. Data MUST be discarded after this TTL."
+        }
       }
     }
-  ],
-  "$id": "https://aip.org/schemas/context-request.json"
+  }
 }

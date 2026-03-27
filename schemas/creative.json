@@ -7,7 +7,7 @@
   "properties": {
     "format": {
       "type": "string",
-      "enum": ["weave", "tail", "product_card", "bridge"],
+      "enum": ["weave", "tail", "product_card", "bridge", "followup"],
       "description": "Ad format type",
       "example": "weave"
     },
@@ -97,6 +97,11 @@
       "format": "uri",
       "description": "Bridge format: link to product documentation or setup guide. Used in followup sponsored recommendations.",
       "example": "https://docs.nimbus.com/getting-started"
+    },
+    "followup_query": {
+      "type": "string",
+      "description": "Followup format: sponsored query string to execute when user selects the follow-up (also used as display text). Used in headless follow-up ad format for AI platforms with existing follow-up suggestion UI.",
+      "example": "Compare Nimbus CRM Pro vs Salesforce pricing and features"
     }
   },
   "oneOf": [
@@ -123,6 +128,12 @@
         "format": { "const": "bridge" }
       },
       "required": ["format", "bridge_content"]
+    },
+    {
+      "properties": {
+        "format": { "const": "followup" }
+      },
+      "required": ["format", "followup_query"]
     }
   ],
   "additionalProperties": false,
@@ -158,6 +169,10 @@
       "format": "bridge",
       "bridge_content": "To set up Nimbus CRM Pro, install the package using npm install @nimbus/crm-pro. Then configure your API key in the environment variables. See the documentation for detailed setup instructions.",
       "documentation_url": "https://docs.nimbus.com/getting-started"
+    },
+    {
+      "format": "followup",
+      "followup_query": "Compare Nimbus CRM Pro vs Salesforce pricing and features"
     }
   ],
   "$id": "https://aip.org/schemas/creative.json"

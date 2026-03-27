@@ -1,167 +1,82 @@
 # 05 · Events & States
 
-Every measurable action in AIP is recorded as an **Event**.
-Events are how the protocol verifies that value was created — from a user seeing an ad to completing a conversion.
+Every measurable action in AIP is recorded as an event. Events are how the protocol proves participation, interaction, delegation, and outcome for fair settlement.
 
-## Overview
+## Lifecycle events
 
-Traditional ad systems rely on cookies or opaque tracking pixels.
-AIP replaces those with **signed, timestamped events** that can be independently verified by all participants.
+| Event | `event_type` | Trigger | Settlement | Typical reporter |
+| --- | --- | --- | --- | --- |
+| Exposure shown | `exposure_shown` | Commercial response is surfaced | `CPX` | Platform |
+| Interaction started | `interaction_started` | User engages with the response | `CPC` or `CPE` | Platform |
+| Delegation started | `delegation_started` | User consented and delegated session was initiated | Non-billable | Operator |
+| Delegation activity | `delegation_activity` | Platform or Brand Agent proves the session is active | Non-billable | Platform or Brand Agent |
+| Delegation expired | `delegation_expired` | Operator marks session inactive before outcome | Non-billable | Operator |
+| Task completed | `task_completed` | User finishes signup, purchase, or another billable task | `CPA` | Brand Agent or Operator-verified downstream source |
 
-This means:
-- No duplicate billing
-- No fake clicks or conversions
-- Transparent proof of every monetized action
+Only the highest-value verified event is billable per `serve_token`.
 
-## The Event Ladder
+## Settlement semantics
 
-AIP defines three progressive event types — each building on the last.
-Only **one unit** settles per `serve_token`.
+AIP separates event verification from ranking:
 
-| Event Type | Event Name | Trigger | Billing Unit | Verified By |
-|-------------|------------|----------|---------------|--------------|
-| **Exposure** | `cpx_exposure` | User sees an ad or recommendation | Cost per Exposure (CPX) | Platform |
-| **Click** | `cpc_click` | User clicks or engages | Cost per Click (CPC) | Platform + Ad Network |
-| **Conversion** | `cpa_conversion` | User completes a purchase or signup | Cost per Action (CPA) | Brand Agent + Ad Network |
+- Operators define ranking and auction logic.
+- Event ladders define what may settle after a result is shown.
 
-Once a higher event (like CPA) is verified, lower-tier events (CPX or CPC) are not billed again.
+Canonical billing paths:
 
-## Event Lifecycle
+- External click-out: `CPX -> CPC -> CPA`
+- Delegated session: `CPX -> CPE -> CPA`
 
-```
-[Context Request] → [Async Auction Window & Bid Responses] → [Auction Result or no_bid] → [Exposure] → [Click] → [Conversion] → [Finalized]
-```
+## Recommend mode
 
-Each transition is verified and timestamped.
-If no further event occurs, the lifecycle ends at the last verified state.
-During the asynchronous auction stage, bidders push signed payloads to `POST /aip/bid-response` while the window is open. Only bids accepted within the 30–70 ms window advance the ledger to `PENDING`; a `no_bid` outcome records the auction but skips the exposure stage entirely.
-
-## Event Schemas
-
-### CPX Exposure Event
-
-Event type: `cpx_exposure`
-
-**Required Fields:**
-- `event_type`: Always `"cpx_exposure"`
-- `serve_token`: Serve token from the auction result
-- `session_id`: Session identifier
-- `platform_id`: Platform identifier
-- `agent_id`: Winning advertiser agent identifier
-- `wallet_id`: Wallet to charge for this exposure
-- `pricing`: Object containing `unit` (CPX), `amount`, and `currency` (USD)
-- `ts`: ISO 8601 timestamp
-
-**Optional Fields:**
-- `exposure_metadata`: Additional context (surface, position, visibility_ms)
-
-See: `schemas/event-cpx-exposure.json`
-
-### CPC Click Event
-
-Event type: `cpc_click`
-
-**Required Fields:**
-- `event_type`: Always `"cpc_click"`
-- `serve_token`: Serve token from the auction result
-- `event_id`: Unique identifier for this click event
-- `ts`: ISO 8601 timestamp
-
-**Optional Fields:**
-- `s2s`: Whether this is a server-to-server event
-- `click_metadata`: Additional context (user_agent, ip_address, referrer)
-
-See: `schemas/event-cpc-click.json`
-
-### CPA Conversion Event
-
-Event type: `cpa_conversion`
-
-**Required Fields:**
-- `event_type`: Always `"cpa_conversion"`
-- `serve_token`: Serve token from the auction result
-- `conversion_id`: Unique identifier for this conversion
-- `conversion_type`: Type of conversion (signup, purchase, trial_start, demo_request, download, custom)
-- `ts`: ISO 8601 timestamp
-
-**Optional Fields:**
-- `order_value_cents`: Order value in cents (for purchase conversions)
-- `currency`: Currency code for order value
-- `conversion_metadata`: Additional context (user_id, order_id, product_ids)
-
-See: `schemas/event-cpa-conversion.json`
-
-## State Machine
-
-Ledger records transition through the following states:
-
-| State | Description |
-|-------|-------------|
-| `PENDING` | Auction completed, awaiting exposure |
-| `EXPOSED` | CPX exposure event received |
-| `CLICKED` | CPC click event received |
-| `CONVERTED` | CPA conversion event received |
-| `FINALIZED` | Final billing completed |
-| `REFUNDED` | Charge was refunded |
-
-### State Transitions
-
-```
-PENDING → EXPOSED → CLICKED → CONVERTED → FINALIZED
-                                         ↓
-                                    REFUNDED
+```text
+PlatformResponse -> exposure_shown -> interaction_started -> task_completed
 ```
 
-**Transition Rules:**
-- `PENDING` → `EXPOSED`: When `cpx_exposure` event is received
-- `EXPOSED` → `CLICKED`: When `cpc_click` event is received
-- `CLICKED` → `CONVERTED`: When `cpa_conversion` event is received
-- Any state → `FINALIZED`: When billing window closes and final charge is determined
-- `FINALIZED` → `REFUNDED`: When a refund is issued
+If no higher event occurs, settlement remains at the highest verified lower event.
 
-## Event Verification
+## Delegate mode
 
-Each event must include:
-1. **Serve Token**: Links the event to a specific auction result
-2. **Timestamp**: ISO 8601 format, used for deduplication and ordering
-3. **Event Type**: One of `cpx_exposure`, `cpc_click`, `cpa_conversion`
+```text
+PlatformResponse -> exposure_shown -> delegation_started
+                                     -> delegation_activity (0..n)
+                                     -> delegation_expired | task_completed
+```
 
-### Deduplication
+`delegation_started` proves session initiation only. It does not mean the Operator transports or inspects every later delegated turn.
 
-Events are deduplicated based on:
-- `serve_token` + `event_type` combination
-- For CPC events: `serve_token` + `event_id`
-- For CPA events: `serve_token` + `conversion_id`
+## Inactivity and liveness
 
-### Retry Semantics
+Delegated sessions are governed by inactivity timeout:
 
-- Events can be retried with the same identifiers
-- Duplicate events (same serve_token + event_type) are ignored
-- Timestamps are used to determine event order
-- Out-of-order events are rejected (e.g., CPA before CPX)
+- `session_timeout_seconds` is an inactivity timer declared in the winning bid
+- each verified `delegation_activity` resets that timer
+- both Platform and Brand Agent may emit `delegation_activity`
+- if the timer elapses before `task_completed`, the Operator records `delegation_expired`
 
-## Ledger Integration
+## Ledger states
 
-Each event updates the ledger record:
+Ledger records summarize the lifecycle at settlement time:
 
-1. **CPX Exposure**: Creates or updates ledger with exposure timestamp and CPX charge
-2. **CPC Click**: Updates ledger state to CLICKED, adds CPC charge
-3. **CPA Conversion**: Updates ledger state to CONVERTED, adds CPA charge
+| State | Meaning |
+| --- | --- |
+| `PENDING` | Auction completed and a result exists |
+| `EXPOSED` | Exposure was verified |
+| `CLICKED` | Interaction was verified in a click-out flow |
+| `CONVERTED` | Final task outcome was verified |
+| `FINALIZED` | Final settlement completed |
+| `REFUNDED` | Finalized settlement was later adjusted or refunded |
 
-The ledger maintains:
-- All event timestamps
-- Progressive charge updates (CPX → CPC → CPA)
-- Final billing unit and amount
-- Revenue share distribution
+The ledger record stores timestamps for exposure, interaction, delegation start, delegation liveness, expiry, and final outcome so the Operator can reconcile the lifecycle without double-billing.
 
-See: `schemas/ledger-record.json`
+## Verification principles
 
-## Example Flow
+Every event must include:
 
-1. **Auction completes**: Ledger created in `PENDING` state
-2. **User sees ad**: Platform sends `cpx_exposure` event → State: `EXPOSED`
-3. **User clicks**: Platform sends `cpc_click` event → State: `CLICKED`
-4. **User converts**: Brand Agent sends `cpa_conversion` event → State: `CONVERTED`
-5. **Billing window closes**: Ledger finalized → State: `FINALIZED`
+- `event_type`
+- `serve_token`
+- `ts`
 
-Final charge: CPA amount (CPX and CPC charges are superseded)
+Event-specific fields then provide the actor identity, settlement metadata, or delegation session metadata required for verification.
+
+Operators are responsible for deduplication, event ordering, trust checks, and final settlement. AIP standardizes the event vocabulary and lifecycle semantics, not a single universal verification implementation.

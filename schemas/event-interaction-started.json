@@ -1,29 +1,29 @@
 {
-  "$id": "https://aip.org/schemas/event-cpc-click.json",
+  "$id": "https://aip.org/schemas/event-interaction-started.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "CPCClickEvent",
-  "description": "Event fired when the user clicks or engages with the ad. Triggers CPC billing unless upgraded to CPA.",
+  "title": "InteractionStartedEvent",
+  "description": "Lifecycle event fired when the user starts interacting with a commercial response.",
   "type": "object",
   "required": [
     "event_type",
     "serve_token",
     "session_id",
     "platform_id",
-    "brand_agent_id",
+    "agent_id",
     "wallet_id",
-    "pricing",
-    "timestamp"
+    "settlement",
+    "ts"
   ],
   "properties": {
     "event_type": {
       "type": "string",
-      "const": "cpc_click",
-      "description": "Click event type identifier.",
-      "example": "cpc_click"
+      "const": "interaction_started",
+      "description": "Lifecycle event type identifier.",
+      "example": "interaction_started"
     },
     "serve_token": {
       "type": "string",
-      "description": "Serve token from auction-result. Used to stitch CPX → CPC → CPA chain.",
+      "description": "Serve token from the PlatformResponse. Used to stitch exposure, interaction, delegation, and outcome events.",
       "example": "stk_abcxyz123"
     },
     "session_id": {
@@ -36,43 +36,49 @@
       "description": "Platform generating the click event.",
       "example": "pf_openai_chat"
     },
-    "brand_agent_id": {
+    "agent_id": {
       "type": "string",
-      "description": "Winning brand agent who created the bid.",
+      "description": "Winning brand agent or advertiser identifier.",
       "example": "ba_451"
     },
     "wallet_id": {
       "type": "string",
-      "description": "Wallet to charge for this click.",
+      "description": "Wallet to charge for this interaction.",
       "example": "w_0021"
     },
-    "pricing": {
+    "settlement": {
       "type": "object",
-      "required": ["unit", "amount_cents"],
+      "required": ["unit", "amount_micros", "currency"],
       "properties": {
         "unit": {
           "type": "string",
-          "const": "CPC",
-          "description": "Billing unit for this event.",
+          "enum": ["CPC", "CPE"],
+          "description": "Settlement unit for this event.",
           "example": "CPC"
         },
-        "amount_cents": {
+        "amount_micros": {
           "type": "integer",
           "minimum": 0,
-          "description": "Charge amount in cents as defined by the brand agent's bid.",
-          "example": 45
+          "description": "Charge amount in micros as defined by the brand agent's bid.",
+          "example": 450000
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency code.",
+          "example": "USD"
         }
       },
       "additionalProperties": false
     },
-    "click_metadata": {
+    "interaction_metadata": {
       "type": "object",
-      "description": "Optional details about the click.",
+      "description": "Optional details about the interaction.",
       "properties": {
         "source": {
           "type": "string",
           "enum": ["deep_link", "button", "voice_confirmation", "agent_action"],
-          "description": "How the click/engagement occurred.",
+          "description": "How the interaction occurred.",
           "example": "deep_link"
         },
         "position": {
@@ -84,10 +90,10 @@
       },
       "additionalProperties": false
     },
-    "timestamp": {
+    "ts": {
       "type": "string",
       "format": "date-time",
-      "description": "ISO 8601 timestamp when the click occurred.",
+      "description": "ISO 8601 timestamp when the interaction occurred.",
       "example": "2025-11-14T18:00:02Z"
     },
     "ext": {
@@ -96,21 +102,22 @@
   },
   "examples": [
     {
-      "event_type": "cpc_click",
+      "event_type": "interaction_started",
       "serve_token": "stk_abcxyz123",
       "session_id": "sess_001",
       "platform_id": "pf_openai_chat",
-      "brand_agent_id": "ba_451",
+      "agent_id": "ba_451",
       "wallet_id": "w_0021",
-      "pricing": {
+      "settlement": {
         "unit": "CPC",
-        "amount_cents": 45
+        "amount_micros": 450000,
+        "currency": "USD"
       },
-      "click_metadata": {
+      "interaction_metadata": {
         "source": "deep_link",
         "position": 1
       },
-      "timestamp": "2025-11-14T18:00:02Z"
+      "ts": "2025-11-14T18:00:02Z"
     }
   ]
 }

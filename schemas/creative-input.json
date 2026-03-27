@@ -117,6 +117,11 @@
       "type": "string",
       "description": "Optional special offer summary (e.g., discounts, promotions). Included in creative_input when available.",
       "example": "Special offer: 50% off first year for teams"
+    },
+    "followup_query": {
+      "type": "string",
+      "description": "Optional sponsored follow-up query string to execute when user selects the follow-up. Used in headless follow-up ad format for AI platforms with existing follow-up suggestion UI. Generated automatically by brand-agents based on product and context.",
+      "example": "Compare Nimbus CRM Pro vs Salesforce pricing and features"
     }
   },
   "additionalProperties": false,

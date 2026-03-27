@@ -1,23 +1,48 @@
 {
-  "bid_id": "bid_invalid",
-  "brand_agent_id": "brand_agent_invalid",
+  "spec_version": "1.0",
+  "bid_id": "bid_invalid_001",
+  "brand_agent_id": "brand_agent_123",
   "context_id": "ctx_valid",
-  "wallet_id": "wallet_bad",
-  "pricing": {
-    "cpa": "12.00"
+  "wallet_id": "wallet_123",
+  "targeting": {
+    "intent_types": ["commercial"],
+    "decision_phases": ["consideration"]
   },
-  "offer": {
+  "pricing": {
+    "currency": "USD",
+    "cpe_micros": -700000,
+    "preferred_pricing_model": "CPE"
+  },
+  "budget": {
+    "max_bid_per_event_micros": 10000000,
+    "daily_cap_micros": 50000000,
+    "remaining_budget_micros": 32000000,
+    "pacing_mode": "even"
+  },
+  "recommendation": {
     "creative_input": {
-      "brand_name": "Bad Co",
-      "product_name": "Bad Product",
-      "descriptions": ["Bad copy"],
-      "value_props": ["Bad value"],
-      "resource_urls": ["https://bad.example"],
-      "image_urls": ["https://bad.example/image.png"]
+      "brand_name": "Nimbus",
+      "product_name": "Nimbus CRM Pro",
+      "short_description": "CRM built for growing teams, with AI-assisted workflows.",
+      "long_description": "Nimbus CRM Pro helps small sales teams manage pipeline and follow-ups with built-in AI guidance.",
+      "value_props": ["Automated pipeline insights"],
+      "context_snippet": "For small sales teams comparing CRM tools with automation and guided setup.",
+      "cta_label": "Start Free Trial",
+      "cta_url": "https://nimbus.example.com/signup",
+      "assets": {
+        "logo_url": "https://cdn.example.com/nimbus/logo.png",
+        "image_urls": ["https://cdn.example.com/nimbus/crm.png"],
+        "resource_urls": ["https://nimbus.example.com/signup"]
+      }
     }
   },
-  "timestamp": "2025-03-01T12:00:02Z",
-  "auth": {
-    "nonce": "nonce_bad"
-  }
+  "declared_relevance": 0.87,
+  "supported_opportunities": ["comparison_slot"],
+  "preferred_format": "weave",
+  "format_constraints": {
+    "max_responses": 1,
+    "ranking": "operator_defined"
+  },
+  "valid_until": "2026-03-27T18:25:00Z",
+  "timestamp": "2026-03-27T18:22:01Z"
 }

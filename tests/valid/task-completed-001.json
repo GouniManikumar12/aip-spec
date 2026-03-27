@@ -1,0 +1,15 @@
+{
+  "event_type": "task_completed",
+  "serve_token": "stk_valid_001",
+  "session_id": "sess_001",
+  "platform_id": "openai_chat",
+  "agent_id": "brand_agent_123",
+  "outcome_type": "signup",
+  "wallet_id": "wallet_123",
+  "settlement": {
+    "unit": "CPA",
+    "amount_micros": 10000000,
+    "currency": "USD"
+  },
+  "ts": "2026-03-27T18:30:00Z"
+}

@@ -1,0 +1,97 @@
+{
+  "$id": "https://aip.org/schemas/event-delegation-activity.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DelegationActivityEvent",
+  "description": "Non-billable lifecycle event emitted by the Platform or Brand Agent to prove the delegated session is still active.",
+  "type": "object",
+  "required": [
+    "event_type",
+    "serve_token",
+    "session_id",
+    "platform_id",
+    "agent_id",
+    "delegation_session_id",
+    "actor_role",
+    "activity_type",
+    "ts"
+  ],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "const": "delegation_activity",
+      "description": "Lifecycle event type identifier",
+      "example": "delegation_activity"
+    },
+    "serve_token": {
+      "type": "string",
+      "description": "Serve token from the PlatformResponse",
+      "example": "stk_abcxyz123"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Platform session identifier",
+      "example": "sess_001"
+    },
+    "platform_id": {
+      "type": "string",
+      "description": "Platform identifier",
+      "example": "pf_chatapp"
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "Winning brand agent identifier",
+      "example": "ba_451"
+    },
+    "delegation_session_id": {
+      "type": "string",
+      "description": "Operator-defined delegated session identifier",
+      "example": "del_sess_001"
+    },
+    "actor_role": {
+      "type": "string",
+      "enum": ["platform", "brand_agent"],
+      "description": "Which participant is reporting the delegated session activity.",
+      "example": "platform"
+    },
+    "activity_type": {
+      "type": "string",
+      "enum": ["user_turn", "agent_turn", "keepalive"],
+      "description": "What kind of delegated session activity occurred.",
+      "example": "user_turn"
+    },
+    "activity_metadata": {
+      "type": "object",
+      "description": "Optional delegated-session activity details.",
+      "properties": {
+        "turn_index": {
+          "type": "integer",
+          "minimum": 0,
+          "example": 2
+        }
+      },
+      "additionalProperties": false
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the activity occurred",
+      "example": "2025-11-14T18:05:00Z"
+    }
+  },
+  "examples": [
+    {
+      "event_type": "delegation_activity",
+      "serve_token": "stk_abcxyz123",
+      "session_id": "sess_001",
+      "platform_id": "pf_chatapp",
+      "agent_id": "ba_451",
+      "delegation_session_id": "del_sess_001",
+      "actor_role": "platform",
+      "activity_type": "user_turn",
+      "activity_metadata": {
+        "turn_index": 2
+      },
+      "ts": "2025-11-14T18:05:00Z"
+    }
+  ]
+}

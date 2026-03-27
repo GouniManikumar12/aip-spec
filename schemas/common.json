@@ -4,7 +4,7 @@
   "title": "AIP Common Types",
   "type": "object",
   "properties": {
-    "aipVersion": { "type": "string", "const": "0.1" },
+    "aipVersion": { "type": "string", "const": "1.0" },
     "id": { "type": "string", "minLength": 3, "maxLength": 128 },
     "timestamp": {
       "type": "string",

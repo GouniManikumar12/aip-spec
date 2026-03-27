@@ -1,0 +1,10 @@
+{
+  "event_type": "delegation_expired",
+  "serve_token": "stk_abcxyz123",
+  "session_id": "sess_001",
+  "platform_id": "openai_chat",
+  "agent_id": "brand_agent_123",
+  "delegation_session_id": "del_sess_001",
+  "reason": "inactivity_timeout",
+  "ts": "2026-03-27T18:37:00Z"
+}

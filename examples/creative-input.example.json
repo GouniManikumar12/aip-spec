@@ -18,6 +18,7 @@
   },
   "product_id": "prod_nimbus_001",
   "categories": ["crm", "saas"],
-  "fallback_formats": ["tail", "product_card"]
+  "fallback_formats": ["tail", "product_card"],
+  "followup_query": "Compare Nimbus CRM Pro vs Salesforce pricing and features"
 }
 

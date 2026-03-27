@@ -1,35 +1,90 @@
 {
+  "spec_version": "1.0",
   "bid_id": "bid_7823",
   "brand_agent_id": "brand_agent_123",
-  "context_id": "ctx_92f",
+  "context_id": "ctx_92fA1",
   "wallet_id": "wallet_890",
+  "targeting": {
+    "intent_types": ["commercial", "transactional"],
+    "decision_phases": ["consideration", "decision", "action"],
+    "verticals": ["crm", "sales_software"],
+    "countries": ["US"],
+    "locales": ["en-US"]
+  },
   "pricing": {
-    "cpx": "0.05",
-    "cpc": "0.45",
-    "cpa": "10.00",
     "currency": "USD",
+    "cpx_micros": 50000,
+    "cpc_micros": 450000,
+    "cpe_micros": 700000,
+    "cpa_micros": 10000000,
     "preferred_pricing_model": "CPA"
   },
-  "offer": {
+  "budget": {
+    "max_bid_per_event_micros": 10000000,
+    "daily_cap_micros": 50000000,
+    "remaining_budget_micros": 32000000,
+    "pacing_mode": "even"
+  },
+  "recommendation": {
     "creative_input": {
       "brand_name": "Nimbus",
       "product_name": "Nimbus CRM Pro",
       "short_description": "CRM built for growing teams, with AI-assisted workflows.",
-      "long_description": "Nimbus CRM Pro is designed for teams of 5-50 people who need intelligent pipeline management. It includes automated follow-ups, collaborative forecasting, and embedded AI copilots that help close deals faster.",
-      "value_props": ["Automated pipeline insights", "Collaborative forecasting", "AI-powered deal recommendations"],
-      "context_snippet": "For startups needing higher limits and automated expense workflows.",
+      "long_description": "Nimbus CRM Pro helps five-to-fifty person teams manage pipeline, forecasting, and follow-ups with built-in AI assistance.",
+      "value_props": [
+        "Automated pipeline insights",
+        "Collaborative forecasting",
+        "AI-powered follow-up suggestions"
+      ],
+      "context_snippet": "For small sales teams comparing CRM tools with automation and guided setup.",
       "cta_label": "Start Free Trial",
       "cta_url": "https://nimbus.example.com/signup",
       "assets": {
         "logo_url": "https://cdn.example.com/nimbus/logo.png",
         "image_urls": ["https://cdn.example.com/nimbus/crm.png"],
         "resource_urls": ["https://nimbus.example.com/signup"]
-      }
+      },
+      "product_id": "prod_nimbus_001",
+      "categories": ["crm", "saas"],
+      "fallback_formats": ["tail", "product_card"],
+      "offer_summary": "50% off for the first three months"
     }
   },
-  "timestamp": "2025-11-11T18:00:01Z",
-  "auth": {
-    "nonce": "nonce_456",
-    "signature": "sig_789"
-  }
+  "declared_relevance": 0.87,
+  "supported_opportunities": [
+    "comparison_slot",
+    "decision_moment",
+    "transaction_trigger"
+  ],
+  "preferred_format": "weave",
+  "delegation": {
+    "supported": true,
+    "consent_required": true,
+    "supported_for_intents": {
+      "intent_types": ["transactional", "commercial"],
+      "decision_phases": ["decision", "action", "post_purchase"]
+    },
+    "required_scopes": ["intent", "constraints"],
+    "protocol": {
+      "type": "mcp",
+      "version": "1.0"
+    },
+    "mcp": {
+      "server_url": "https://agent.nimbus.example.com/mcp",
+      "tool_name": "start_crm_signup_session",
+      "session_init_schema_ref": "https://agent.nimbus.example.com/schemas/session-init.json"
+    },
+    "session_constraints": {
+      "multi_turn": true,
+      "session_timeout_seconds": 900,
+      "max_turns": 25
+    }
+  },
+  "format_constraints": {
+    "max_responses": 1,
+    "ranking": "operator_defined"
+  },
+  "processing_latency_ms": 42,
+  "valid_until": "2026-03-27T18:23:00Z",
+  "timestamp": "2026-03-27T18:22:01Z"
 }

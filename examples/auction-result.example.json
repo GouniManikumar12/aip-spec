@@ -1,18 +1,53 @@
 {
+  "spec_version": "1.0",
+  "response_id": "resp_981",
   "auction_id": "auc_981",
   "serve_token": "stk_abcxyz123",
+  "timestamp": "2026-03-27T18:22:02Z",
+  "status": "filled",
   "winner": {
+    "bid_id": "bid_7823",
     "brand_agent_id": "brand_agent_123",
-    "campaign_id": "cmp_nimbus_launch",
-    "product_id": "prod_nimbus_crm",
-    "cpx_price": "5",
-    "cpc_price": "145",
-    "cpa_price": null,
-    "billable_unit": "CPC"
+    "pricing": {
+      "model": "CPA",
+      "price_micros": 10000000,
+      "currency": "USD"
+    },
+    "billing": {
+      "reserved_amount_micros": 500000000,
+      "currency": "USD"
+    },
+    "rank": 1
   },
   "render": {
     "format": "weave",
-    "weave_content": "[Ad] For startups needing higher limits and automated expense workflows. CRM built for growing teams, with AI-assisted workflows. Learn more: https://admesh.click/stk_abcxyz123"
+    "disclosure": "[Ad]",
+    "creative": {
+      "advertiser": {
+        "brand_name": "Nimbus",
+        "domain": "nimbus.example.com"
+      },
+      "ad_assets": {
+        "headline": "Scale your CRM",
+        "description": "Built for founders and growing sales teams.",
+        "cta_text": "Try for free",
+        "logo_url": "https://cdn.example.com/nimbus/logo.png",
+        "image_urls": ["https://cdn.example.com/nimbus/crm.png"]
+      },
+      "landing_page_url": "https://nimbus.example.com/signup",
+      "click_url": "https://admesh.click/stk_abcxyz123"
+    }
+  },
+  "delegation": {
+    "available": true,
+    "mode": "optional",
+    "trigger": "explicit_consent",
+    "cta_text": "Continue with Nimbus"
+  },
+  "tracking": {
+    "impression_url": "https://track.example.com/impression/stk_abcxyz123",
+    "click_url": "https://track.example.com/click/stk_abcxyz123",
+    "conversion_url": "https://track.example.com/conversion/stk_abcxyz123"
   },
   "ttl_ms": 60000
 }

@@ -1,16 +1,38 @@
 {
-  "spec_version": "0.1.0",
-  "auction_id": "auc-valid",
-  "request_id": "ctx-valid",
-  "winning_bid_id": "bid-valid",
-  "clearing_price": 3.8,
-  "currency": "USD",
-  "serve_token": "serve-valid",
-  "expires_at": "2024-03-01T12:01:00Z",
-  "events": [
-    "https://events.test/serve-valid"
-  ],
-  "metadata": {
-    "channel": "private"
-  }
+  "spec_version": "1.0",
+  "response_id": "resp_valid_001",
+  "auction_id": "auc_valid_001",
+  "serve_token": "stk_valid_001",
+  "timestamp": "2026-03-27T18:22:02Z",
+  "status": "filled",
+  "winner": {
+    "bid_id": "bid_valid_001",
+    "brand_agent_id": "brand_agent_123",
+    "pricing": {
+      "model": "CPE",
+      "price_micros": 700000,
+      "currency": "USD"
+    },
+    "billing": {
+      "reserved_amount_micros": 700000,
+      "currency": "USD"
+    }
+  },
+  "render": {
+    "format": "weave",
+    "disclosure": "[Ad]",
+    "creative": {
+      "advertiser": {
+        "brand_name": "Nimbus"
+      },
+      "ad_assets": {
+        "headline": "Scale your CRM",
+        "description": "Built for growing teams.",
+        "cta_text": "Try for free"
+      },
+      "landing_page_url": "https://nimbus.example.com/signup",
+      "click_url": "https://admesh.click/stk_valid_001"
+    }
+  },
+  "ttl_ms": 60000
 }

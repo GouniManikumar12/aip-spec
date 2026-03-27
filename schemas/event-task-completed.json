@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aip.org/schemas/event-task-completed.json",
+  "title": "TaskCompletedEvent",
+  "description": "Lifecycle event fired when a user completes a signup, purchase, or other billable outcome.",
+  "type": "object",
+  "required": [
+    "event_type",
+    "serve_token",
+    "session_id",
+    "platform_id",
+    "agent_id",
+    "outcome_type",
+    "wallet_id",
+    "settlement",
+    "ts"
+  ],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "const": "task_completed",
+      "description": "Lifecycle event type identifier"
+    },
+    "serve_token": {
+      "type": "string",
+      "description": "Token linking exposure, interaction, delegation, and outcome events",
+      "example": "stk_abcxyz123"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Session identifier",
+      "example": "sess_001"
+    },
+    "platform_id": {
+      "type": "string",
+      "description": "Platform identifier",
+      "example": "pf_chatapp"
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "Winning brand agent or advertiser identifier",
+      "example": "ba_451"
+    },
+    "outcome_type": {
+      "type": "string",
+      "enum": [
+        "signup",
+        "purchase",
+        "trial_start",
+        "demo_request",
+        "download",
+        "custom"
+      ],
+      "description": "Type of completed outcome",
+      "example": "purchase"
+    },
+    "wallet_id": {
+      "type": "string",
+      "description": "Wallet to apply final CPA charge",
+      "example": "wal_ba451"
+    },
+    "settlement": {
+      "type": "object",
+      "description": "CPA settlement. This is the terminal billable amount for the lifecycle.",
+      "required": ["unit", "amount_micros", "currency"],
+      "properties": {
+        "unit": {
+          "type": "string",
+          "const": "CPA",
+          "description": "Billing unit"
+        },
+        "amount_micros": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Final CPA charge in micros",
+          "example": 4900000
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "Settlement currency",
+          "example": "USD"
+        }
+      },
+      "additionalProperties": false
+    },
+    "outcome_value_micros": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Optional outcome value in micros",
+      "example": 250000000
+    },
+    "outcome_metadata": {
+      "type": "object",
+      "description": "Optional advertiser-side contextual data",
+      "properties": {
+        "user_id": { "type": "string" },
+        "order_id": { "type": "string" },
+        "product_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the outcome occurred",
+      "example": "2025-11-14T18:30:00Z"
+    },
+    "ext": {
+      "$ref": "./common.json#/definitions/extensionNamespace"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "event_type": "interaction_started",
+  "serve_token": "stk_invalid_001",
+  "session_id": "sess_001",
+  "platform_id": "openai_chat",
+  "agent_id": "brand_agent_123",
+  "wallet_id": "wallet_123",
+  "settlement": {
+    "unit": "CPX",
+    "amount_micros": 50000,
+    "currency": "USD"
+  },
+  "ts": "2026-03-27T18:22:20Z"
+}

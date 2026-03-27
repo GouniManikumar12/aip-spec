@@ -1,0 +1,74 @@
+{
+  "$id": "https://aip.org/schemas/event-delegation-expired.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DelegationExpiredEvent",
+  "description": "Non-billable lifecycle event recorded by the Operator when a delegated session expires before task completion.",
+  "type": "object",
+  "required": [
+    "event_type",
+    "serve_token",
+    "session_id",
+    "platform_id",
+    "agent_id",
+    "delegation_session_id",
+    "reason",
+    "ts"
+  ],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "const": "delegation_expired",
+      "description": "Lifecycle event type identifier",
+      "example": "delegation_expired"
+    },
+    "serve_token": {
+      "type": "string",
+      "description": "Serve token from the PlatformResponse",
+      "example": "stk_abcxyz123"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Platform session identifier",
+      "example": "sess_001"
+    },
+    "platform_id": {
+      "type": "string",
+      "description": "Platform identifier",
+      "example": "pf_chatapp"
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "Winning brand agent identifier",
+      "example": "ba_451"
+    },
+    "delegation_session_id": {
+      "type": "string",
+      "description": "Operator-defined delegated session identifier",
+      "example": "del_sess_001"
+    },
+    "reason": {
+      "type": "string",
+      "enum": ["inactivity_timeout", "max_turns_reached", "operator_terminated"],
+      "description": "Why the delegated session expired.",
+      "example": "inactivity_timeout"
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the session expired",
+      "example": "2025-11-14T18:20:00Z"
+    }
+  },
+  "examples": [
+    {
+      "event_type": "delegation_expired",
+      "serve_token": "stk_abcxyz123",
+      "session_id": "sess_001",
+      "platform_id": "pf_chatapp",
+      "agent_id": "ba_451",
+      "delegation_session_id": "del_sess_001",
+      "reason": "inactivity_timeout",
+      "ts": "2025-11-14T18:20:00Z"
+    }
+  ]
+}

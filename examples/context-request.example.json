@@ -1,64 +1,59 @@
 {
-  "spec_version": "aip/1.0",
-  "message_id": "ctx_92fA1",
-  "timestamp": "2025-11-14T18:22:00Z",
-  "producer": {
-    "agent_id": "admesh_operator",
-    "agent_role": "seller",
-    "software": "admesh_operator",
-    "software_version": "1.0.0"
+  "spec_version": "1.0",
+  "context_id": "ctx_92fA1",
+  "source_request_id": "req_92fA1",
+  "timestamp": "2026-03-27T18:22:00Z",
+  "operator": {
+    "operator_id": "admesh_operator"
   },
-  "session_id": "sess_001",
-  "conversation_id": "conv_xyz789",
-  "turn_index": 3,
-  "latency_budget_ms": 500,
-  "allowed_formats": ["weave", "citation", "product_card"],
-  "context": {
-    "context_id": "ctx_92fA1",
-    "language": "en-US",
-    "publisher": "openai_chat",
-    "placement": {
-      "ad_unit": "conversation"
-    },
-    "device": {
-      "platform": "web",
-      "form_factor": "desktop"
-    },
-    "geography": {
-      "country": "US"
-    },
+  "platform": {
+    "platform_id": "openai_chat",
+    "software": {
+      "name": "chatgpt",
+      "version": "4.3-mini"
+    }
+  },
+  "session": {
+    "id": "sess_001",
+    "turn_index": 3
+  },
+  "surface": {
+    "channel": "conversation",
+    "interaction_mode": "text",
+    "platform": "web",
+    "form_factor": "desktop",
+    "country": "US",
+    "locale": "en-US"
+  },
+  "auction": {
+    "latency_budget_ms": 500,
+    "context_window_ms": 1200
+  },
   "intent": {
     "type": "commercial",
-    "decision_phase": "compare",
-      "confidence": 0.87,
-      "summary": "User is comparing CRM tools for a small team."
-    },
-    "verticals": ["crm", "smb_software"]
-  },
-  "embeddings": [
-    {
-      "id": "emb_intent",
-      "type": "user_intent",
-      "dimension": 256,
-      "origin": {
-        "text_window": "CRM comparison for small teams",
-        "on_device": false
-      }
+    "subtype": "comparison",
+    "decision_phase": "consideration",
+    "confidence": 0.87,
+    "summary": "User is evaluating CRM tools for a small sales team.",
+    "relevance_score": 0.91,
+    "iab_content": {
+      "taxonomy": "IAB Content Taxonomy",
+      "taxonomy_version": "3.1",
+      "tier1": "Business",
+      "tier2": "Business Software",
+      "tier3": "CRM"
     }
-  ],
+  },
+  "verticals": ["crm", "sales_software"],
+  "allowed_formats": ["weave", "tail", "product_card"],
   "consent": {
-    "purposes": ["activation_scoring"],
-    "permissible_uses": ["activation_scoring"],
-    "ttl_seconds": 900,
-    "legal_basis": "contract"
+    "agent_participation": true,
+    "measurement": true
   },
   "usage_constraints": {
-    "disallowed": [
-      "retargeting",
-      "profiling",
-      "storage",
-      "cross_session_learning",
-      "identity_resolution"
-    ]
+    "may_store": false,
+    "may_train": false,
+    "may_forward": false,
+    "retention_ttl_seconds": 900
   }
 }

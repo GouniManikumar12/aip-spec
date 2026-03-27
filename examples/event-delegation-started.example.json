@@ -1,0 +1,12 @@
+{
+  "event_type": "delegation_started",
+  "serve_token": "stk_abcxyz123",
+  "session_id": "sess_001",
+  "platform_id": "openai_chat",
+  "agent_id": "brand_agent_123",
+  "delegation_session_id": "del_sess_001",
+  "delegation_metadata": {
+    "context_scope": ["intent", "constraints"]
+  },
+  "ts": "2026-03-27T18:22:25Z"
+}

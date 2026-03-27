@@ -1,70 +1,395 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "AuctionResult",
-  "description": "Winning bid and reservation details returned to the AI platform.",
+  "$id": "https://aip.dev/schemas/platform-response-v1.0.json",
+  "title": "PlatformResponse",
+  "description": "Operator response returned to AI platforms after auction evaluation. Includes delivery status, winning bid details, monetization reservation info, render payload, tracking hooks, and delegation availability.",
   "type": "object",
   "required": [
+    "spec_version",
+    "response_id",
     "auction_id",
     "serve_token",
+    "timestamp",
+    "status",
     "ttl_ms"
   ],
+  "additionalProperties": false,
   "properties": {
+    "spec_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "response_id": {
+      "type": "string",
+      "description": "Unique identifier for this PlatformResponse."
+    },
     "auction_id": {
       "type": "string",
-      "example": "auc_981"
-    },
-    "no_bid": {
-      "type": "boolean",
-      "default": false,
-      "description": "Whether this auction ended with no bids"
+      "description": "Auction identifier."
     },
     "serve_token": {
       "type": "string",
-      "example": "stk_abcxyz123"
+      "description": "Token used to track downstream events."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 / RFC 3339 timestamp when the response was produced."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["filled", "no_match", "error"],
+      "description": "Auction outcome status."
     },
     "winner": {
-      "type": "object",
-      "description": "Winning bid info",
-      "properties": {
-        "brand_agent_id": {
-          "type": "string",
-          "example": "ba_451"
-        },
-        "preferred_unit": {
-          "type": "string",
-          "enum": ["CPX", "CPC", "CPA"],
-          "example": "CPA"
-        },
-        "reserved_amount_cents": {
-          "type": "integer",
-          "minimum": 0,
-          "description": "Amount held at auction time",
-          "example": 500
-        }
-      }
+      "$ref": "#/$defs/winner"
     },
     "render": {
-      "$ref": "./creative.json",
-      "description": "Format-specific creative content (weave, tail, product_card, or bridge format)"
+      "$ref": "#/$defs/render"
+    },
+    "delegation": {
+      "$ref": "#/$defs/delegation"
+    },
+    "tracking": {
+      "$ref": "#/$defs/tracking"
     },
     "ttl_ms": {
       "type": "integer",
       "minimum": 1000,
       "maximum": 300000,
-      "example": 60000
+      "description": "Response time-to-live in milliseconds."
+    },
+    "error": {
+      "$ref": "#/$defs/error"
     },
     "ext": {
-      "$ref": "./common.json#/definitions/extensionNamespace"
+      "$ref": "./common.json#/definitions/extensionNamespace",
+      "description": "Vendor extensions."
     }
   },
-  "oneOf": [
-    { "required": ["winner", "render"] },
+  "allOf": [
     {
-      "required": ["no_bid"],
-      "properties": {
-        "no_bid": { "const": true }
+      "if": {
+        "properties": {
+          "status": { "const": "filled" }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "required": ["winner", "render"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": { "const": "no_match" }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            { "required": ["winner"] },
+            { "required": ["render"] }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": { "const": "error" }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "required": ["error"]
       }
     }
   ],
-  "$id": "https://aip.org/schemas/auction-result.json"
+  "$defs": {
+    "winner": {
+      "type": "object",
+      "description": "Winning bid information returned to the platform.",
+      "required": [
+        "bid_id",
+        "brand_agent_id",
+        "pricing",
+        "billing"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "bid_id": {
+          "type": "string",
+          "description": "Winning bid identifier."
+        },
+        "brand_agent_id": {
+          "type": "string",
+          "description": "Winning Brand Agent."
+        },
+        "pricing": {
+          "type": "object",
+          "required": ["model", "price_micros", "currency"],
+          "additionalProperties": false,
+          "properties": {
+            "model": {
+              "type": "string",
+              "enum": ["CPX", "CPC", "CPE", "CPA"],
+              "description": "Selected billing model."
+            },
+            "price_micros": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Winning price in micros."
+            },
+            "currency": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$",
+              "description": "ISO 4217 currency code."
+            }
+          }
+        },
+        "billing": {
+          "type": "object",
+          "required": ["reserved_amount_micros", "currency"],
+          "additionalProperties": false,
+          "properties": {
+            "reserved_amount_micros": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Amount reserved or held at auction time, in micros."
+            },
+            "currency": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$",
+              "description": "ISO 4217 currency code."
+            }
+          }
+        },
+        "rank": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Optional winning rank."
+        }
+      }
+    },
+    "render": {
+      "type": "object",
+      "description": "Platform render instructions for the winning recommendation.",
+      "required": ["format", "disclosure", "creative"],
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "type": "string",
+          "enum": ["weave", "tail", "product_card", "bridge"],
+          "description": "Creative format to render."
+        },
+        "disclosure": {
+          "type": "string",
+          "description": "Disclosure label such as [Ad] or Sponsored."
+        },
+        "creative": {
+          "$ref": "#/$defs/creative"
+        }
+      }
+    },
+    "creative": {
+      "type": "object",
+      "description": "Adtech-style creative object containing advertiser identity, ad assets, destination, and click tracking.",
+      "required": [
+        "advertiser",
+        "ad_assets",
+        "landing_page_url",
+        "click_url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "advertiser": {
+          "type": "object",
+          "required": ["brand_name"],
+          "additionalProperties": false,
+          "properties": {
+            "brand_name": {
+              "type": "string",
+              "description": "Advertiser or brand name."
+            },
+            "domain": {
+              "type": "string",
+              "description": "Optional advertiser domain."
+            }
+          }
+        },
+        "ad_assets": {
+          "type": "object",
+          "required": ["headline", "description", "cta_text"],
+          "additionalProperties": false,
+          "properties": {
+            "headline": {
+              "type": "string",
+              "maxLength": 120,
+              "description": "Primary ad headline."
+            },
+            "description": {
+              "type": "string",
+              "maxLength": 300,
+              "description": "Ad description text."
+            },
+            "cta_text": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Call-to-action text."
+            },
+            "logo_url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Optional brand logo asset."
+            },
+            "image_urls": {
+              "type": "array",
+              "description": "Optional creative image assets.",
+              "items": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        },
+        "landing_page_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Advertiser-controlled destination URL."
+        },
+        "click_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Operator-controlled click tracking URL."
+        }
+      }
+    },
+    "delegation": {
+      "type": "object",
+      "description": "Delegation availability surfaced to the platform for the winning bid.",
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "type": "boolean",
+          "description": "Whether delegated execution is available for this result."
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["optional", "recommended", "required"],
+          "description": "Delegation behavior expected by the operator."
+        },
+        "trigger": {
+          "type": "string",
+          "enum": ["user_action", "explicit_consent", "operator_initiated"],
+          "description": "How delegation may be activated."
+        },
+        "cta_text": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Delegation-specific call-to-action text."
+        }
+      }
+    },
+    "tracking": {
+      "type": "object",
+      "description": "Optional downstream tracking endpoints or identifiers.",
+      "additionalProperties": false,
+      "properties": {
+        "impression_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "click_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "conversion_url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "error": {
+      "type": "object",
+      "description": "Error payload when status=error.",
+      "required": ["code", "message"],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "spec_version": "1.0",
+      "response_id": "resp_981",
+      "auction_id": "auc_981",
+      "serve_token": "stk_abcxyz123",
+      "timestamp": "2026-03-26T18:00:02Z",
+      "status": "filled",
+      "winner": {
+        "bid_id": "bid_7823",
+        "brand_agent_id": "ba_451",
+        "pricing": {
+          "model": "CPA",
+          "price_micros": 10000000,
+          "currency": "USD"
+        },
+        "billing": {
+          "reserved_amount_micros": 500000000,
+          "currency": "USD"
+        },
+        "rank": 1
+      },
+      "render": {
+        "format": "weave",
+        "disclosure": "[Ad]",
+        "creative": {
+          "advertiser": {
+            "brand_name": "Nimbus",
+            "domain": "nimbus.example.com"
+          },
+          "ad_assets": {
+            "headline": "Scale your CRM",
+            "description": "Built for founders.",
+            "cta_text": "Try for free",
+            "logo_url": "https://cdn.example.com/nimbus/logo.png",
+            "image_urls": [
+              "https://cdn.example.com/nimbus/crm.png"
+            ]
+          },
+          "landing_page_url": "https://nimbus.example.com/signup",
+          "click_url": "https://admesh.click/stk_abcxyz123"
+        }
+      },
+      "delegation": {
+        "available": true,
+        "mode": "optional",
+        "trigger": "user_action",
+        "cta_text": "Continue with Nimbus"
+      },
+      "tracking": {
+        "impression_url": "https://track.example.com/impression/stk_abcxyz123",
+        "click_url": "https://track.example.com/click/stk_abcxyz123",
+        "conversion_url": "https://track.example.com/conversion/stk_abcxyz123"
+      },
+      "ttl_ms": 60000
+    },
+    {
+      "spec_version": "1.0",
+      "response_id": "resp_982",
+      "auction_id": "auc_982",
+      "serve_token": "stk_empty",
+      "timestamp": "2026-03-26T18:00:02Z",
+      "status": "no_match",
+      "ttl_ms": 60000
+    }
+  ]
 }

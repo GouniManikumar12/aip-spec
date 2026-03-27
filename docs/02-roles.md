@@ -1,7 +1,7 @@
 # 02 · Roles
 
 AIP introduces four primary actors:
-- **Publisher Nodes** expose impressions or opportunities.
+- **Publisher Nodes** expose exposures or opportunities.
 - **Agency Bidders** evaluate opportunities and submit bids.
 - **Brand Agents** subscribe to specific category pools and receive only the `context_request` messages that match their declared intent domains, ensuring selective distribution inside the asynchronous auction window.
 - **Clearinghouses** adjudicate auctions and emit state transitions.

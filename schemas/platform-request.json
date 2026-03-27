@@ -1,269 +1,821 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aip.dev/schemas/platform-request-v1.0.json",
   "title": "PlatformRequest",
-  "description": "AI platform request sent to an AIP operator to initiate an ad auction. UCP (User Context Protocol) aligned structure.",
+  "description": "Operator-agnostic platform request schema for intent-based monetization systems. Supports both interaction-based classification (operator-derived) and platform-provided signals (platform-derived).",
   "type": "object",
   "required": [
     "spec_version",
-    "message_id",
+    "request_id",
     "timestamp",
-    "producer",
-    "context",
+    "platform",
     "identity",
-    "extensions"
+    "consent",
+    "classification_input"
   ],
+  "additionalProperties": false,
+
   "properties": {
     "spec_version": {
       "type": "string",
-      "description": "UCP specification version",
-      "example": "1.0.0"
+      "const": "1.0"
     },
-    "message_id": {
+
+    "request_id": {
       "type": "string",
-      "description": "Unique identifier for this auction request",
-      "example": "req_92fA1"
+      "minLength": 1,
+      "description": "Unique identifier for this request."
     },
+
     "timestamp": {
       "type": "string",
       "format": "date-time",
-      "description": "ISO timestamp of the event",
-      "example": "2025-11-14T18:22:00Z"
+      "description": "RFC 3339 timestamp when the platform generated the request."
     },
-    "producer": {
+
+    "platform": {
+      "$ref": "#/$defs/platform"
+    },
+
+    "identity": {
+      "$ref": "#/$defs/identity"
+    },
+
+    "consent": {
+      "$ref": "#/$defs/consent"
+    },
+
+    "classification_input": {
+      "$ref": "#/$defs/classificationInput"
+    },
+
+    "policy_hints": {
+      "$ref": "#/$defs/policyHints"
+    },
+
+    "signal_validation": {
+      "$ref": "#/$defs/signalValidation"
+    },
+
+    "policy": {
+      "$ref": "#/$defs/policy"
+    },
+
+    "monetization": {
+      "$ref": "#/$defs/monetization"
+    }
+  },
+
+  "$defs": {
+    "platform": {
       "type": "object",
-      "required": ["agent_id", "agent_role", "software", "software_version"],
+      "description": "The AI platform producing the request.",
+      "required": ["platform_id", "role", "software"],
+      "additionalProperties": false,
       "properties": {
-        "agent_id": {
-          "type": "string",
-          "description": "Identifier of the AI platform sending this request",
-          "example": "openai_chat"
+        "platform_id": {
+          "type": "string"
         },
-        "agent_role": {
+        "role": {
           "type": "string",
-          "description": "Role of the agent, typically 'publisher'",
-          "example": "publisher"
+          "const": "platform"
         },
         "software": {
-          "type": "string",
-          "description": "Software name",
-          "example": "chatgpt"
-        },
-        "software_version": {
-          "type": "string",
-          "description": "Software version or model identifier",
-          "example": "4.3-mini"
-        }
-      }
-    },
-    "context": {
-      "type": "object",
-      "required": ["context_id", "language", "publisher", "placement", "device", "geography"],
-      "properties": {
-        "context_id": {
-          "type": "string",
-          "description": "Unique context identifier",
-          "example": "ctx_raw_92fA1"
-        },
-        "language": {
-          "type": "string",
-          "pattern": "^[a-z]{2}-[A-Z]{2}$",
-          "description": "User locale in BCP 47 format",
-          "example": "en-US"
-        },
-        "publisher": {
-          "type": "string",
-          "description": "Publisher identifier (same as producer.agent_id)",
-          "example": "openai_chat"
-        },
-        "placement": {
           "type": "object",
-          "required": ["ad_unit"],
+          "required": ["name", "version"],
+          "additionalProperties": false,
           "properties": {
-            "ad_unit": {
-              "type": "string",
-              "description": "Platform surface type: chat, voice, browser, extension, ui panel, etc.",
-              "example": "conversation"
-            }
-          }
-        },
-        "device": {
-          "type": "object",
-          "required": ["platform", "form_factor"],
-          "properties": {
-            "platform": {
-              "type": "string",
-              "description": "Device platform: web, mobile, etc.",
-              "example": "web"
+            "name": {
+              "type": "string"
             },
-            "form_factor": {
-              "type": "string",
-              "enum": ["mobile", "desktop", "tablet"],
-              "description": "Device form factor",
-              "example": "desktop"
-            },
-            "ua_hash": {
-              "type": "string",
-              "description": "User agent hash",
-              "example": "ua_hash_xyz"
-            }
-          }
-        },
-        "geography": {
-          "type": "object",
-          "required": ["country"],
-          "properties": {
-            "country": {
-              "type": "string",
-              "pattern": "^[A-Z]{2}$",
-              "description": "User country code (ISO 3166-1 alpha-2)",
-              "example": "US"
+            "version": {
+              "type": "string"
             }
           }
         }
       }
     },
+
     "identity": {
       "type": "object",
-      "required": ["namespace", "value_hash", "confidence"],
+      "description": "Anonymous or pseudonymous subject identity. Identity-linked values are internal unless explicitly permitted.",
+      "required": ["namespace", "value_hash"],
+      "additionalProperties": false,
       "properties": {
         "namespace": {
-          "type": "string",
-          "description": "Identity namespace",
-          "example": "platform_user"
+          "type": "string"
         },
         "value_hash": {
           "type": "string",
-          "description": "Anonymous hashed user ID",
-          "example": "user_hash_abc123"
+          "description": "Hashed or pseudonymous identity value."
         },
         "confidence": {
           "type": "number",
           "minimum": 0,
-          "maximum": 1,
-          "description": "Confidence level for identity",
-          "example": 1.0
+          "maximum": 1
+        },
+        "quarantined": {
+          "type": "object",
+          "description": "Platform-internal fields that must never be forwarded downstream.",
+          "additionalProperties": true
         }
       }
     },
-    "extensions": {
+
+    "consent": {
       "type": "object",
-      "required": ["aip"],
+      "description": "Effective user or platform consent state for this request.",
+      "required": ["status", "scope", "constraints"],
+      "additionalProperties": false,
       "properties": {
-        "aip": {
+        "status": {
+          "type": "string",
+          "enum": ["granted", "denied", "unknown", "not_required"]
+        },
+        "source": {
+          "type": "string",
+          "description": "Source of consent resolution, such as platform_ui, account_setting, or jurisdiction_default."
+        },
+        "scope": {
           "type": "object",
-          "required": ["session_id", "turn_index", "query_text"],
+          "required": [
+            "intent_based_monetization",
+            "agent_participation",
+            "measurement"
+          ],
+          "additionalProperties": false,
           "properties": {
-            "session_id": {
-              "type": "string",
-              "description": "Conversation or interaction session ID",
-              "example": "sess_001"
+            "intent_based_monetization": {
+              "type": "boolean",
+              "description": "Whether the current intent moment may be monetized."
             },
-            "conversation_id": {
-              "type": "string",
-              "description": "Conversation ID if independent from session_id",
-              "example": "conv_xyz789"
+            "agent_participation": {
+              "type": "boolean",
+              "description": "Whether external brands, agents, tools, or buyers may participate."
+            },
+            "measurement": {
+              "type": "boolean",
+              "description": "Whether monetization outcome measurement is permitted."
+            }
+          }
+        },
+        "constraints": {
+          "type": "object",
+          "required": [
+            "allow_identity_downstream"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "allow_identity_downstream": {
+              "type": "boolean",
+              "description": "Whether identity information may be forwarded downstream. Raw query text and message history must never be forwarded in v1.0."
+            }
+          }
+        },
+        "captured_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "proof_ref": {
+          "type": "string"
+        }
+      }
+    },
+
+    "classificationInput": {
+      "type": "object",
+      "description": "A PlatformRequest MUST include exactly one classification input form. If type is 'interaction', the request is operator-derived. If type is 'provided_signals', the request is platform-derived.",
+      "required": ["type"],
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "type": {
+              "const": "interaction"
+            },
+            "interaction": {
+              "$ref": "#/$defs/interaction"
+            }
+          },
+          "required": ["type", "interaction"]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "provided_signals"
+            },
+            "signals": {
+              "$ref": "#/$defs/signals"
+            }
+          },
+          "required": ["type", "signals"]
+        }
+      ]
+    },
+
+    "interaction": {
+      "type": "object",
+      "description": "Canonical representation of the user intent moment.",
+      "required": ["input", "surface"],
+      "additionalProperties": false,
+      "properties": {
+        "session": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string"
             },
             "turn_index": {
               "type": "integer",
-              "minimum": 0,
-              "description": "Turn index in the conversation",
-              "example": 3
-            },
-            "query_text": {
+              "minimum": 0
+            }
+          }
+        },
+        "surface": {
+          "type": "object",
+          "required": ["channel", "interaction_mode", "platform"],
+          "additionalProperties": false,
+          "properties": {
+            "channel": {
               "type": "string",
-              "description": "User's raw query text",
-              "example": "best CRM for small teams"
+              "enum": [
+                "conversation",
+                "search_result",
+                "assistant_panel",
+                "embedded_assistant",
+                "voice_assistant"
+              ]
+            },
+            "interaction_mode": {
+              "type": "string",
+              "enum": ["text", "voice", "multimodal"]
+            },
+            "platform": {
+              "type": "string",
+              "enum": ["web", "mobile", "desktop_app", "browser_extension", "api", "other"]
+            },
+            "form_factor": {
+              "type": "string",
+              "enum": ["mobile", "desktop", "tablet", "speaker", "other"]
+            },
+            "os": {
+              "type": "string",
+              "description": "Operating system, for example iOS, Android, macOS, Windows."
+            },
+            "app_id": {
+              "type": "string",
+              "description": "Optional platform app or client identifier."
+            },
+            "app_version": {
+              "type": "string"
+            },
+            "device_type": {
+              "type": "string",
+              "enum": ["phone", "laptop", "desktop", "tablet", "speaker", "tv", "other"]
+            },
+            "browser": {
+              "type": "string"
+            },
+            "browser_version": {
+              "type": "string"
+            },
+            "locale": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string",
+              "pattern": "^[A-Z]{2}$"
+            }
+          }
+        },
+        "input": {
+          "type": "object",
+          "required": ["query_text"],
+          "additionalProperties": false,
+          "properties": {
+            "query_text": {
+              "type": "string"
             },
             "messages": {
               "type": "array",
-              "description": "Optional short conversation history (last N turns). Used for operator intent inference.",
               "items": {
-                "type": "object",
-                "properties": {
-                  "role": {
-                    "type": "string",
-                    "enum": ["user", "assistant", "system"],
-                    "example": "user"
-                  },
-                  "content": {
-                    "type": "string",
-                    "example": "best CRM tools?"
-                  },
-                  "id": {
-                    "type": "string",
-                    "description": "Optional message ID",
-                    "example": "msg_123"
-                  }
-                }
-              },
-              "example": [
-                { "role": "user", "content": "best CRM tools?" },
-                { "role": "assistant", "content": "HubSpot, Zoho, Salesforce…" }
-              ]
-            },
-            "latency_budget_ms": {
-              "type": "integer",
-              "description": "Optional latency budget from platform in milliseconds",
-              "example": 500
-            },
-            "cpx_floor": {
-              "type": "number",
-              "description": "Minimum CPX (USD) required by the platform for this auction request",
-              "example": 0.05
+                "$ref": "#/$defs/message"
+              }
             }
           }
         }
-      },
-      "additionalProperties": true
+      }
+    },
+
+    "message": {
+      "type": "object",
+      "required": ["role", "content"],
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": ["user", "assistant", "system", "tool"]
+        },
+        "content": {
+          "type": "string"
+        }
+      }
+    },
+
+    "signals": {
+      "type": "object",
+      "description": "Structured classification signals generated upstream by the platform or another approved source. Platform-derived signals MUST NOT be treated as trusted by default.",
+      "required": ["source", "intent"],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "object",
+          "required": ["type", "name", "version"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["platform_model", "operator_model", "third_party"]
+            },
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "calibration_version": {
+              "type": "string"
+            },
+            "trust_tier": {
+              "type": "string",
+              "enum": [
+                "unverified",
+                "self_attested",
+                "certified",
+                "operator_verified",
+                "operator_hosted"
+              ]
+            }
+          }
+        },
+        "intent": {
+          "$ref": "#/$defs/intent"
+        },
+        "iab_content": {
+          "$ref": "#/$defs/iabContent"
+        },
+        "context": {
+          "$ref": "#/$defs/inferredContext"
+        }
+      }
+    },
+
+    "intent": {
+      "type": "object",
+      "required": ["type", "decision_phase"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "commercial",
+            "transactional",
+            "informational",
+            "navigational",
+            "support",
+            "unsafe",
+            "unknown"
+          ]
+        },
+        "subtype": {
+          "type": "string"
+        },
+        "decision_phase": {
+          "type": "string",
+          "enum": ["research", "consideration", "decision", "post_purchase", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "commercial_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+
+    "iabContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "taxonomy": {
+          "type": "string"
+        },
+        "taxonomy_version": {
+          "type": "string"
+        },
+        "tier1": {
+          "type": "string"
+        },
+        "tier2": {
+          "type": "string"
+        },
+        "tier3": {
+          "type": "string"
+        }
+      }
+    },
+
+    "inferredContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "constraints": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+
+    "policyHints": {
+      "type": "object",
+      "description": "Non-binding hints supplied by the platform.",
+      "additionalProperties": false,
+      "properties": {
+        "latency_budget_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "preferred_pricing_model": {
+          "type": "string",
+          "enum": ["CPX", "CPC", "CPA"]
+        }
+      }
+    },
+
+    "signalValidation": {
+      "type": "object",
+      "description": "Validation and normalization metadata applied by the operator when platform-derived signals are provided. Present only when classification_input.type is 'provided_signals'.",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["accepted", "accepted_with_normalization", "rejected", "not_applicable"]
+        },
+        "trust_tier_applied": {
+          "type": "string",
+          "enum": [
+            "unverified",
+            "self_attested",
+            "certified",
+            "operator_verified",
+            "operator_hosted"
+          ]
+        },
+        "normalized_scores": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "commercial_score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "drift_risk": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "unknown"]
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+
+    "policy": {
+      "type": "object",
+      "description": "Auditable policy decision produced after consent, classification, validation, and operator rules are applied.",
+      "additionalProperties": false,
+      "properties": {
+        "consent_eligibility": {
+          "type": "string",
+          "enum": ["allowed", "restricted", "not_allowed"]
+        },
+        "monetization_eligibility": {
+          "type": "string",
+          "enum": ["allowed", "allowed_with_caution", "restricted", "not_allowed"]
+        },
+        "decision_basis": {
+          "type": "string",
+          "enum": [
+            "interaction_classification",
+            "provided_signal",
+            "normalized_signal",
+            "score_threshold",
+            "policy_override",
+            "regulated_vertical_control",
+            "manual_override",
+            "consent_denied",
+            "consent_unknown",
+            "fallback"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "applied_thresholds": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "confidence_min": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "commercial_score_min": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "sensitivity": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "prohibited"]
+        },
+        "regulated_vertical": {
+          "type": "boolean"
+        },
+        "opportunity": {
+          "$ref": "#/$defs/opportunity"
+        }
+      }
+    },
+
+    "opportunity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "none",
+            "soft_recommendation",
+            "comparison_slot",
+            "decision_moment",
+            "transaction_trigger"
+          ]
+        },
+        "strength": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        }
+      }
+    },
+
+    "monetization": {
+      "type": "object",
+      "description": "Monetization configuration and runtime controls. Auction is one monetization mechanism, not the only one.",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "pricing_model": {
+          "type": "string",
+          "enum": ["CPX", "CPC", "CPA"]
+        },
+        "auction": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "floor": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "amount": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "currency": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
+
   "examples": [
     {
-      "spec_version": "1.0.0",
-      "message_id": "req_92fA1",
-      "timestamp": "2025-11-14T18:22:00Z",
-      "producer": {
-        "agent_id": "openai_chat",
-        "agent_role": "publisher",
-        "software": "chatgpt",
-        "software_version": "4.3-mini"
-      },
-      "context": {
-        "context_id": "ctx_raw_92fA1",
-        "language": "en-US",
-        "publisher": "openai_chat",
-        "placement": {
-          "ad_unit": "conversation"
-        },
-        "device": {
-          "platform": "web",
-          "form_factor": "desktop",
-          "ua_hash": "ua_hash_xyz"
-        },
-        "geography": {
-          "country": "US"
+      "spec_version": "1.0",
+      "request_id": "req_001",
+      "timestamp": "2026-03-26T18:30:00Z",
+      "platform": {
+        "platform_id": "chat_interface_x",
+        "role": "platform",
+        "software": {
+          "name": "assistant_app",
+          "version": "1.2.0"
         }
       },
       "identity": {
         "namespace": "platform_user",
-        "value_hash": "user_hash_abc123",
+        "value_hash": "user_hash_789",
         "confidence": 1.0
       },
-      "extensions": {
-        "aip": {
-          "session_id": "sess_001",
-          "conversation_id": "conv_xyz789",
-          "turn_index": 3,
-          "query_text": "best CRM for small teams",
-          "messages": [
-            { "role": "user", "content": "best CRM tools?" },
-            { "role": "assistant", "content": "HubSpot, Zoho, Salesforce…" }
-          ],
-          "latency_budget_ms": 500,
-          "cpx_floor": 0.05
+      "consent": {
+        "status": "granted",
+        "source": "platform_ui",
+        "scope": {
+          "intent_based_monetization": true,
+          "agent_participation": true,
+          "measurement": true
+        },
+        "constraints": {
+          "allow_identity_downstream": false
+        },
+        "captured_at": "2026-03-26T18:29:00Z"
+      },
+      "classification_input": {
+        "type": "interaction",
+        "interaction": {
+          "session": {
+            "id": "sess_abc",
+            "turn_index": 2
+          },
+          "surface": {
+            "channel": "conversation",
+            "interaction_mode": "text",
+            "platform": "web",
+            "form_factor": "desktop",
+            "device_type": "laptop",
+            "os": "macOS",
+            "browser": "Chrome",
+            "browser_version": "146.0.0.0",
+            "locale": "en-US",
+            "country": "US"
+          },
+          "input": {
+            "query_text": "best CRM for small sales team",
+            "messages": [
+              { "role": "user", "content": "I need a CRM" },
+              { "role": "assistant", "content": "What size is your team?" }
+            ]
+          }
+        }
+      },
+      "policy_hints": {
+        "latency_budget_ms": 500,
+        "preferred_pricing_model": "CPX"
+      },
+      "policy": {
+        "consent_eligibility": "allowed",
+        "monetization_eligibility": "allowed",
+        "decision_basis": "interaction_classification",
+        "reason": "commercial intent detected with sufficient confidence",
+        "applied_thresholds": {
+          "confidence_min": 0.6,
+          "commercial_score_min": 0.7
+        },
+        "sensitivity": "low",
+        "regulated_vertical": false,
+        "opportunity": {
+          "type": "comparison_slot",
+          "strength": "high"
+        }
+      },
+      "monetization": {
+        "enabled": true,
+        "pricing_model": "CPX",
+        "auction": {
+          "enabled": true,
+          "floor": {
+            "amount": 0.05,
+            "currency": "USD"
+          }
+        }
+      }
+    },
+    {
+      "spec_version": "1.0",
+      "request_id": "req_002",
+      "timestamp": "2026-03-26T18:31:00Z",
+      "platform": {
+        "platform_id": "chat_interface_x",
+        "role": "platform",
+        "software": {
+          "name": "assistant_app",
+          "version": "1.2.0"
+        }
+      },
+      "identity": {
+        "namespace": "platform_user",
+        "value_hash": "user_hash_456",
+        "confidence": 0.98
+      },
+      "consent": {
+        "status": "granted",
+        "source": "account_setting",
+        "scope": {
+          "intent_based_monetization": true,
+          "agent_participation": true,
+          "measurement": true
+        },
+        "constraints": {
+          "allow_identity_downstream": false
+        }
+      },
+      "classification_input": {
+        "type": "provided_signals",
+        "signals": {
+          "source": {
+            "type": "platform_model",
+            "name": "intent_model_v3",
+            "version": "3.2.1",
+            "calibration_version": "2026-03",
+            "trust_tier": "self_attested"
+          },
+          "intent": {
+            "type": "commercial",
+            "subtype": "comparison",
+            "decision_phase": "decision",
+            "confidence": 0.89,
+            "commercial_score": 0.94
+          },
+          "iab_content": {
+            "taxonomy": "IAB Content Taxonomy",
+            "taxonomy_version": "3.1",
+            "tier1": "Business and Finance",
+            "tier2": "Business",
+            "tier3": "Business I.T."
+          },
+          "context": {
+            "entities": ["HubSpot", "Zoho", "Salesforce"],
+            "constraints": {
+              "company_size": "small_team"
+            }
+          }
+        }
+      },
+      "signal_validation": {
+        "status": "accepted_with_normalization",
+        "trust_tier_applied": "self_attested",
+        "normalized_scores": {
+          "confidence": 0.76,
+          "commercial_score": 0.83
+        },
+        "drift_risk": "medium",
+        "reason": "source accepted but normalized to network calibration profile"
+      },
+      "policy": {
+        "consent_eligibility": "allowed",
+        "monetization_eligibility": "allowed_with_caution",
+        "decision_basis": "normalized_signal",
+        "reason": "provided signals accepted after normalization",
+        "applied_thresholds": {
+          "confidence_min": 0.6,
+          "commercial_score_min": 0.7
+        },
+        "sensitivity": "low",
+        "regulated_vertical": false,
+        "opportunity": {
+          "type": "comparison_slot",
+          "strength": "high"
+        }
+      },
+      "monetization": {
+        "enabled": true,
+        "pricing_model": "CPX",
+        "auction": {
+          "enabled": true,
+          "floor": {
+            "amount": 0.07,
+            "currency": "USD"
+          }
         }
       }
     }
-  ],
-  "$id": "https://aip.org/schemas/platform-request.json"
+  ]
 }
