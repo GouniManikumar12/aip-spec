@@ -2,6 +2,7 @@
   "name": "aip-spec",
   "version": "0.1.0",
   "description": "Reference specification, schemas, and fixtures for the AIP protocol.",
+  "homepage": "https://aip.mintlify.app",
   "license": "CC-BY-4.0",
   "private": true,
   "engines": {
@@ -9,13 +10,17 @@
   },
   "scripts": {
     "lint": "echo \"No linting configured for the spec workspace yet.\"",
-    "test": "node -e \"console.log('Conformance tests run via external tooling.');\""
+    "test": "python3 tools/run_conformance.py"
   },
   "keywords": [
     "aip",
     "specification",
     "schema",
-    "conformance"
+    "conformance",
+    "ai-advertising",
+    "agentic-commerce",
+    "ai-platforms",
+    "delegation-protocol"
   ],
   "repository": {
     "type": "git",

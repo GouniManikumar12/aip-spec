@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-03-27T18:54:23.340004+00:00",
+  "manifest": "tests/conformance-manifest.json",
+  "categories": {
+    "schemas": {
+      "passed": 11,
+      "total": 11
+    },
+    "examples": {
+      "passed": 13,
+      "total": 13
+    },
+    "valid": {
+      "passed": 10,
+      "total": 10
+    },
+    "invalid": {
+      "passed": 6,
+      "total": 6
+    }
+  },
+  "failures": [],
+  "summary": {
+    "passed": 40,
+    "total": 40,
+    "success": true
+  }
+}

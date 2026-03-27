@@ -6,7 +6,7 @@
 
 ## Overview
 
-The **Agentic Intent Protocol (AIP)** is an open protocol for monetizing commercial intent inside AI platforms. It standardizes how Platforms, Operators, and Brand Agents exchange intent-safe auction context, run selection, verify lifecycle events, and settle the highest-value outcome per `serve_token`.
+The **Agentic Intent Protocol (AIP)** is an open protocol for AI advertising, commercial delegation, and outcome-based settlement inside AI platforms. It standardizes how Platforms, Operators, and Brand Agents exchange intent-safe auction context, run selection, verify lifecycle events, and settle the highest-value outcome per `serve_token`.
 
 This repository contains:
 

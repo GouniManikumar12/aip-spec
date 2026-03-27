@@ -186,6 +186,18 @@
       "type": "object",
       "description": "A PlatformRequest MUST include exactly one classification input form. If type is 'interaction', the request is operator-derived. If type is 'provided_signals', the request is platform-derived.",
       "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["interaction", "provided_signals"]
+        },
+        "interaction": {
+          "$ref": "#/$defs/interaction"
+        },
+        "signals": {
+          "$ref": "#/$defs/signals"
+        }
+      },
       "additionalProperties": false,
       "oneOf": [
         {

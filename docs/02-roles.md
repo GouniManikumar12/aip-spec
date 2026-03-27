@@ -1,10 +1,10 @@
-# 02 · Roles
+# 02 · AIP Roles
 
-AIP introduces four primary actors:
-- **Publisher Nodes** expose exposures or opportunities.
-- **Agency Bidders** evaluate opportunities and submit bids.
-- **Brand Agents** subscribe to specific category pools and receive only the `context_request` messages that match their declared intent domains, ensuring selective distribution inside the asynchronous auction window.
-- **Clearinghouses** adjudicate auctions and emit state transitions.
-- **Auditors** independently verify ledger records and compliance signals.
+AIP centers on three canonical implementation roles and one optional supporting role:
 
-Additional supporting roles—such as privacy sandboxes or identity providers—may appear, but they map to these canonical personas for the purposes of conformance.
+- **AI Platforms** detect user intent, collect consent, and initiate `platform-request` messages.
+- **Operators** govern participation, derive `context-request` payloads, run selection, authorize delegation, verify lifecycle events, and settle outcomes.
+- **Brand Agents** evaluate operator-generated context, submit bids, contribute recommendation content, and optionally execute delegated tasks.
+- **Auditors** are optional third parties that review settlement records, event trails, or compliance evidence.
+
+These roles are the canonical personas for interoperability. Individual deployments may contain additional internal systems, but they should map back to these roles when describing protocol behavior.
